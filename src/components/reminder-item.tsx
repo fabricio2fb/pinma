@@ -5,6 +5,7 @@ import type { Reminder } from '@/lib/types';
 import { Banknote, Briefcase, Home, MoreVertical, Pill, ShoppingCart, Star, Trash2, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { cn } from '@/lib/utils';
 
 export const categoryIcons: { [key: string]: React.ReactNode } = {
     Mercado: <ShoppingCart className="h-5 w-5" />,
@@ -15,9 +16,15 @@ export const categoryIcons: { [key: string]: React.ReactNode } = {
     Outro: <Star className="h-5 w-5" />,
 };
 
-export const ReminderItem = React.forwardRef<HTMLDivElement, { reminder: Reminder }>(
-  ({ reminder }, ref) => (
-  <div ref={ref} className="flex items-center gap-4 p-4 transition-colors hover:bg-accent cursor-pointer">
+export const ReminderItem = React.forwardRef<
+  HTMLDivElement,
+  React.ComponentPropsWithoutRef<'div'> & { reminder: Reminder }
+>(({ reminder, className, ...props }, ref) => (
+  <div
+    ref={ref}
+    className={cn("flex items-center gap-4 p-4 transition-colors hover:bg-accent cursor-pointer", className)}
+    {...props}
+  >
     <div className="bg-muted h-10 w-10 flex items-center justify-center rounded-md text-foreground">
       {categoryIcons[reminder.category]}
     </div>
@@ -28,7 +35,7 @@ export const ReminderItem = React.forwardRef<HTMLDivElement, { reminder: Reminde
       </div>
       <p className="text-sm text-muted-foreground truncate">{reminder.location}</p>
     </div>
-    {reminder.distance && <div className="text-xs text-muted-foreground whitespace-nowrap">{reminder.distance}</div>}
+    {reminder.distance && <div className="text-xs text-muted-foreground">{reminder.distance}</div>}
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="icon" className="flex-shrink-0 h-8 w-8" onClick={(e) => e.stopPropagation()}>
