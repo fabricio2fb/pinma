@@ -1,26 +1,26 @@
 import { MainLayout } from '@/components/main-layout';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { ChevronRight, Bell, Map, Users, Star, LogOut } from 'lucide-react';
 import Link from 'next/link';
+import { Badge } from '@/components/ui/badge';
 
 const StatCard = ({ value, label }: { value: string | number, label: string }) => (
-    <div className="glassmorphism rounded-xl p-4 text-center">
-        <p className="text-2xl font-bold font-headline">{value}</p>
-        <p className="text-sm text-muted-foreground">{label}</p>
+    <div className="text-center">
+        <p className="text-xl font-bold">{value}</p>
+        <p className="text-xs text-muted-foreground uppercase tracking-wider">{label}</p>
     </div>
 );
 
-const SettingsItem = ({ icon, label, href }: { icon: React.ElementType, label: string, href: string }) => {
+const SettingsItem = ({ icon, label, href, isPro = false }: { icon: React.ElementType, label: string, href: string, isPro?: boolean }) => {
     const Icon = icon;
     return (
-        <Link href={href} className="flex items-center p-4 hover:bg-white/5 rounded-lg transition-colors">
-            <Icon className="h-5 w-5 mr-4 text-accent" />
-            <span className="flex-1 font-medium">{label}</span>
-            <ChevronRight className="h-5 w-5 text-muted-foreground" />
+        <Link href={href} className="flex items-center p-4 -mx-4 hover:bg-muted rounded-lg transition-colors">
+            <Icon className="h-5 w-5 mr-4 text-muted-foreground" />
+            <span className="flex-1 font-medium text-sm">{label}</span>
+            {isPro && <Badge variant="default" className="mr-2 text-xs">PRO</Badge>}
+            <ChevronRight className="h-5 w-5 text-muted-foreground/50" />
         </Link>
     );
 };
@@ -30,38 +30,33 @@ export default function ProfilePage() {
   return (
     <MainLayout>
       <div className="p-6">
-        <div className="flex flex-col items-center text-center mt-8 mb-10">
-            <div className="relative mb-4">
-                 <Avatar className="h-24 w-24 border-4 border-transparent" style={{
-                    borderImage: 'linear-gradient(to bottom right, hsl(var(--primary)), hsl(var(--accent))) 1'
-                 }}>
-                    {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
-                    <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-            </div>
-            <h2 className="font-headline text-2xl font-bold">Usuário Teste</h2>
-            <p className="text-muted-foreground">usuario@pinlembrete.com</p>
+        <div className="flex flex-col items-center text-center mt-6 mb-8">
+            <Avatar className="h-20 w-20 border-2 mb-4">
+                {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
+                <AvatarFallback>UT</AvatarFallback>
+            </Avatar>
+            <h2 className="font-bold text-xl">Usuário Teste</h2>
+            <p className="text-muted-foreground text-sm">usuario@pinlembrete.com</p>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mb-8">
+        <div className="grid grid-cols-3 gap-4 my-8 py-4 border-y">
             <StatCard value={12} label="Total" />
             <StatCard value={8} label="Concluídos" />
             <StatCard value={3} label="Grupos" />
         </div>
 
-        <Card className="glassmorphism p-2">
+        <div className="px-4">
             <SettingsItem icon={Bell} label="Notificações" href="#" />
             <SettingsItem icon={Map} label="Preferências de Localização" href="#" />
             <SettingsItem icon={Users} label="Gerenciar Grupos" href="#" />
-            <Separator className="my-2 bg-white/10" />
-            <SettingsItem icon={Star} label="PinLembrete Premium" href="/premium" />
-            <Separator className="my-2 bg-white/10" />
-            <Link href="/login" className="flex items-center p-4 hover:bg-destructive/10 rounded-lg transition-colors text-destructive">
+            <Separator className="my-2 bg-border -mx-4 w-auto" />
+            <SettingsItem icon={Star} label="PinLembrete Premium" href="/premium" isPro />
+            <Separator className="my-2 bg-border -mx-4 w-auto" />
+            <Link href="/login" className="flex items-center p-4 -mx-4 hover:bg-destructive/10 rounded-lg transition-colors text-destructive">
                 <LogOut className="h-5 w-5 mr-4" />
-                <span className="flex-1 font-medium">Sair</span>
+                <span className="flex-1 font-medium text-sm">Sair</span>
             </Link>
-        </Card>
-
+        </div>
       </div>
     </MainLayout>
   );

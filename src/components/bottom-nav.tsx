@@ -2,12 +2,12 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, List, Users, User } from 'lucide-react';
+import { Map, List, Users, User } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/map', icon: Home, label: 'Mapa' },
-  { href: '/list', icon: List, label: 'Lista' },
+  { href: '/map', icon: Map, label: 'Mapa' },
+  { href: '/list', icon: List, label: 'Lembretes' },
   { href: '/groups', icon: Users, label: 'Grupos' },
   { href: '/profile', icon: User, label: 'Perfil' },
 ];
@@ -16,14 +16,14 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm h-20 bg-card/60 backdrop-blur-lg border-t border-white/10 md:bottom-2.5 md:rounded-3xl md:w-[calc(100%-2rem)]">
+    <nav className="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto h-[60px] bg-card/95 backdrop-blur-sm border-t z-50">
       <div className="flex justify-around items-center h-full">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
           return (
-            <Link href={item.href} key={item.label} className="flex flex-col items-center gap-1 text-muted-foreground hover:text-primary transition-colors">
-              <item.icon className={cn('h-6 w-6', isActive && 'text-primary')} />
-              <span className={cn('text-xs', isActive && 'text-primary font-bold')}>{item.label}</span>
+            <Link href={item.href} key={item.label} className="flex flex-col items-center gap-1 text-muted-foreground/80 hover:text-primary transition-colors w-16">
+              <item.icon strokeWidth={isActive ? 2 : 1.5} className={cn('h-6 w-6', isActive && 'text-primary')} />
+              <span className={cn('text-xs', isActive && 'text-primary font-semibold')}>{item.label}</span>
             </Link>
           );
         })}

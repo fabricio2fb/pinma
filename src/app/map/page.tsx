@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react';
+import { Plus, Search } from 'lucide-react';
 
 import { MainLayout } from '@/components/main-layout';
 import { Button } from '@/components/ui/button';
@@ -11,22 +11,25 @@ export default function MapPage() {
   return (
     <MainLayout>
       <div className="relative h-full w-full">
-        <Suspense fallback={<Skeleton className="h-full w-full" />}>
+        <Suspense fallback={<Skeleton className="h-full w-full bg-muted" />}>
            <MapView />
         </Suspense>
 
         <div className="absolute top-4 left-4 right-4 z-10">
-            <input
-                type="text"
-                placeholder="Buscar local..."
-                className="w-full h-12 px-4 rounded-full shadow-lg bg-card/80 backdrop-blur-md border border-white/10 focus:ring-2 focus:ring-primary focus:outline-none"
-            />
+            <div className="relative">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
+                <input
+                    type="text"
+                    placeholder="Buscar local..."
+                    className="w-full h-12 pl-10 pr-4 rounded-md shadow-subtle bg-card border focus:ring-2 focus:ring-ring focus:outline-none"
+                />
+            </div>
         </div>
         
         <div className="absolute bottom-24 right-4 z-10">
           <AddReminderSheet>
-            <Button size="icon" className="h-16 w-16 rounded-full shadow-lg" style={{boxShadow: '0 4px 20px rgba(108,99,255,0.4)'}}>
-              <Plus className="h-8 w-8" />
+            <Button size="icon" className="h-14 w-14 rounded-[14px] shadow-lg">
+              <Plus className="h-7 w-7" />
             </Button>
           </AddReminderSheet>
         </div>

@@ -6,31 +6,31 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { LogoIcon } from '@/components/icons/logo';
+import { PinIcon } from '@/components/icons/logo';
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   const SocialButton = ({ children, ...props }: React.ComponentProps<typeof Button>) => (
-    <Button variant="outline" className="w-full bg-transparent border-white/20 hover:bg-white/10" {...props}>
+    <Button variant="outline" className="w-full" {...props}>
       {children}
     </Button>
   );
 
   const Form = ({ isRegister = false }: { isRegister?: boolean }) => (
-    <div className="space-y-6">
+    <div className="space-y-4">
       <div className="relative">
         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-        <Input type="email" placeholder="E-mail" className="pl-12" />
+        <Input type="email" placeholder="E-mail" className="pl-12 bg-muted border-none focus-visible:ring-offset-0" />
       </div>
       <div className="relative">
         <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-        <Input type={showPassword ? 'text' : 'password'} placeholder="Senha" className="pl-12 pr-12" />
+        <Input type={showPassword ? 'text' : 'password'} placeholder="Senha" className="pl-12 pr-12 bg-muted border-none focus-visible:ring-offset-0" />
         <Button
           type="button"
           variant="ghost"
           size="icon"
-          className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8 hover:bg-transparent"
+          className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
           onClick={() => setShowPassword(!showPassword)}
         >
           {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -39,41 +39,41 @@ export default function LoginPage() {
       {isRegister && (
         <div className="relative">
           <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          <Input type={showPassword ? 'text' : 'password'} placeholder="Confirmar Senha" className="pl-12 pr-12" />
+          <Input type={showPassword ? 'text' : 'password'} placeholder="Confirmar Senha" className="pl-12 pr-12 bg-muted border-none focus-visible:ring-offset-0" />
         </div>
       )}
-      <Button asChild className="w-full" size="lg" style={{ boxShadow: '0 4px 20px rgba(108,99,255,0.4)' }}>
+      <Button asChild className="w-full" size="lg">
         <Link href="/map">{isRegister ? 'Cadastrar' : 'Entrar'}</Link>
       </Button>
     </div>
   );
 
   return (
-    <div className="h-full w-full flex flex-col justify-center items-center p-6 bg-background">
+    <div className="h-dvh w-full flex flex-col justify-center items-center p-6 bg-card">
         <div className="w-full max-w-sm">
-            <div className="text-center mb-8">
-                <LogoIcon className="mx-auto h-16 w-16 text-primary mb-4" />
-                <h1 className="font-headline text-3xl font-bold">Bem-vindo</h1>
+            <div className="text-center mb-10">
+                <PinIcon className="mx-auto h-8 w-8 text-primary mb-4" />
+                <h1 className="font-bold text-2xl">Bem-vindo</h1>
                 <p className="text-muted-foreground">Acesse sua conta para continuar</p>
             </div>
 
-            <div className="glassmorphism p-8 rounded-3xl">
+            <div>
                 <Tabs defaultValue="login" className="w-full">
-                    <TabsList className="grid w-full grid-cols-2 bg-white/5 mb-6">
+                    <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger value="login">Entrar</TabsTrigger>
                         <TabsTrigger value="register">Cadastrar</TabsTrigger>
                     </TabsList>
-                    <TabsContent value="login">
+                    <TabsContent value="login" className="pt-6">
                         <Form />
                     </TabsContent>
-                    <TabsContent value="register">
+                    <TabsContent value="register" className="pt-6">
                         <Form isRegister />
                     </TabsContent>
                 </Tabs>
                 <div className="mt-6">
-                    <div className="relative mb-6">
+                    <div className="relative my-8">
                         <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t border-white/20" />
+                            <span className="w-full border-t" />
                         </div>
                         <div className="relative flex justify-center text-xs uppercase">
                             <span className="bg-card px-2 text-muted-foreground">
