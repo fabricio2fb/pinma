@@ -29,6 +29,7 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { AddReminderSheet } from '@/components/add-reminder-sheet';
+import { ReminderDetailSheet } from '@/components/reminder-detail-sheet';
 
 const categoryIcons: { [key: string]: React.ReactNode } = {
   Mercado: <ShoppingCart className="h-5 w-5" />,
@@ -40,7 +41,7 @@ const categoryIcons: { [key: string]: React.ReactNode } = {
 };
 
 const ReminderItem = ({ reminder }: { reminder: Reminder }) => (
-  <div className="flex items-center gap-4 p-4">
+  <div className="flex items-center gap-4 p-4 transition-colors hover:bg-accent cursor-pointer">
     <div className="bg-muted h-10 w-10 flex items-center justify-center rounded-md text-foreground">
       {categoryIcons[reminder.category]}
     </div>
@@ -55,11 +56,11 @@ const ReminderItem = ({ reminder }: { reminder: Reminder }) => (
     </div>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="flex-shrink-0 h-8 w-8">
+        <Button variant="ghost" size="icon" className="flex-shrink-0 h-8 w-8" onClick={(e) => e.stopPropagation()}>
           <MoreVertical className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
         <DropdownMenuItem>
           <Check className="mr-2 h-4 w-4" />
           Concluir
@@ -156,7 +157,9 @@ export default function GroupDetailPage() {
           <ScrollArea className="flex-1">
             <div className="divide-y divide-border">
               {groupReminders.map((reminder) => (
-                <ReminderItem key={reminder.id} reminder={reminder} />
+                <ReminderDetailSheet key={reminder.id} reminder={reminder}>
+                  <ReminderItem reminder={reminder} />
+                </ReminderDetailSheet>
               ))}
             </div>
           </ScrollArea>

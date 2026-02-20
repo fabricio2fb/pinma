@@ -9,6 +9,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
+import { ReminderDetailSheet } from '@/components/reminder-detail-sheet';
 
 const categoryIcons = {
   Mercado: <ShoppingCart className="h-5 w-5" />,
@@ -20,7 +21,7 @@ const categoryIcons = {
 };
 
 const ReminderItem = ({ reminder }: { reminder: Reminder }) => (
-  <div className="flex items-center gap-4 p-4">
+  <div className="flex items-center gap-4 p-4 transition-colors hover:bg-accent cursor-pointer">
     <div className="bg-muted h-10 w-10 flex items-center justify-center rounded-md text-foreground">
       {categoryIcons[reminder.category]}
     </div>
@@ -34,11 +35,11 @@ const ReminderItem = ({ reminder }: { reminder: Reminder }) => (
     <div className="text-xs text-muted-foreground whitespace-nowrap">{reminder.distance}</div>
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" className="flex-shrink-0 h-8 w-8">
+        <Button variant="ghost" size="icon" className="flex-shrink-0 h-8 w-8" onClick={(e) => e.stopPropagation()}>
           <MoreVertical className="h-4 w-4" />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent onClick={(e) => e.stopPropagation()}>
         <DropdownMenuItem><Check className="mr-2 h-4 w-4" />Concluir</DropdownMenuItem>
         <DropdownMenuItem className="text-destructive focus:text-destructive focus:bg-destructive/10"><Trash2 className="mr-2 h-4 w-4" />Deletar</DropdownMenuItem>
       </DropdownMenuContent>
@@ -77,7 +78,9 @@ export default function ListPage() {
           <ScrollArea className="flex-1">
             <div className="divide-y divide-border">
               {mockReminders.map(reminder => (
-                <ReminderItem key={reminder.id} reminder={reminder} />
+                <ReminderDetailSheet key={reminder.id} reminder={reminder}>
+                  <ReminderItem reminder={reminder} />
+                </ReminderDetailSheet>
               ))}
             </div>
           </ScrollArea>
