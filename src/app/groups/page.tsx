@@ -39,7 +39,7 @@ export default function GroupsPage() {
 
   return (
     <MainLayout>
-       <div className="flex flex-col h-full">
+       <div className="flex flex-col h-full pb-28">
         <div className="p-4 pt-6 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Grupos</h1>
           <Button variant="ghost" size="icon" onClick={handleAddGroup}>

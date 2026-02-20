@@ -26,7 +26,7 @@ const PlanCard = ({ title, price, period, bestValue = false, cta }: { title: str
 export default function PremiumPage() {
   return (
     <MainLayout>
-        <div className="h-full flex flex-col bg-card">
+        <div className="h-full flex flex-col bg-card pb-28">
             <div className="p-6 text-center pt-12">
                 <div className="inline-block bg-primary text-primary-foreground p-3 rounded-full mb-4">
                     <Star className="h-6 w-6" />

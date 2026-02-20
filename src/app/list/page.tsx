@@ -52,7 +52,7 @@ export default function ListPage() {
 
   return (
     <MainLayout>
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full pb-28">
         <div className="p-4 pt-6">
             <h1 className="text-2xl font-bold mb-4">Lembretes</h1>
             <ScrollArea className="w-full whitespace-nowrap no-scrollbar">
@@ -75,7 +75,7 @@ export default function ListPage() {
 
         {mockReminders.length > 0 ? (
           <ScrollArea className="flex-1">
-            <div className="divide-y">
+            <div className="divide-y divide-border">
               {mockReminders.map(reminder => (
                 <ReminderItem key={reminder.id} reminder={reminder} />
               ))}

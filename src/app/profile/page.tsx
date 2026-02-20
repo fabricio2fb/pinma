@@ -29,7 +29,7 @@ export default function ProfilePage() {
     const userAvatar = PlaceHolderImages.find(img => img.id === 'avatar-1');
   return (
     <MainLayout>
-      <div className="p-6">
+      <div className="p-6 pb-28">
         <div className="flex flex-col items-center text-center mt-6 mb-8">
             <Avatar className="h-20 w-20 border-2 mb-4">
                 {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
