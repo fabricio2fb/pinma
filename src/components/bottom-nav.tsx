@@ -31,7 +31,7 @@ export function BottomNav() {
           <Link
             href={item.href}
             key={item.label}
-            className="flex flex-col items-center gap-1 text-center transition-transform duration-100 ease-out active:scale-90"
+            className="flex flex-col items-center text-center transition-transform duration-100 ease-out active:scale-90"
           >
             <div className={cn(
               'flex items-center justify-center h-12 w-12 rounded-xl transition-colors duration-150 ease-out',
