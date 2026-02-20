@@ -56,3 +56,13 @@
     @apply bg-card/60 backdrop-blur-lg border border-white/10;
   }
 }
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}

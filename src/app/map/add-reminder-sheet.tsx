@@ -28,6 +28,7 @@ const categories = [
 export function AddReminderSheet({ children }: { children: React.ReactNode }) {
   const [radius, setRadius] = useState(100);
   const [priority, setPriority] = useState<'Normal' | 'Urgente'>('Normal');
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   return (
     <Sheet>
@@ -36,7 +37,7 @@ export function AddReminderSheet({ children }: { children: React.ReactNode }) {
         <SheetHeader className="p-6 pb-4 text-left">
           <SheetTitle className="font-headline">Novo Lembrete</SheetTitle>
         </SheetHeader>
-        <div className="flex-1 overflow-y-auto px-6 space-y-6">
+        <div className="flex-1 overflow-y-auto px-6 space-y-6 no-scrollbar">
           <div className="space-y-2">
             <Label htmlFor="name">Nome do lembrete</Label>
             <Input id="name" placeholder="Ex: Comprar manteiga" />
@@ -62,12 +63,26 @@ export function AddReminderSheet({ children }: { children: React.ReactNode }) {
              <Label>Ícone / Categoria</Label>
              <div className="grid grid-cols-3 gap-3">
                 {categories.map(cat => (
-                    <Button key={cat.name} variant="outline" className="flex flex-col h-20 gap-2 border-white/10 bg-white/5">
-                        <cat.icon className="h-6 w-6 text-accent" />
-                        <span className="text-xs text-muted-foreground">{cat.name}</span>
+                    <Button
+                      key={cat.name}
+                      variant="outline"
+                      onClick={() => setSelectedCategory(cat.name)}
+                      className={cn(
+                        "flex flex-col h-20 gap-2 border-white/10 bg-white/5 hover:bg-white/10",
+                        selectedCategory === cat.name && "bg-primary/20 border-primary"
+                      )}
+                    >
+                        <cat.icon className={cn("h-6 w-6 text-accent", selectedCategory === cat.name && "text-primary")} />
+                        <span className={cn("text-xs text-muted-foreground", selectedCategory === cat.name && "text-primary")}>{cat.name}</span>
                     </Button>
                 ))}
              </div>
+             {selectedCategory === 'Outro' && (
+                <div className="space-y-2 pt-2">
+                    <Label htmlFor="other-category">Nome da categoria</Label>
+                    <Input id="other-category" placeholder="Ex: Academia" />
+                </div>
+              )}
           </div>
           
           <div className="space-y-3">
