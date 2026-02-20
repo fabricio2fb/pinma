@@ -7,7 +7,7 @@ type MainLayoutProps = {
 export function MainLayout({ children }: MainLayoutProps) {
   return (
     <div className="flex flex-col h-dvh">
-      <main className="flex-1 overflow-y-auto pb-[60px]">{children}</main>
+      <main className="flex-1 overflow-y-auto">{children}</main>
       <BottomNav />
     </div>
   );

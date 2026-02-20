@@ -16,18 +16,44 @@ export function BottomNav() {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 w-full max-w-md mx-auto h-[60px] bg-card/95 backdrop-blur-sm border-t z-50">
-      <div className="flex justify-around items-center h-full">
-        {navItems.map((item) => {
-          const isActive = pathname === item.href;
-          return (
-            <Link href={item.href} key={item.label} className="flex flex-col items-center gap-1 text-muted-foreground/80 hover:text-primary transition-colors w-16">
-              <item.icon strokeWidth={isActive ? 2 : 1.5} className={cn('h-6 w-6', isActive && 'text-primary')} />
-              <span className={cn('text-xs', isActive && 'text-primary font-semibold')}>{item.label}</span>
-            </Link>
-          );
-        })}
-      </div>
+    <nav 
+      className="
+        fixed bottom-6 left-1/2 z-50 flex h-[68px] w-[90%] max-w-[380px] -translate-x-1/2 
+        items-center justify-around rounded-[28px] border border-white/25 bg-white/[.18] 
+        shadow-[0_8px_32px_rgba(0,0,0,0.18)]
+        [backdrop-filter:blur(40px)_saturate(1.8)]
+        [-webkit-backdrop-filter:blur(40px)_saturate(1.8)]
+      "
+    >
+      {navItems.map((item) => {
+        const isActive = pathname === item.href;
+        return (
+          <Link
+            href={item.href}
+            key={item.label}
+            className="flex flex-col items-center gap-1 text-center transition-transform duration-100 ease-out active:scale-90"
+          >
+            <div className={cn(
+              'flex items-center justify-center h-12 w-12 rounded-xl transition-colors duration-150 ease-out',
+              isActive ? 'bg-white/[.35]' : 'bg-transparent'
+            )}>
+              <item.icon
+                strokeWidth={1.8}
+                className={cn(
+                  'h-6 w-6',
+                  isActive ? 'text-white' : 'text-white/60'
+                )}
+              />
+            </div>
+            <span className={cn(
+                'text-[10px] font-medium leading-none',
+                isActive ? 'text-white' : 'text-white/60'
+            )}>
+              {item.label}
+            </span>
+          </Link>
+        );
+      })}
     </nav>
   );
 }
