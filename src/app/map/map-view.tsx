@@ -6,7 +6,7 @@ const MapPin = ({ priority }: { priority: 'Normal' | 'Urgente' }) => (
       className={`w-4 h-4 rounded-full shadow-md
         ${priority === 'Urgente' 
           ? 'bg-destructive' 
-          : 'bg-card border-2 border-secondary'
+          : 'bg-foreground border-2 border-secondary'
         }`
       } 
     />
@@ -15,7 +15,8 @@ const MapPin = ({ priority }: { priority: 'Normal' | 'Urgente' }) => (
 
 export default function MapView() {
   const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID;
+  // Use a dark map theme ID. You can create your own in the Google Cloud Console.
+  const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID_DARK || 'a1ff1089ca40c26';
 
   if (!apiKey) {
     return (

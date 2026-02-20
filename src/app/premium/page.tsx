@@ -12,8 +12,8 @@ const benefits = [
 ];
 
 const PlanCard = ({ title, price, period, bestValue = false, cta }: { title: string, price: string, period: string, bestValue?: boolean, cta: string }) => (
-    <div className={`border rounded-lg relative overflow-hidden ${bestValue ? 'border-2 border-primary' : ''}`}>
-        {bestValue && <div className="absolute top-3 right-3 bg-primary text-primary-foreground text-xs font-bold px-2 py-0.5 rounded-full">MELHOR VALOR</div>}
+    <div className={`border rounded-lg relative overflow-hidden ${bestValue ? 'border-2 border-[#0A0A0A]' : 'border-border'}`}>
+        {bestValue && <div className="absolute top-3 right-3 bg-[#0A0A0A] text-primary-foreground text-xs font-bold px-2 py-0.5 rounded-full">MELHOR VALOR</div>}
         <div className="p-6 text-center">
             <h3 className="font-semibold text-base mb-2">{title}</h3>
             <p className="text-3xl font-bold mb-1">{price}</p>

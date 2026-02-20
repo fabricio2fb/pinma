@@ -28,7 +28,7 @@ export default function MapPage() {
         
         <div className="absolute bottom-24 right-4 z-10">
           <AddReminderSheet>
-            <Button size="icon" className="h-14 w-14 rounded-[14px] shadow-lg">
+            <Button size="icon" className="h-14 w-14 rounded-[14px] shadow-lg bg-[#0A0A0A] text-white hover:bg-[#0A0A0A]/90">
               <Plus className="h-7 w-7" />
             </Button>
           </AddReminderSheet>

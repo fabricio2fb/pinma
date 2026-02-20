@@ -36,7 +36,7 @@ export function AddReminderSheet({ children }: { children: React.ReactNode }) {
       onClick={onClick}
       className={cn(
         "px-4 py-2 text-sm font-medium border rounded-md transition-colors",
-        active ? "bg-primary text-primary-foreground" : "bg-muted hover:bg-muted/80 text-muted-foreground"
+        active ? "bg-primary text-primary-foreground" : "bg-card border-border text-muted-foreground hover:bg-accent"
       )}
     >
       {children}
@@ -56,13 +56,13 @@ export function AddReminderSheet({ children }: { children: React.ReactNode }) {
         <div className="flex-1 overflow-y-auto px-6 space-y-6 no-scrollbar">
           <div className="space-y-2">
             <Label htmlFor="name">Nome do lembrete</Label>
-            <Input id="name" placeholder="Ex: Comprar manteiga" className="bg-muted border-none h-12"/>
+            <Input id="name" placeholder="Ex: Comprar manteiga" className="bg-muted h-12"/>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="location">Localização</Label>
             <div className="relative">
-              <Input id="location" placeholder="Buscar local ou endereço" className="pr-10 bg-muted border-none h-12" />
+              <Input id="location" placeholder="Buscar local ou endereço" className="pr-10 bg-muted h-12" />
               <MapPin className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             </div>
           </div>
@@ -77,7 +77,7 @@ export function AddReminderSheet({ children }: { children: React.ReactNode }) {
 
           <div className="space-y-3">
              <Label>Categoria</Label>
-             <ScrollArea className="w-full whitespace-nowrap">
+             <ScrollArea className="w-full whitespace-nowrap no-scrollbar">
                 <div className="flex gap-2 pb-2">
                   {categories.map(cat => (
                     <Chip key={cat.name} onClick={() => setSelectedCategory(cat.name)} active={selectedCategory === cat.name}>
@@ -89,7 +89,7 @@ export function AddReminderSheet({ children }: { children: React.ReactNode }) {
              {selectedCategory === 'Outro' && (
                 <div className="space-y-2 pt-2">
                     <Label htmlFor="other-category" className="text-sm">Nome da categoria</Label>
-                    <Input id="other-category" placeholder="Ex: Academia" className="bg-muted border-none h-12" />
+                    <Input id="other-category" placeholder="Ex: Academia" className="bg-muted h-12" />
                 </div>
               )}
           </div>

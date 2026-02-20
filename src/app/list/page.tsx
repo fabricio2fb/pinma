@@ -55,7 +55,7 @@ export default function ListPage() {
       <div className="flex flex-col h-full">
         <div className="p-4 pt-6">
             <h1 className="text-2xl font-bold mb-4">Lembretes</h1>
-            <ScrollArea className="w-full whitespace-nowrap">
+            <ScrollArea className="w-full whitespace-nowrap no-scrollbar">
                 <div className="flex gap-2 pb-2">
                     {filters.map((filter) => (
                         <button 
@@ -63,7 +63,7 @@ export default function ListPage() {
                             onClick={() => setActiveFilter(filter)}
                             className={cn(
                                 "px-4 py-1.5 text-sm font-medium border rounded-md transition-colors",
-                                activeFilter === filter ? "bg-primary text-primary-foreground" : "bg-card hover:bg-muted"
+                                activeFilter === filter ? "bg-primary text-primary-foreground" : "bg-card border-border text-muted-foreground hover:bg-accent"
                             )}
                         >
                         {filter}

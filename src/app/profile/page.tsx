@@ -19,7 +19,7 @@ const SettingsItem = ({ icon, label, href, isPro = false }: { icon: React.Elemen
         <Link href={href} className="flex items-center p-4 -mx-4 hover:bg-muted rounded-lg transition-colors">
             <Icon className="h-5 w-5 mr-4 text-muted-foreground" />
             <span className="flex-1 font-medium text-sm">{label}</span>
-            {isPro && <Badge variant="default" className="mr-2 text-xs">PRO</Badge>}
+            {isPro && <Badge variant="default" className="mr-2 text-xs bg-[#0A0A0A] text-primary-foreground hover:bg-[#0A0A0A]/90">PRO</Badge>}
             <ChevronRight className="h-5 w-5 text-muted-foreground/50" />
         </Link>
     );

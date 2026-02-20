@@ -68,7 +68,7 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       boxShadow: {
-        'subtle': '0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03)',
+        'subtle': '0 1px 4px rgba(0,0,0,0.3)',
         'card-hover': '0 4px 12px rgba(0,0,0,0.08)',
       },
       keyframes: {

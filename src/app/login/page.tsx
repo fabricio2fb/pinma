@@ -21,11 +21,11 @@ export default function LoginPage() {
     <div className="space-y-4">
       <div className="relative">
         <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-        <Input type="email" placeholder="E-mail" className="pl-12 bg-muted border-none focus-visible:ring-offset-0" />
+        <Input type="email" placeholder="E-mail" className="pl-12 bg-muted focus-visible:ring-offset-0" />
       </div>
       <div className="relative">
         <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-        <Input type={showPassword ? 'text' : 'password'} placeholder="Senha" className="pl-12 pr-12 bg-muted border-none focus-visible:ring-offset-0" />
+        <Input type={showPassword ? 'text' : 'password'} placeholder="Senha" className="pl-12 pr-12 bg-muted focus-visible:ring-offset-0" />
         <Button
           type="button"
           variant="ghost"
@@ -39,7 +39,7 @@ export default function LoginPage() {
       {isRegister && (
         <div className="relative">
           <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-          <Input type={showPassword ? 'text' : 'password'} placeholder="Confirmar Senha" className="pl-12 pr-12 bg-muted border-none focus-visible:ring-offset-0" />
+          <Input type={showPassword ? 'text' : 'password'} placeholder="Confirmar Senha" className="pl-12 pr-12 bg-muted focus-visible:ring-offset-0" />
         </div>
       )}
       <Button asChild className="w-full" size="lg">
