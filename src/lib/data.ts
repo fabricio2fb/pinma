@@ -9,6 +9,7 @@ export const mockReminders: Reminder[] = [
     distance: '1.2 km de você',
     category: 'Mercado',
     priority: 'Normal',
+    status: 'Ativo',
   },
   {
     id: '2',
@@ -17,6 +18,7 @@ export const mockReminders: Reminder[] = [
     distance: '3.4 km de você',
     category: 'Farmácia',
     priority: 'Urgente',
+    status: 'Ativo',
   },
   {
     id: '3',
@@ -26,6 +28,7 @@ export const mockReminders: Reminder[] = [
     category: 'Banco',
     priority: 'Normal',
     group: 'Família',
+    status: 'Concluído',
   },
   {
     id: '4',
@@ -34,6 +37,7 @@ export const mockReminders: Reminder[] = [
     distance: 'Você está aqui',
     category: 'Casa',
     priority: 'Normal',
+    status: 'Concluído',
   },
   {
     id: '5',
@@ -42,6 +46,7 @@ export const mockReminders: Reminder[] = [
     distance: '8.1 km de você',
     category: 'Trabalho',
     priority: 'Urgente',
+    status: 'Ativo',
   },
 ];
 

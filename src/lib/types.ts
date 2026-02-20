@@ -6,6 +6,7 @@ export type Reminder = {
   category: 'Mercado' | 'Farmácia' | 'Banco' | 'Casa' | 'Trabalho' | 'Outro';
   priority: 'Normal' | 'Urgente';
   group?: string;
+  status: 'Ativo' | 'Concluído';
 };
 
 export type Group = {

@@ -10,7 +10,7 @@ import {
 import type { Reminder } from '@/lib/types';
 import MiniMap from '@/components/mini-map';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star } from 'lucide-react';
+import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star, Users } from 'lucide-react';
 import { Suspense } from 'react';
 import { Skeleton } from './ui/skeleton';
 
@@ -48,11 +48,22 @@ export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder
                         <p className="text-sm text-muted-foreground">{reminder.location}</p>
                     </div>
                 </div>
-                 {reminder.priority === 'Urgente' ? (
-                    <Badge variant="destructive" className="text-xs font-medium">Prioridade Urgente</Badge>
-                 ) : (
-                    <Badge variant="outline" className="bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted">Prioridade Normal</Badge>
-                 )}
+                 <div className="flex flex-wrap items-center gap-2">
+                     {reminder.priority === 'Urgente' ? (
+                        <Badge variant="destructive" className="text-xs font-medium">Prioridade Urgente</Badge>
+                     ) : (
+                        <Badge variant="outline" className="bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted">Prioridade Normal</Badge>
+                     )}
+                     <Badge variant="outline" className="bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted">
+                        {reminder.status}
+                     </Badge>
+                     {reminder.group && (
+                        <Badge variant="outline" className="bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted inline-flex items-center gap-1.5">
+                            <Users className="h-3 w-3" />
+                            {reminder.group}
+                        </Badge>
+                     )}
+                 </div>
             </div>
             
             <div className="space-y-2">
