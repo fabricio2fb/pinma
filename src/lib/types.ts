@@ -2,7 +2,7 @@ export type Reminder = {
   id: string;
   name: string;
   location: string;
-  distance: string;
+  distance?: string;
   category: 'Mercado' | 'Farmácia' | 'Banco' | 'Casa' | 'Trabalho' | 'Outro';
   priority: 'Normal' | 'Urgente';
   group?: string;
