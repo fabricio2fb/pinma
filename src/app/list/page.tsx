@@ -1,3 +1,5 @@
+'use client';
+
 import { MainLayout } from '@/components/main-layout';
 import { mockReminders } from '@/lib/data';
 import type { Reminder } from '@/lib/types';
