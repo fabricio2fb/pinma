@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
+import { AddReminderSheet } from '@/components/add-reminder-sheet';
 
 const categoryIcons: { [key: string]: React.ReactNode } = {
   Mercado: <ShoppingCart className="h-5 w-5" />,
@@ -84,13 +85,6 @@ export default function GroupDetailPage() {
     notFound();
   }
 
-  const handleAddReminder = () => {
-    toast({
-      title: 'Função em desenvolvimento',
-      description: 'Adicionar lembretes para grupos será implementado.',
-    });
-  };
-
   const handleInvite = () => {
      toast({
       title: 'Função em desenvolvimento',
@@ -136,9 +130,11 @@ export default function GroupDetailPage() {
         
         <div className="flex justify-between items-center p-4">
             <h2 className="font-semibold">Lembretes do Grupo</h2>
-            <Button variant="ghost" size="icon" onClick={handleAddReminder}>
-                <Plus className="h-5 w-5" />
-            </Button>
+            <AddReminderSheet>
+              <Button variant="ghost" size="icon">
+                  <Plus className="h-5 w-5" />
+              </Button>
+            </AddReminderSheet>
         </div>
 
 

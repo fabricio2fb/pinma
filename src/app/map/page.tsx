@@ -2,7 +2,7 @@ import { Plus, Search } from 'lucide-react';
 
 import { MainLayout } from '@/components/main-layout';
 import { Button } from '@/components/ui/button';
-import { AddReminderSheet } from './add-reminder-sheet';
+import { AddReminderSheet } from '@/components/add-reminder-sheet';
 import MapView from './map-view';
 import { Suspense } from 'react';
 import { Skeleton } from '@/components/ui/skeleton';
