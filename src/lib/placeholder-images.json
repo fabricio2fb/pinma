@@ -1,3 +1,46 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "onboarding-1",
+      "description": "Illustration of a person on a map with a pin.",
+      "imageUrl": "https://images.unsplash.com/photo-1722680001761-75450b9f085e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxtYXAlMjBwaW4lMjBwZXJzb258ZW58MHx8fHwxNzcxNjExODUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "map pin person"
+    },
+    {
+      "id": "onboarding-2",
+      "description": "Illustration of a group of people connected.",
+      "imageUrl": "https://images.unsplash.com/photo-1568492650629-3dfa9b007cbf?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxwZW9wbGUlMjBjb25uZWN0aW9ufGVufDB8fHx8MTc3MTYxMTg1Mnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "people connection"
+    },
+    {
+      "id": "onboarding-3",
+      "description": "Illustration of a notification appearing on a phone.",
+      "imageUrl": "https://images.unsplash.com/photo-1584091377126-3817650725fc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxwaG9uZSUyMG5vdGlmaWNhdGlvbnxlbnwwfHx8fDE3NzE1NzI2NDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "phone notification"
+    },
+    {
+      "id": "avatar-1",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1540569014015-19a7be504e3a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3NzE1OTUwNDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "avatar-2",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx3b21hbiUyMHBvcnRyYWl0fGVufDB8fHx8MTc3MTUzODA5Nnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "woman portrait"
+    },
+    {
+      "id": "avatar-3",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1583195763986-0231686dcd43?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8bWFuJTIwcG9ydHJhaXR8ZW58MHx8fHwxNzcxNTA1MTAzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "man portrait"
+    },
+    {
+      "id": "avatar-4",
+      "description": "User avatar",
+      "imageUrl": "https://images.unsplash.com/photo-1662850886700-4ec19bd30d11?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxwZXJzb24lMjBzbWlsaW5nfGVufDB8fHx8MTc3MTU1NjE4MHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person smiling"
+    }
+  ]
 }
