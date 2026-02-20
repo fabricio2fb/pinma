@@ -92,6 +92,20 @@ export default function GroupDetailPage() {
     });
   }
 
+  const handleManageMembers = () => {
+    toast({
+      title: 'Função em desenvolvimento',
+      description: 'O gerenciamento de membros será implementado em breve.',
+    });
+  };
+
+  const handleLeaveGroup = () => {
+    toast({
+      title: 'Função em desenvolvimento',
+      description: 'A função para sair do grupo será implementada em breve.',
+    });
+  };
+
   return (
     <MainLayout>
       <div className="flex flex-col h-full pb-28">
@@ -110,8 +124,8 @@ export default function GroupDetailPage() {
             </DropdownMenuTrigger>
             <DropdownMenuContent>
               <DropdownMenuItem onClick={handleInvite}>Convidar membro</DropdownMenuItem>
-              <DropdownMenuItem>Gerenciar membros</DropdownMenuItem>
-              <DropdownMenuItem className="text-destructive focus:text-destructive focus:bg-destructive/10">Sair do grupo</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleManageMembers}>Gerenciar membros</DropdownMenuItem>
+              <DropdownMenuItem onClick={handleLeaveGroup} className="text-destructive focus:text-destructive focus:bg-destructive/10">Sair do grupo</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
