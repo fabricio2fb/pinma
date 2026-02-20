@@ -1,3 +1,5 @@
+'use client';
+
 import { MainLayout } from '@/components/main-layout';
 import { mockGroups } from '@/lib/data';
 import type { Group } from '@/lib/types';
@@ -5,6 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useToast } from '@/hooks/use-toast';
 
 const GroupItem = ({ group }: { group: Group }) => (
   <div className="flex items-center p-4 gap-4">
@@ -25,19 +28,28 @@ const GroupItem = ({ group }: { group: Group }) => (
 
 
 export default function GroupsPage() {
+  const { toast } = useToast();
+
+  const handleAddGroup = () => {
+    toast({
+      title: "Função em desenvolvimento",
+      description: "A criação de novos grupos será adicionada em breve.",
+    });
+  };
+
   return (
     <MainLayout>
        <div className="flex flex-col h-full">
         <div className="p-4 pt-6 flex justify-between items-center">
           <h1 className="text-2xl font-bold">Grupos</h1>
-          <Button variant="ghost" size="icon">
+          <Button variant="ghost" size="icon" onClick={handleAddGroup}>
             <Plus className="h-5 w-5" />
           </Button>
         </div>
 
         {mockGroups.length > 0 ? (
           <ScrollArea className="flex-1">
-            <div className="divide-y">
+            <div className="divide-y divide-border">
                 {mockGroups.map(group => (
                   <GroupItem key={group.id} group={group} />
                 ))}
