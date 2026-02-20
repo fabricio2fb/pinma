@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import type { Reminder } from '@/lib/types';
 import { Banknote, Briefcase, Home, MoreVertical, Pill, ShoppingCart, Star, Trash2, Check } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -14,8 +15,9 @@ export const categoryIcons: { [key: string]: React.ReactNode } = {
     Outro: <Star className="h-5 w-5" />,
 };
 
-export const ReminderItem = ({ reminder }: { reminder: Reminder }) => (
-  <div className="flex items-center gap-4 p-4 transition-colors hover:bg-accent cursor-pointer">
+export const ReminderItem = React.forwardRef<HTMLDivElement, { reminder: Reminder }>(
+  ({ reminder }, ref) => (
+  <div ref={ref} className="flex items-center gap-4 p-4 transition-colors hover:bg-accent cursor-pointer">
     <div className="bg-muted h-10 w-10 flex items-center justify-center rounded-md text-foreground">
       {categoryIcons[reminder.category]}
     </div>
@@ -39,4 +41,6 @@ export const ReminderItem = ({ reminder }: { reminder: Reminder }) => (
       </DropdownMenuContent>
     </DropdownMenu>
   </div>
-);
+));
+
+ReminderItem.displayName = 'ReminderItem';
