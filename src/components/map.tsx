@@ -1,5 +1,6 @@
 'use client';
 
+import * as React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -31,7 +32,7 @@ type Marcador = {
     nome: string;
 }
 
-export default function Mapa({ marcadores, onAdicionar }: { marcadores: Marcador[], onAdicionar: (latlng: LatLng) => void }) {
+function Mapa({ marcadores, onAdicionar }: { marcadores: Marcador[], onAdicionar: (latlng: LatLng) => void }) {
   return (
     <MapContainer
       center={[-15.7801, -47.9292]}
@@ -54,3 +55,5 @@ export default function Mapa({ marcadores, onAdicionar }: { marcadores: Marcador
     </MapContainer>
   );
 }
+
+export default React.memo(Mapa);
