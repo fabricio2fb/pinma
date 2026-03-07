@@ -8,11 +8,15 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import type { Reminder } from '@/lib/types';
-import MiniMap from '@/components/mini-map';
 import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star, Users } from 'lucide-react';
-import { Suspense } from 'react';
 import { Skeleton } from './ui/skeleton';
+import dynamic from 'next/dynamic';
+
+const MiniMap = dynamic(() => import('@/components/mini-map'), { 
+    ssr: false, 
+    loading: () => <Skeleton className="h-48 w-full bg-muted rounded-md" />
+});
 
 const categoryIcons: { [key: string]: React.ReactNode } = {
   Mercado: <ShoppingCart className="h-5 w-5" />,
@@ -22,9 +26,6 @@ const categoryIcons: { [key: string]: React.ReactNode } = {
   Trabalho: <Briefcase className="h-5 w-5" />,
   Outro: <Star className="h-5 w-5" />,
 };
-
-// Hardcoded position for now, as we don't have real coords in mock data
-const mockPosition = {lat: -23.550520, lng: -46.633308};
 
 export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder, children: React.ReactNode }) {
   return (
@@ -68,9 +69,7 @@ export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder
             
             <div className="space-y-2">
                  <p className="font-medium text-sm text-muted-foreground">Prévia do mapa</p>
-                 <Suspense fallback={<Skeleton className="h-48 w-full bg-muted rounded-md" />}>
-                    <MiniMap position={mockPosition} priority={reminder.priority} />
-                 </Suspense>
+                 <MiniMap position={reminder.position} />
             </div>
         </div>
       </SheetContent>

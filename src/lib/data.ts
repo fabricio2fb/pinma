@@ -10,6 +10,7 @@ export const mockReminders: Reminder[] = [
     category: 'Mercado',
     priority: 'Normal',
     status: 'Ativo',
+    position: { lat: -23.550520, lng: -46.633308 },
   },
   {
     id: '2',
@@ -19,6 +20,7 @@ export const mockReminders: Reminder[] = [
     category: 'Farmácia',
     priority: 'Urgente',
     status: 'Ativo',
+    position: { lat: -23.5613, lng: -46.6565 },
   },
   {
     id: '3',
@@ -29,6 +31,7 @@ export const mockReminders: Reminder[] = [
     priority: 'Normal',
     group: 'Família',
     status: 'Concluído',
+    position: { lat: -23.5475, lng: -46.6361 },
   },
   {
     id: '4',
@@ -38,6 +41,7 @@ export const mockReminders: Reminder[] = [
     category: 'Casa',
     priority: 'Normal',
     status: 'Concluído',
+    position: { lat: -23.5869, lng: -46.6817 },
   },
   {
     id: '5',
@@ -47,6 +51,7 @@ export const mockReminders: Reminder[] = [
     category: 'Trabalho',
     priority: 'Urgente',
     status: 'Ativo',
+    position: { lat: -22.9068, lng: -43.1729 },
   },
 ];
 

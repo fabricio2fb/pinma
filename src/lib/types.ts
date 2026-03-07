@@ -7,6 +7,7 @@ export type Reminder = {
   priority: 'Normal' | 'Urgente';
   group?: string;
   status: 'Ativo' | 'Concluído';
+  position?: { lat: number; lng: number };
 };
 
 export type Group = {

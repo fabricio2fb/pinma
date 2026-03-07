@@ -1,19 +1,35 @@
+'use client';
+
 import { Plus, Search } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import type { LatLng } from 'leaflet';
 
 import { MainLayout } from '@/components/main-layout';
 import { Button } from '@/components/ui/button';
-import { AddReminderSheet } from '@/components/add-reminder-sheet';
-import MapView from './map-view';
-import { Suspense } from 'react';
+import { AddReminderSheet } from './add-reminder-sheet';
 import { Skeleton } from '@/components/ui/skeleton';
+import { mockReminders } from '@/lib/data';
+
+const Mapa = dynamic(() => import('@/components/map'), { 
+  ssr: false,
+  loading: () => <Skeleton className="h-full w-full bg-muted" /> 
+});
 
 export default function MapPage() {
+  const marcadores = mockReminders
+    .filter(r => r.position)
+    .map(r => ({ lat: r.position!.lat, lng: r.position!.lng, nome: r.name }));
+
+  function handleAdicionarMarcador(latlng: LatLng) {
+    // In a real app, you might open the AddReminderSheet here
+    // and pre-fill the location.
+    alert(`Novo marcador em: ${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`);
+  }
+
   return (
     <MainLayout>
       <div className="relative h-full w-full">
-        <Suspense fallback={<Skeleton className="h-full w-full bg-muted" />}>
-           <MapView />
-        </Suspense>
+        <Mapa marcadores={marcadores} onAdicionar={handleAdicionarMarcador} />
 
         <div className="absolute top-4 left-4 right-4 z-10">
             <div className="relative">

@@ -1,47 +1,46 @@
 'use client';
-import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 
-const MapPin = ({ priority }: { priority: 'Normal' | 'Urgente' }) => (
-    <div 
-      className={`w-4 h-4 rounded-full shadow-md
-        ${priority === 'Urgente' 
-          ? 'bg-destructive' 
-          : 'bg-primary border-2 border-card'
-        }`
-      } 
-    />
-);
+// Corrige ícone padrão do Leaflet no Next.js
+// @ts-ignore
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png',
+  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
+});
 
-export default function MiniMap({ position, priority }: { position: { lat: number; lng: number }, priority: 'Normal' | 'Urgente' }) {
-  const apiKey = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
-  const mapId = process.env.NEXT_PUBLIC_GOOGLE_MAP_ID_DARK || 'a1ff1089ca40c26';
 
-  if (!apiKey) {
+export default function MiniMap({ position }: { position?: { lat: number; lng: number }}) {
+  if (!position) {
     return (
-      <div className="flex items-center justify-center h-full bg-muted rounded-md">
+      <div className="flex items-center justify-center h-48 w-full bg-muted rounded-md">
         <div className="text-center text-muted-foreground p-4">
-          <p className="text-xs">Mapa indisponível</p>
+          <p className="text-xs">Localização não fornecida</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="h-48 w-full rounded-md overflow-hidden">
-      <APIProvider apiKey={apiKey}>
-        <Map
-          mapId={mapId}
+    <div className="h-48 w-full rounded-md overflow-hidden z-0">
+      <MapContainer
+          center={position}
+          zoom={15}
           style={{ width: '100%', height: '100%' }}
-          defaultCenter={position}
-          defaultZoom={15}
-          gestureHandling={'none'}
-          disableDefaultUI={true}
+          dragging={false}
+          zoomControl={false}
+          scrollWheelZoom={false}
+          doubleClickZoom={false}
         >
-            <AdvancedMarker position={position}>
-                <MapPin priority={priority} />
-            </AdvancedMarker>
-        </Map>
-      </APIProvider>
+        <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        />
+        <Marker position={[position.lat, position.lng]} />
+      </MapContainer>
     </div>
   );
 }
