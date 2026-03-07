@@ -27,10 +27,15 @@ export default function MapPage() {
     alert(`Novo marcador em: ${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`);
   }, []);
 
+  const memoizedMap = useMemo(() => (
+    <Mapa marcadores={marcadores} onAdicionar={handleAdicionarMarcador} />
+  ), [marcadores, handleAdicionarMarcador]);
+
+
   return (
     <MainLayout>
       <div className="relative h-full w-full">
-        <Mapa marcadores={marcadores} onAdicionar={handleAdicionarMarcador} />
+        {memoizedMap}
 
         <div className="absolute top-4 left-4 right-4 z-10">
             <div className="relative">
