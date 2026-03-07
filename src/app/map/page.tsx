@@ -9,6 +9,7 @@ import { Button } from '@/components/ui/button';
 import { AddReminderSheet } from './add-reminder-sheet';
 import { Skeleton } from '@/components/ui/skeleton';
 import { mockReminders } from '@/lib/data';
+import { useCallback, useMemo } from 'react';
 
 const Mapa = dynamic(() => import('@/components/map'), { 
   ssr: false,
@@ -16,15 +17,15 @@ const Mapa = dynamic(() => import('@/components/map'), {
 });
 
 export default function MapPage() {
-  const marcadores = mockReminders
+  const marcadores = useMemo(() => mockReminders
     .filter(r => r.position)
-    .map(r => ({ lat: r.position!.lat, lng: r.position!.lng, nome: r.name }));
+    .map(r => ({ lat: r.position!.lat, lng: r.position!.lng, nome: r.name })), []);
 
-  function handleAdicionarMarcador(latlng: LatLng) {
+  const handleAdicionarMarcador = useCallback((latlng: LatLng) => {
     // In a real app, you might open the AddReminderSheet here
     // and pre-fill the location.
     alert(`Novo marcador em: ${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`);
-  }
+  }, []);
 
   return (
     <MainLayout>
