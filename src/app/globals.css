@@ -69,3 +69,21 @@
     scrollbar-width: none;
   }
 }
+
+@layer components {
+  /* Estilização customizada dos popups do Leaflet */
+  .custom-popup .leaflet-popup-content-wrapper {
+    @apply bg-card text-card-foreground shadow-2xl rounded-xl overflow-hidden p-0 border border-border;
+  }
+  .custom-popup .leaflet-popup-content {
+    @apply m-0 min-w-[200px] max-w-[280px] !important;
+  }
+  .custom-popup .leaflet-popup-tip {
+    @apply bg-card border-t border-l border-border;
+  }
+  .custom-popup .leaflet-popup-close-button {
+    @apply text-muted-foreground transition-colors right-2 top-2 hover:bg-muted/50 hover:text-foreground rounded-full h-6 w-6 flex items-center justify-center !important;
+    font-family: Arial, sans-serif !important; 
+    font-size: 16px !important;
+  }
+}

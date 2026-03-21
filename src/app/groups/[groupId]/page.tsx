@@ -1,10 +1,11 @@
 'use client';
 
 import { MainLayout } from '@/components/main-layout';
-import { mockGroups, mockReminders } from '@/lib/data';
 import type { Group, Reminder } from '@/lib/types';
 import { notFound, useParams } from 'next/navigation';
 import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import {
@@ -30,15 +31,36 @@ export default function GroupDetailPage() {
   const { groupId } = params;
   const { toast } = useToast();
 
-  const group = mockGroups.find((g) => g.id === groupId);
-  const groupReminders = mockReminders.filter((r) => r.group === group?.name);
+  const [group, setGroup] = useState<any>(null);
+  const [groupReminders, setGroupReminders] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const supabase = createClient();
 
-  if (!group) {
-    notFound();
+  useEffect(() => {
+    async function fetchGroupData() {
+      if (!groupId) return;
+
+      const { data: gData } = await supabase.from('groups').select('*').eq('id', groupId).single();
+      const { data: rData } = await supabase.from('reminders').select('*').eq('group_id', groupId);
+
+      if (gData) setGroup(gData);
+      if (rData) setGroupReminders(rData.map(r => ({ ...r, name: r.title })));
+
+      setIsLoading(false);
+    }
+    fetchGroupData();
+  }, [groupId, supabase]);
+
+  if (isLoading) {
+    return <MainLayout><div className="flex justify-center mt-10">Carregando...</div></MainLayout>;
+  }
+
+  if (!group && !isLoading) {
+    return <MainLayout><div className="flex justify-center mt-10">Grupo não encontrado ou você não tem acesso a ele.</div></MainLayout>;
   }
 
   const handleInvite = () => {
-     toast({
+    toast({
       title: 'Função em desenvolvimento',
       description: 'Convidar membros será implementado em breve.',
     });
@@ -83,24 +105,22 @@ export default function GroupDetailPage() {
         </div>
 
         <div className="px-6 py-4 flex flex-col items-center border-b border-border">
-            <div className="flex -space-x-4 mb-3">
-                {group.avatars.map((avatarUrl, i) => (
-                <Avatar key={i} className="h-12 w-12 border-4 border-card">
-                    <AvatarImage src={avatarUrl} />
-                    <AvatarFallback>{group.name.charAt(0)}</AvatarFallback>
-                </Avatar>
-                ))}
-            </div>
-            <p className="text-sm text-muted-foreground">{group.members} membros</p>
+          <div className="flex -space-x-4 mb-3">
+            {/* Fallback avatar */}
+            <Avatar className="h-12 w-12 border-4 border-card">
+              <AvatarFallback>{group.name.charAt(0)}</AvatarFallback>
+            </Avatar>
+          </div>
+          <p className="text-sm text-muted-foreground">{/* Quantidade de membros depois de implementar o join query */ 1} membros</p>
         </div>
-        
+
         <div className="flex justify-between items-center p-4">
-            <h2 className="font-semibold">Lembretes do Grupo</h2>
-            <AddReminderSheet>
-              <Button variant="ghost" size="icon">
-                  <Plus className="h-5 w-5" />
-              </Button>
-            </AddReminderSheet>
+          <h2 className="font-semibold">Lembretes do Grupo</h2>
+          <AddReminderSheet>
+            <Button variant="ghost" size="icon">
+              <Plus className="h-5 w-5" />
+            </Button>
+          </AddReminderSheet>
         </div>
 
 

@@ -8,7 +8,9 @@ import { ChevronRight, Bell, Map, Users, Star, LogOut } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createClient } from '@/lib/supabase/client';
+import { useRouter } from 'next/navigation';
 
 const StatCard = ({ value, label }: { value: string | number, label: string }) => (
     <div className="text-center">
@@ -53,37 +55,62 @@ const SettingsSwitchItem = ({ icon, label, defaultChecked = true }: { icon: Reac
 
 export default function ProfilePage() {
     const userAvatar = PlaceHolderImages.find(img => img.id === 'avatar-1');
-  return (
-    <MainLayout>
-      <div className="p-6 pb-28">
-        <div className="flex flex-col items-center text-center mt-6 mb-8">
-            <Avatar className="h-20 w-20 border-2 border-border mb-4">
-                {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
-                <AvatarFallback>UT</AvatarFallback>
-            </Avatar>
-            <h2 className="font-bold text-xl">Usuário Teste</h2>
-            <p className="text-muted-foreground text-sm">usuario@pinlembrete.com</p>
-        </div>
+    const [user, setUser] = useState<any>(null);
+    const [profile, setProfile] = useState<any>(null);
+    const supabase = createClient();
+    const router = useRouter();
 
-        <div className="grid grid-cols-3 gap-4 my-8 py-4 border-y border-border">
-            <StatCard value={12} label="Total" />
-            <StatCard value={8} label="Concluídos" />
-            <StatCard value={3} label="Grupos" />
-        </div>
+    useEffect(() => {
+        async function loadUser() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                setUser(user);
+                const { data: profileData } = await supabase.from('profiles').select('*').eq('id', user.id).single();
+                if (profileData) {
+                    setProfile(profileData);
+                }
+            }
+        }
+        loadUser();
+    }, [supabase]);
 
-        <div className="px-4">
-            <SettingsSwitchItem icon={Bell} label="Notificações" />
-            <SettingsSwitchItem icon={Map} label="Preferências de Localização" />
-            <SettingsItem icon={Users} label="Gerenciar Grupos" href="/groups" />
-            <Separator className="my-2 bg-border -mx-4 w-auto" />
-            <SettingsItem icon={Star} label="PinLembrete Premium" href="/premium" isPro />
-            <Separator className="my-2 bg-border -mx-4 w-auto" />
-            <Link href="/login" className="flex items-center p-4 -mx-4 hover:bg-destructive/10 rounded-lg transition-colors text-destructive">
-                <LogOut className="h-5 w-5 mr-4" />
-                <span className="flex-1 font-medium text-sm">Sair</span>
-            </Link>
-        </div>
-      </div>
-    </MainLayout>
-  );
+    const handleLogout = async (e: React.MouseEvent) => {
+        e.preventDefault();
+        await supabase.auth.signOut();
+        router.push('/login');
+    };
+
+    return (
+        <MainLayout>
+            <div className="p-6 pb-28">
+                <div className="flex flex-col items-center text-center mt-6 mb-8">
+                    <Avatar className="h-20 w-20 border-2 border-border mb-4">
+                        {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
+                        <AvatarFallback>{profile?.username?.substring(0, 2)?.toUpperCase() || 'U'}</AvatarFallback>
+                    </Avatar>
+                    <h2 className="font-bold text-xl">{profile?.full_name || profile ? `@${profile.username}` : 'Carregando...'}</h2>
+                    <p className="text-muted-foreground text-sm">{user?.email || 'carregando...'}</p>
+                </div>
+
+                <div className="grid grid-cols-3 gap-4 my-8 py-4 border-y border-border">
+                    <StatCard value={12} label="Total" />
+                    <StatCard value={8} label="Concluídos" />
+                    <StatCard value={3} label="Grupos" />
+                </div>
+
+                <div className="px-4">
+                    <SettingsSwitchItem icon={Bell} label="Notificações" />
+                    <SettingsSwitchItem icon={Map} label="Preferências de Localização" />
+                    <SettingsItem icon={Users} label="Gerenciar Grupos" href="/groups" />
+                    <Separator className="my-2 bg-border -mx-4 w-auto" />
+                    <SettingsItem icon={Star} label="PinLembrete Premium" href="/premium" isPro />
+                    <Separator className="my-2 bg-border -mx-4 w-auto" />
+                    <button onClick={handleLogout} className="w-full flex items-center p-4 -mx-4 hover:bg-destructive/10 rounded-lg transition-colors text-destructive">
+                        <LogOut className="h-5 w-5 mr-4" />
+                        <span className="flex-1 text-left font-medium text-sm">Sair</span>
+                    </button>
+                </div>
+            </div>
+        </MainLayout>
+    );
 }
