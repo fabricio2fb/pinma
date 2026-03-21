@@ -27,57 +27,57 @@ interface OverpassPlace {
 
 // ─── Config de categorias Overpass ───────────────────────
 const OVERPASS_FILTERS = [
-  { label: 'Supermercado',        color: '#16a34a', query: '["shop"="supermarket"]' },
-  { label: 'Mercadinho',          color: '#22c55e', query: '["shop"="convenience"]' },
-  { label: 'Padaria',             color: '#f59e0b', query: '["shop"="bakery"]' },
-  { label: 'Farmácia',            color: '#ef4444', query: '["amenity"="pharmacy"]' },
-  { label: 'Banco',               color: '#3b82f6', query: '["amenity"="bank"]' },
-  { label: 'Caixa Eletrônico',    color: '#6366f1', query: '["amenity"="atm"]' },
-  { label: 'Posto de Gasolina',   color: '#f97316', query: '["amenity"="fuel"]' },
-  { label: 'Material Construção', color: '#78716c', query: '["shop"="doityourself"]' },
-  { label: 'Material Construção', color: '#78716c', query: '["shop"="hardware"]' },
-  { label: 'Hortifruti',          color: '#84cc16', query: '["shop"="greengrocer"]' },
-  { label: 'Açougue',             color: '#dc2626', query: '["shop"="butcher"]' },
-  { label: 'Restaurante',         color: '#ec4899', query: '["amenity"="restaurant"]' },
-  { label: 'Lanchonete',          color: '#f43f5e', query: '["amenity"="fast_food"]' },
-  { label: 'Café',                color: '#a16207', query: '["amenity"="cafe"]' },
-  { label: 'Bar',                 color: '#b45309', query: '["amenity"="bar"]' },
-  { label: 'Hospital/UPA',        color: '#0ea5e9', query: '["amenity"="hospital"]' },
-  { label: 'Clínica',             color: '#38bdf8', query: '["amenity"="clinic"]' },
-  { label: 'Escola',              color: '#a855f7', query: '["amenity"="school"]' },
-  { label: 'Igreja',              color: '#8b5cf6', query: '["amenity"="place_of_worship"]' },
-  { label: 'Lotérica',            color: '#10b981', query: '["shop"="lottery"]' },
-  { label: 'Pet Shop',            color: '#f472b6', query: '["shop"="pet"]' },
-  { label: 'Salão de Beleza',     color: '#e879f9', query: '["shop"="hairdresser"]' },
-  { label: 'Academia',            color: '#f97316', query: '["leisure"="fitness_centre"]' },
-  { label: 'Farmácia',            color: '#ef4444', query: '["shop"="chemist"]' },
-  { label: 'Loja de Roupa',       color: '#ec4899', query: '["shop"="clothes"]' },
-  { label: 'Calçados',            color: '#db2777', query: '["shop"="shoes"]' },
-  { label: 'Eletrodomésticos',    color: '#6366f1', query: '["shop"="electronics"]' },
-  { label: 'Móveis',              color: '#92400e', query: '["shop"="furniture"]' },
-  { label: 'Papelaria',           color: '#0284c7', query: '["shop"="stationery"]' },
-  { label: 'Bicicletaria',        color: '#65a30d', query: '["shop"="bicycle"]' },
-  { label: 'Auto Peças',          color: '#475569', query: '["shop"="car_parts"]' },
-  { label: 'Oficina',             color: '#374151', query: '["shop"="car_repair"]' },
-  { label: 'Motos',               color: '#1e3a5f', query: '["shop"="motorcycle"]' },
-  { label: 'Sacolão',             color: '#4ade80', query: '["shop"="variety_store"]' },
-  { label: 'Mercado',             color: '#16a34a', query: '["shop"="general"]' },
-  { label: 'Lan House',           color: '#7c3aed', query: '["amenity"="internet_cafe"]' },
-  { label: 'Correios',            color: '#fbbf24', query: '["amenity"="post_office"]' },
-  { label: 'Delegacia',           color: '#1d4ed8', query: '["amenity"="police"]' },
-  { label: 'Bombeiros',           color: '#dc2626', query: '["amenity"="fire_station"]' },
-  { label: 'Supermercado',        color: '#16a34a', query: '["shop"="wholesale"]' },
-  { label: 'Sorveteria',          color: '#f9a8d4', query: '["shop"="ice_cream"]' },
-  { label: 'Ótica',               color: '#0891b2', query: '["shop"="optician"]' },
-  { label: 'Jóias',               color: '#d97706', query: '["shop"="jewelry"]' },
-  { label: 'Barbearia',           color: '#7c3aed', query: '["shop"="barber"]' },
-  { label: 'Lavanderia',          color: '#06b6d4', query: '["shop"="laundry"]' },
-  { label: 'Gráfica',             color: '#64748b', query: '["shop"="copyshop"]' },
-  { label: 'Floricultura',        color: '#f43f5e', query: '["shop"="florist"]' },
-  { label: 'Pousada/Hotel',       color: '#0369a1', query: '["tourism"="hotel"]' },
-  { label: 'Pousada',             color: '#0369a1', query: '["tourism"="guest_house"]' },
-  { label: 'Praça/Parque',        color: '#22c55e', query: '["leisure"="park"]' },
-  { label: 'Quadra',              color: '#16a34a', query: '["leisure"="pitch"]' },
+  { label: 'Supermercado',        color: '#16a34a', icon: '🛒', query: '["shop"="supermarket"]' },
+  { label: 'Mercadinho',          color: '#22c55e', icon: '🏪', query: '["shop"="convenience"]' },
+  { label: 'Padaria',             color: '#f59e0b', icon: '🥖', query: '["shop"="bakery"]' },
+  { label: 'Farmácia',            color: '#ef4444', icon: '💊', query: '["amenity"="pharmacy"]' },
+  { label: 'Banco',               color: '#3b82f6', icon: '🏦', query: '["amenity"="bank"]' },
+  { label: 'Caixa Eletrônico',    color: '#6366f1', icon: '🏧', query: '["amenity"="atm"]' },
+  { label: 'Posto de Gasolina',   color: '#f97316', icon: '⛽', query: '["amenity"="fuel"]' },
+  { label: 'Material Construção', color: '#78716c', icon: '⛏️', query: '["shop"="doityourself"]' },
+  { label: 'Material Construção', color: '#78716c', icon: '🔨', query: '["shop"="hardware"]' },
+  { label: 'Hortifruti',          color: '#84cc16', icon: '🍎', query: '["shop"="greengrocer"]' },
+  { label: 'Açougue',             color: '#dc2626', icon: '🥩', query: '["shop"="butcher"]' },
+  { label: 'Restaurante',         color: '#ec4899', icon: '🍽️', query: '["amenity"="restaurant"]' },
+  { label: 'Lanchonete',          color: '#f43f5e', icon: '🍔', query: '["amenity"="fast_food"]' },
+  { label: 'Café',                color: '#a16207', icon: '☕', query: '["amenity"="cafe"]' },
+  { label: 'Bar',                 color: '#b45309', icon: '🍻', query: '["amenity"="bar"]' },
+  { label: 'Hospital/UPA',        color: '#0ea5e9', icon: '🏥', query: '["amenity"="hospital"]' },
+  { label: 'Clínica',             color: '#38bdf8', icon: '🩺', query: '["amenity"="clinic"]' },
+  { label: 'Escola',              color: '#a855f7', icon: '🏫', query: '["amenity"="school"]' },
+  { label: 'Igreja',              color: '#8b5cf6', icon: '⛪', query: '["amenity"="place_of_worship"]' },
+  { label: 'Lotérica',            color: '#10b981', icon: '🎰', query: '["shop"="lottery"]' },
+  { label: 'Pet Shop',            color: '#f472b6', icon: '🐕', query: '["shop"="pet"]' },
+  { label: 'Salão de Beleza',     color: '#e879f9', icon: '💇', query: '["shop"="hairdresser"]' },
+  { label: 'Academia',            color: '#f97316', icon: '🏋️', query: '["leisure"="fitness_centre"]' },
+  { label: 'Farmácia',            color: '#ef4444', icon: '💊', query: '["shop"="chemist"]' },
+  { label: 'Loja de Roupa',       color: '#ec4899', icon: '👗', query: '["shop"="clothes"]' },
+  { label: 'Calçados',            color: '#db2777', icon: '👟', query: '["shop"="shoes"]' },
+  { label: 'Eletrodomésticos',    color: '#6366f1', icon: '🔌', query: '["shop"="electronics"]' },
+  { label: 'Móveis',              color: '#92400e', icon: '🛋️', query: '["shop"="furniture"]' },
+  { label: 'Papelaria',           color: '#0284c7', icon: '✏️', query: '["shop"="stationery"]' },
+  { label: 'Bicicletaria',        color: '#65a30d', icon: '🚲', query: '["shop"="bicycle"]' },
+  { label: 'Auto Peças',          color: '#475569', icon: '⚙️', query: '["shop"="car_parts"]' },
+  { label: 'Oficina',             color: '#374151', icon: '🔧', query: '["shop"="car_repair"]' },
+  { label: 'Motos',               color: '#1e3a5f', icon: '🏍️', query: '["shop"="motorcycle"]' },
+  { label: 'Sacolão',             color: '#4ade80', icon: '🥬', query: '["shop"="variety_store"]' },
+  { label: 'Mercado',             color: '#16a34a', icon: '🛍️', query: '["shop"="general"]' },
+  { label: 'Lan House',           color: '#7c3aed', icon: '💻', query: '["amenity"="internet_cafe"]' },
+  { label: 'Correios',            color: '#fbbf24', icon: '📦', query: '["amenity"="post_office"]' },
+  { label: 'Delegacia',           color: '#1d4ed8', icon: '🚓', query: '["amenity"="police"]' },
+  { label: 'Bombeiros',           color: '#dc2626', icon: '🚒', query: '["amenity"="fire_station"]' },
+  { label: 'Supermercado',        color: '#16a34a', icon: '🏬', query: '["shop"="wholesale"]' },
+  { label: 'Sorveteria',          color: '#f9a8d4', icon: '🍦', query: '["shop"="ice_cream"]' },
+  { label: 'Ótica',               color: '#0891b2', icon: '👓', query: '["shop"="optician"]' },
+  { label: 'Jóias',               color: '#d97706', icon: '💎', query: '["shop"="jewelry"]' },
+  { label: 'Barbearia',           color: '#7c3aed', icon: '💈', query: '["shop"="barber"]' },
+  { label: 'Lavanderia',          color: '#06b6d4', icon: '🧺', query: '["shop"="laundry"]' },
+  { label: 'Gráfica',             color: '#64748b', icon: '🖨️', query: '["shop"="copyshop"]' },
+  { label: 'Floricultura',        color: '#f43f5e', icon: '💐', query: '["shop"="florist"]' },
+  { label: 'Pousada/Hotel',       color: '#0369a1', icon: '🏨', query: '["tourism"="hotel"]' },
+  { label: 'Pousada',             color: '#0369a1', icon: '🛏️', query: '["tourism"="guest_house"]' },
+  { label: 'Praça/Parque',        color: '#22c55e', icon: '🌳', query: '["leisure"="park"]' },
+  { label: 'Quadra',              color: '#16a34a', icon: '⚽', query: '["leisure"="pitch"]' },
 ];
 
 // ─── Busca Overpass ───────────────────────────────────────
@@ -180,13 +180,15 @@ function LocationMarker({ onLocationFound, onAdicionar }: { onLocationFound?: (l
         const icon = L.divIcon({
           className: '',
           html: `<div style="
-            width:12px;height:12px;border-radius:50%;
+            width:24px;height:24px;border-radius:50%;
             background:${cat.color};
             border:2px solid white;
             box-shadow:0 1px 3px rgba(0,0,0,0.4);
-          "></div>`,
-          iconSize: [12, 12],
-          iconAnchor: [6, 6],
+            display:flex;align-items:center;justify-content:center;
+            font-size:12px;
+          ">${'icon' in cat ? (cat as any).icon : ''}</div>`,
+          iconSize: [24, 24],
+          iconAnchor: [12, 12],
         });
 
         return (
@@ -195,6 +197,7 @@ function LocationMarker({ onLocationFound, onAdicionar }: { onLocationFound?: (l
               <div className="p-3 flex flex-col gap-1 min-w-[220px]">
                 <div className="flex items-start justify-between gap-3 mb-1 pr-4">
                   <h3 className="font-bold text-base leading-tight text-foreground line-clamp-2">{nome}</h3>
+                  {'icon' in cat && <span className="text-xl leading-none pt-0.5">{(cat as any).icon}</span>}
                 </div>
                 
                 <div 
