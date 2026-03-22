@@ -1,8 +1,7 @@
 'use client';
 
 import { MainLayout } from '@/components/main-layout';
-import type { Group, Reminder } from '@/lib/types';
-import { notFound, useParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
@@ -12,6 +11,9 @@ import {
   ChevronLeft,
   MoreVertical,
   Plus,
+  Settings,
+  LogOut,
+  Shield,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -23,8 +25,9 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { AddReminderSheet } from '@/components/add-reminder-sheet';
 import { ReminderDetailSheet } from '@/components/reminder-detail-sheet';
-import { ReminderItem, categoryIcons } from '@/components/reminder-item';
-
+import { ReminderItem } from '@/components/reminder-item';
+import { InviteMemberSheet } from '@/components/invite-member-sheet';
+import { ManageGroupSheet } from '@/components/manage-group-sheet';
 
 export default function GroupDetailPage() {
   const params = useParams();
@@ -33,18 +36,30 @@ export default function GroupDetailPage() {
 
   const [group, setGroup] = useState<any>(null);
   const [groupReminders, setGroupReminders] = useState<any[]>([]);
+  const [members, setMembers] = useState<any[]>([]);
+  const [userRole, setUserRole] = useState<string>('member');
   const [isLoading, setIsLoading] = useState(true);
   const supabase = createClient();
 
   useEffect(() => {
     async function fetchGroupData() {
       if (!groupId) return;
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-      const { data: gData } = await supabase.from('groups').select('*').eq('id', groupId).single();
-      const { data: rData } = await supabase.from('reminders').select('*').eq('group_id', groupId);
+      const [gRes, rRes, mRes] = await Promise.all([
+        supabase.from('groups').select('*').eq('id', groupId).single(),
+        supabase.from('reminders').select('*').eq('group_id', groupId),
+        supabase.from('group_members').select('*, profile:user_id(full_name, email)').eq('group_id', groupId)
+      ]);
 
-      if (gData) setGroup(gData);
-      if (rData) setGroupReminders(rData.map(r => ({ ...r, name: r.title })));
+      if (gRes.data) setGroup(gRes.data);
+      if (rRes.data) setGroupReminders(rRes.data.map((r: any) => ({ ...r, name: r.title })));
+      if (mRes.data) {
+        setMembers(mRes.data);
+        const me = mRes.data.find((m: any) => m.user_id === user.id);
+        if (me) setUserRole(me.role);
+      }
 
       setIsLoading(false);
     }
@@ -55,29 +70,24 @@ export default function GroupDetailPage() {
     return <MainLayout><div className="flex justify-center mt-10">Carregando...</div></MainLayout>;
   }
 
-  if (!group && !isLoading) {
-    return <MainLayout><div className="flex justify-center mt-10">Grupo não encontrado ou você não tem acesso a ele.</div></MainLayout>;
-  }
+  const handleLeaveGroup = async () => {
+    if (!confirm('Deseja realmente sair deste grupo?')) return;
+    try {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-  const handleInvite = () => {
-    toast({
-      title: 'Função em desenvolvimento',
-      description: 'Convidar membros será implementado em breve.',
-    });
-  }
+      const { error } = await supabase
+        .from('group_members')
+        .delete()
+        .eq('group_id', groupId)
+        .eq('user_id', user.id);
 
-  const handleManageMembers = () => {
-    toast({
-      title: 'Função em desenvolvimento',
-      description: 'O gerenciamento de membros será implementado em breve.',
-    });
-  };
-
-  const handleLeaveGroup = () => {
-    toast({
-      title: 'Função em desenvolvimento',
-      description: 'A função para sair do grupo será implementada em breve.',
-    });
+      if (error) throw error;
+      toast({ title: "Você saiu do grupo" });
+      window.location.href = '/groups';
+    } catch (error: any) {
+      toast({ title: "Erro ao sair", description: error.message, variant: "destructive" });
+    }
   };
 
   return (
@@ -89,29 +99,58 @@ export default function GroupDetailPage() {
               <ChevronLeft className="h-5 w-5" />
             </Link>
           </Button>
-          <h1 className="text-lg font-bold">{group.name}</h1>
+          <h1 className="text-lg font-bold truncate max-w-[200px]">{group?.name}</h1>
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
                 <MoreVertical className="h-5 w-5" />
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem onClick={handleInvite}>Convidar membro</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleManageMembers}>Gerenciar membros</DropdownMenuItem>
-              <DropdownMenuItem onClick={handleLeaveGroup} className="text-destructive focus:text-destructive focus:bg-destructive/10">Sair do grupo</DropdownMenuItem>
+            <DropdownMenuContent align="end" className="w-56">
+              <InviteMemberSheet groupId={groupId as string} groupName={group?.name} inviteCode={group?.invite_code}>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Convidar membro</DropdownMenuItem>
+              </InviteMemberSheet>
+              
+              <ManageGroupSheet group={group}>
+                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <Settings className="h-4 w-4 mr-2" />
+                  Gerenciar Grupo
+                </DropdownMenuItem>
+              </ManageGroupSheet>
+
+              <DropdownMenuItem onClick={handleLeaveGroup} className="text-destructive focus:text-destructive focus:bg-destructive/10">
+                <LogOut className="h-4 w-4 mr-2" />
+                Sair do grupo
+              </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
 
-        <div className="px-6 py-4 flex flex-col items-center border-b border-border">
+        <div className="px-6 py-4 flex flex-col items-center border-b border-border text-center">
           <div className="flex -space-x-4 mb-3">
-            {/* Fallback avatar */}
-            <Avatar className="h-12 w-12 border-4 border-card">
-              <AvatarFallback>{group.name.charAt(0)}</AvatarFallback>
-            </Avatar>
+             {members.slice(0, 3).map((m: any, i: number) => (
+                <Avatar key={i} className="h-12 w-12 border-4 border-card shadow-sm">
+                  <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${m.profile?.email}`} />
+                  <AvatarFallback>{m.profile?.full_name?.charAt(0)}</AvatarFallback>
+                </Avatar>
+             ))}
+             {members.length > 3 && (
+                <div className="h-12 w-12 rounded-full bg-muted border-4 border-card flex items-center justify-center text-[10px] font-bold text-muted-foreground">
+                  +{members.length - 3}
+                </div>
+             )}
           </div>
-          <p className="text-sm text-muted-foreground">{/* Quantidade de membros depois de implementar o join query */ 1} membros</p>
+          <div className="space-y-1">
+            <p className="text-sm font-semibold flex items-center justify-center gap-1">
+              {members.length} membros 
+              {userRole === 'admin' && <Shield className="h-3 w-3 text-primary" />}
+            </p>
+            {group?.description && (
+              <p className="text-xs text-muted-foreground max-w-xs mx-auto italic line-clamp-2">
+                "{group.description}"
+              </p>
+            )}
+          </div>
         </div>
 
         <div className="flex justify-between items-center p-4">
@@ -127,7 +166,7 @@ export default function GroupDetailPage() {
         {groupReminders.length > 0 ? (
           <ScrollArea className="flex-1">
             <div className="divide-y divide-border">
-              {groupReminders.map((reminder) => (
+              {groupReminders.map((reminder: any) => (
                 <ReminderDetailSheet key={reminder.id} reminder={reminder}>
                   <ReminderItem reminder={reminder} />
                 </ReminderDetailSheet>

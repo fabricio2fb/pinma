@@ -4,13 +4,14 @@ import { MainLayout } from '@/components/main-layout';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Separator } from '@/components/ui/separator';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ChevronRight, Bell, Map, Users, Star, LogOut } from 'lucide-react';
+import { ChevronRight, Bell, Map, Users, Star, LogOut, Mail } from 'lucide-react';
 import Link from 'next/link';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
 import { useRouter } from 'next/navigation';
+import { InboxSheet } from '@/components/inbox-sheet';
 
 const StatCard = ({ value, label }: { value: string | number, label: string }) => (
     <div className="text-center">
@@ -57,7 +58,7 @@ export default function ProfilePage() {
     const userAvatar = PlaceHolderImages.find(img => img.id === 'avatar-1');
     const [user, setUser] = useState<any>(null);
     const [profile, setProfile] = useState<any>(null);
-    const [stats, setStats] = useState({ total: 0, completed: 0, groups: 0 });
+    const [stats, setStats] = useState({ total: 0, completed: 0, groups: 0, invites: 0 });
     const supabase = createClient();
     const router = useRouter();
 
@@ -74,15 +75,17 @@ export default function ProfilePage() {
                 }
 
                 // Fetch Stats
-                const [remindersRes, groupsRes] = await Promise.all([
+                const [remindersRes, groupsRes, invitesRes] = await Promise.all([
                     supabase.from('reminders').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
-                    supabase.from('group_members').select('*', { count: 'exact', head: true }).eq('user_id', user.id)
+                    supabase.from('group_members').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
+                    supabase.from('group_invites').select('*', { count: 'exact', head: true }).eq('invitee_id', user.id).eq('status', 'pending')
                 ]);
 
                 setStats({
                     total: remindersRes.count || 0,
-                    completed: 0, // Implement status filter if needed
-                    groups: groupsRes.count || 0
+                    completed: 0, 
+                    groups: groupsRes.count || 0,
+                    invites: invitesRes.count || 0
                 });
             }
         }
@@ -114,6 +117,19 @@ export default function ProfilePage() {
                 </div>
 
                 <div className="px-4">
+                    <InboxSheet>
+                        <button className="w-full flex items-center p-4 -mx-4 hover:bg-accent rounded-lg transition-colors text-left group">
+                            <Mail className="h-5 w-5 mr-4 text-muted-foreground group-hover:text-primary transition-colors" />
+                            <span className="flex-1 font-medium text-sm">Caixa de Entrada</span>
+                            {stats.invites > 0 && (
+                                <Badge className="mr-2 px-1.5 min-w-[1.25rem] h-5 flex items-center justify-center bg-destructive text-destructive-foreground border-none">
+                                    {stats.invites}
+                                </Badge>
+                            )}
+                            <ChevronRight className="h-5 w-5 text-muted-foreground/50" />
+                        </button>
+                    </InboxSheet>
+                    <Separator className="my-2 bg-border -mx-4 w-auto" />
                     <SettingsSwitchItem icon={Bell} label="Notificações" />
                     <SettingsSwitchItem icon={Map} label="Preferências de Localização" />
                     <SettingsItem icon={Users} label="Gerenciar Grupos" href="/groups" />

@@ -9,7 +9,8 @@ import {
 } from '@/components/ui/sheet';
 import type { Reminder } from '@/lib/types';
 import { Badge } from '@/components/ui/badge';
-import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star, Users } from 'lucide-react';
+import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star, Users, Loader2, CheckCircle2, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 import { Skeleton } from './ui/skeleton';
 import dynamic from 'next/dynamic';
 
@@ -27,7 +28,69 @@ const categoryIcons: { [key: string]: React.ReactNode } = {
   Outro: <Star className="h-5 w-5" />,
 };
 
-export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder, children: React.ReactNode }) {
+import { Loader2, CheckCircle2, Trash2 } from 'lucide-react';
+import { createClient } from '@/lib/supabase/client';
+import { useState } from 'react';
+import { useToast } from '@/hooks/use-toast';
+
+export function ReminderDetailSheet({ reminder, children }: { reminder: any, children: React.ReactNode }) {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const supabase = createClient();
+  const { toast } = useToast();
+
+  const handleStatusUpdate = async (newStatus: boolean) => {
+    setIsProcessing(true);
+    try {
+      const { error } = await supabase
+        .from('reminders')
+        .update({ is_active: !newStatus })
+        .eq('id', reminder.id);
+
+      if (error) throw error;
+
+      toast({
+        title: newStatus ? "Lembrete concluído!" : "Lembrete reativado.",
+        description: "O status foi atualizado com sucesso.",
+      });
+      window.location.reload();
+    } catch (error: any) {
+      toast({
+        title: "Erro ao atualizar",
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleExcluir = async () => {
+    if (!confirm('Tem certeza que deseja excluir este lembrete?')) return;
+    setIsProcessing(true);
+    try {
+      const { error } = await supabase
+        .from('reminders')
+        .delete()
+        .eq('id', reminder.id);
+
+      if (error) throw error;
+
+      toast({
+        title: "Lembrete excluído",
+        variant: "destructive"
+      });
+      window.location.reload();
+    } catch (error: any) {
+      toast({
+        title: "Erro ao excluir",
+        description: error.message,
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <Sheet>
       <SheetTrigger asChild>{children}</SheetTrigger>
@@ -46,7 +109,7 @@ export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder
                     </div>
                     <div>
                         <p className="font-semibold text-sm">{reminder.category}</p>
-                        <p className="text-sm text-muted-foreground">{reminder.location}</p>
+                        <p className="text-sm text-muted-foreground">{reminder.location || 'Localização no mapa'}</p>
                     </div>
                 </div>
                  <div className="flex flex-wrap items-center gap-2">
@@ -55,8 +118,8 @@ export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder
                      ) : (
                         <Badge variant="outline" className="bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted">Prioridade Normal</Badge>
                      )}
-                     <Badge variant="outline" className="bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted">
-                        {reminder.status}
+                     <Badge variant={reminder.is_active ? "outline" : "default"} className={reminder.is_active ? "bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted" : "bg-green-600 text-white border-transparent text-xs font-medium"}>
+                        {reminder.is_active ? 'Ativo' : 'Concluído'}
                      </Badge>
                      {reminder.group && (
                         <Badge variant="outline" className="bg-muted text-muted-foreground border-transparent text-xs font-medium hover:bg-muted inline-flex items-center gap-1.5">
@@ -84,6 +147,31 @@ export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder
                     </div>
                   )}
                 </div>
+        </div>
+        
+        <div className="p-4 bg-card border-t grid grid-cols-2 gap-3">
+          <Button 
+            variant="outline" 
+            className="h-12 border-destructive/20 text-destructive hover:bg-destructive/10"
+            onClick={handleExcluir}
+            disabled={isProcessing}
+          >
+            <Trash2 className="h-4 w-4 mr-2" />
+            Excluir
+          </Button>
+          <Button 
+            className={reminder.is_active ? "h-12 bg-green-600 hover:bg-green-700 text-white" : "h-12 bg-muted text-muted-foreground"}
+            onClick={() => handleStatusUpdate(reminder.is_active)}
+            disabled={isProcessing}
+          >
+            {isProcessing ? (
+               <Loader2 className="h-4 w-4 animate-spin" />
+            ) : reminder.is_active ? (
+              <><CheckCircle2 className="h-4 w-4 mr-2" /> Concluir</>
+            ) : (
+              'Reativar'
+            )}
+          </Button>
         </div>
       </SheetContent>
     </Sheet>

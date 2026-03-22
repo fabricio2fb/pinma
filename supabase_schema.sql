@@ -17,8 +17,20 @@ CREATE TABLE IF NOT EXISTS public.groups (
     id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()),
     name TEXT NOT NULL,
+    description TEXT,
+    avatar_url TEXT,
     owner_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
     invite_code TEXT UNIQUE DEFAULT substring(md5(random()::text) from 1 for 6)
+);
+
+CREATE TABLE IF NOT EXISTS public.group_invites (
+    id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()),
+    group_id UUID REFERENCES public.groups(id) ON DELETE CASCADE,
+    inviter_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    invitee_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+    status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'accepted', 'declined')),
+    UNIQUE(group_id, invitee_id)
 );
 
 CREATE TABLE IF NOT EXISTS public.group_members (
@@ -113,6 +125,28 @@ USING (
 CREATE POLICY "Users can join groups" 
 ON public.group_members FOR INSERT 
 WITH CHECK (auth.uid() = user_id);
+
+-- Group Invites: Segurança
+ALTER TABLE public.group_invites ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can see their own invites" 
+ON public.group_invites FOR SELECT 
+USING (invitee_id = auth.uid() OR inviter_id = auth.uid());
+
+CREATE POLICY "Admins can send invites" 
+ON public.group_invites FOR INSERT 
+WITH CHECK (
+    EXISTS (
+        SELECT 1 FROM group_members 
+        WHERE group_id = group_invites.group_id 
+        AND user_id = auth.uid() 
+        AND role = 'admin'
+    )
+);
+
+CREATE POLICY "Invitee can update status" 
+ON public.group_invites FOR UPDATE 
+USING (invitee_id = auth.uid());
 
 -- Reminders: Usuário vê seus lembretes OU lembretes do grupo que pertence
 CREATE POLICY "Users can see personal or group reminders" 
