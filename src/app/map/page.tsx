@@ -48,17 +48,6 @@ export default function MapPage() {
       id: r.id
     }));
     
-    if (newMarker) {
-      list.push({ 
-        lat: newMarker.lat, 
-        lng: newMarker.lng, 
-        nome: 'Novo Lembrete',
-        categoria: 'Outro',
-        prioridade: 'Normal',
-        descricao: '',
-        id: 'new'
-      });
-    }
     return list;
   }, [dbReminders, newMarker]);
 

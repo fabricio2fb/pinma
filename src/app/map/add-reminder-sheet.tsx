@@ -18,6 +18,13 @@ import { cn } from '@/lib/utils';
 import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star, MapPin, Loader2 } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { LatLng } from 'leaflet';
+import dynamic from 'next/dynamic';
+import { createClient } from '@/lib/supabase/client';
+
+const MapaPreview = dynamic(() => import('@/components/map'), { 
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-muted animate-pulse rounded-lg" />
+});
 
 const categories = [
   { name: 'Mercado', icon: ShoppingCart },
@@ -55,8 +62,6 @@ function getNomeExibicao(place: OSMPlace) {
   const parts = place.display_name.split(',').map(s => s.trim());
   return parts.slice(0, 3).join(', ');
 }
-
-import { createClient } from '@/lib/supabase/client';
 
 export function AddReminderSheet({
   children,
@@ -191,7 +196,6 @@ export function AddReminderSheet({
       setReminderName('');
       setDescription('');
       onOpenChange?.(false);
-      // Opcional: Recarregar a página ou usar um estado global/revalidate
       window.location.reload(); 
     } catch (error: any) {
       console.error('Erro ao salvar:', error);
@@ -271,10 +275,21 @@ export function AddReminderSheet({
               )}
             </div>
 
-            {selectedLat && selectedLng && !locationText.startsWith('Lat:') && (
-              <p className="text-xs text-green-600">
-                📍 {selectedLat.toFixed(5)}, {selectedLng.toFixed(5)}
-              </p>
+            {selectedLat && selectedLng && (
+              <div className="mt-2 space-y-2">
+                <div className="h-40 w-full rounded-lg border overflow-hidden relative z-0">
+                  <MapaPreview 
+                    preview 
+                    center={[selectedLat, selectedLng]} 
+                    marcadores={[]} 
+                  />
+                </div>
+                {!locationText.startsWith('Lat:') && (
+                  <p className="text-xs text-green-600">
+                    📍 {selectedLat.toFixed(5)}, {selectedLng.toFixed(5)}
+                  </p>
+                )}
+              </div>
             )}
 
             {showSuggestions && searchResults.length > 0 && (

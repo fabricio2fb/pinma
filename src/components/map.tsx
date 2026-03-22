@@ -252,20 +252,31 @@ function AdicionarMarcador({ onAdicionar }: { onAdicionar: (latlng: LatLng) => v
 export default function Mapa({
   marcadores,
   onAdicionar,
+  preview = false,
+  center,
 }: {
   marcadores: Marcador[];
-  onAdicionar: (latlng: LatLng) => void;
+  onAdicionar?: (latlng: LatLng) => void;
+  preview?: boolean;
+  center?: [number, number];
 }) {
   const [isClient, setIsClient] = React.useState(false);
 
   React.useEffect(() => { setIsClient(true); }, []);
   if (!isClient) return null;
 
+  const initialCenter: [number, number] = center || [-15.7801, -47.9292];
+
   return (
     <div style={{ width: '100%', height: '100%', position: 'relative' }}>
       <MapContainer
-        center={[-15.7801, -47.9292]}
-        zoom={4}
+        center={initialCenter}
+        zoom={preview ? 16 : 4}
+        scrollWheelZoom={!preview}
+        dragging={!preview}
+        touchZoom={!preview}
+        doubleClickZoom={!preview}
+        zoomControl={!preview}
         style={{ width: '100%', height: '100%' }}
         className="z-0"
       >
@@ -273,14 +284,64 @@ export default function Mapa({
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         />
-        <LocationMarker onAdicionar={onAdicionar} />
-        <AdicionarMarcador onAdicionar={onAdicionar} />
+        
+        {!preview && (
+          <>
+            <LocationMarker onAdicionar={onAdicionar} />
+            <AdicionarMarcador onAdicionar={onAdicionar!} />
+          </>
+        )}
 
-        {marcadores.map((m, i) => (
-          <Marker key={i} position={[m.lat, m.lng]}>
-            <Popup>{m.nome}</Popup>
-          </Marker>
-        ))}
+        {marcadores.map((m, i) => {
+          const mAny = m as any;
+          const cat = OVERPASS_FILTERS.find(f => f.label === mAny.categoria) || { color: '#3b82f6', icon: '📍' };
+          
+          const icon = L.divIcon({
+            className: '',
+            html: `<div style="
+              width:28px;height:28px;border-radius:50%;
+              background:${cat.color};
+              border:2px solid white;
+              box-shadow:0 2px 4px rgba(0,0,0,0.3);
+              display:flex;align-items:center;justify-content:center;
+              font-size:14px;
+            ">${cat.icon || '📍'}</div>`,
+            iconSize: [28, 28],
+            iconAnchor: [14, 14],
+          });
+
+          return (
+            <Marker key={i} position={[m.lat, m.lng]} icon={icon}>
+              <Popup className="custom-popup">
+                <div className="p-3 flex flex-col gap-1 min-w-[200px]">
+                  <div className="flex items-start justify-between gap-3 mb-1">
+                    <h3 className="font-bold text-base leading-tight text-foreground">{m.nome}</h3>
+                    <span className="text-xl">{cat.icon}</span>
+                  </div>
+                  {mAny.descricao && (
+                    <p className="text-xs text-muted-foreground line-clamp-3 mt-1 italic">
+                      "{mAny.descricao}"
+                    </p>
+                  )}
+                  <div 
+                    className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md w-fit mt-2" 
+                    style={{ backgroundColor: `${cat.color}20`, color: cat.color }}
+                  >
+                    {mAny.categoria || 'Lembrete'}
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
+          );
+        })}
+
+        {center && preview && (
+           <Circle 
+             center={center} 
+             radius={100} 
+             pathOptions={{ color: '#2563EB', fillColor: '#2563EB', fillOpacity: 0.2 }} 
+           />
+        )}
       </MapContainer>
     </div>
   );
