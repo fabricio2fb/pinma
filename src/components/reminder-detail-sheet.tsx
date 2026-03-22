@@ -13,7 +13,7 @@ import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star, Users } from 'luci
 import { Skeleton } from './ui/skeleton';
 import dynamic from 'next/dynamic';
 
-const MiniMap = dynamic(() => import('@/components/mini-map'), { 
+const MapaPreview = dynamic(() => import('@/components/map'), { 
     ssr: false, 
     loading: () => <Skeleton className="h-48 w-full bg-muted rounded-md" />
 });
@@ -67,10 +67,23 @@ export function ReminderDetailSheet({ reminder, children }: { reminder: Reminder
                  </div>
             </div>
             
-            <div className="space-y-2">
-                 <p className="font-medium text-sm text-muted-foreground">Prévia do mapa</p>
-                 <MiniMap position={reminder.position} />
-            </div>
+                <div className="h-48 w-full rounded-md overflow-hidden z-0 border relative">
+                  {(reminder as any).lat && (reminder as any).lng ? (
+                    <MapaPreview 
+                      preview 
+                      center={[(reminder as any).lat, (reminder as any).lng]} 
+                      marcadores={[{ 
+                        lat: (reminder as any).lat, 
+                        lng: (reminder as any).lng, 
+                        nome: reminder.name 
+                      }]} 
+                    />
+                  ) : (
+                    <div className="flex items-center justify-center h-full w-full bg-muted">
+                      <p className="text-xs text-muted-foreground">Localização não disponível</p>
+                    </div>
+                  )}
+                </div>
         </div>
       </SheetContent>
     </Sheet>

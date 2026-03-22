@@ -292,48 +292,11 @@ export default function Mapa({
           </>
         )}
 
-        {marcadores.map((m, i) => {
-          const mAny = m as any;
-          const cat = OVERPASS_FILTERS.find(f => f.label === mAny.categoria) || { color: '#3b82f6', icon: '📍' };
-          
-          const icon = L.divIcon({
-            className: '',
-            html: `<div style="
-              width:28px;height:28px;border-radius:50%;
-              background:${cat.color};
-              border:2px solid white;
-              box-shadow:0 2px 4px rgba(0,0,0,0.3);
-              display:flex;align-items:center;justify-content:center;
-              font-size:14px;
-            ">${cat.icon || '📍'}</div>`,
-            iconSize: [28, 28],
-            iconAnchor: [14, 14],
-          });
-
-          return (
-            <Marker key={i} position={[m.lat, m.lng]} icon={icon}>
-              <Popup className="custom-popup">
-                <div className="p-3 flex flex-col gap-1 min-w-[200px]">
-                  <div className="flex items-start justify-between gap-3 mb-1">
-                    <h3 className="font-bold text-base leading-tight text-foreground">{m.nome}</h3>
-                    <span className="text-xl">{cat.icon}</span>
-                  </div>
-                  {mAny.descricao && (
-                    <p className="text-xs text-muted-foreground line-clamp-3 mt-1 italic">
-                      "{mAny.descricao}"
-                    </p>
-                  )}
-                  <div 
-                    className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md w-fit mt-2" 
-                    style={{ backgroundColor: `${cat.color}20`, color: cat.color }}
-                  >
-                    {mAny.categoria || 'Lembrete'}
-                  </div>
-                </div>
-              </Popup>
-            </Marker>
-          );
-        })}
+        {marcadores.map((m, i) => (
+          <Marker key={i} position={[m.lat, m.lng]}>
+            <Popup>{m.nome}</Popup>
+          </Marker>
+        ))}
 
         {center && preview && (
            <Circle 
