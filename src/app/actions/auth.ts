@@ -6,11 +6,26 @@ import { revalidatePath } from 'next/cache';
 
 export async function login(formData: FormData) {
     const supabase = await createClient();
-    const login = formData.get('login') as string;
+    const loginInput = formData.get('login') as string;
     const password = formData.get('password') as string;
 
+    let email = loginInput;
+
+    // Se o input não for email (não contém @), buscamos o e-mail pelo username no perfil
+    if (!loginInput.includes('@')) {
+        const { data: profile } = await supabase
+            .from('profiles')
+            .select('email')
+            .eq('full_name', loginInput) // O full_name guarda o username @
+            .single();
+        
+        if (profile?.email) {
+            email = profile.email;
+        }
+    }
+
     const { error } = await supabase.auth.signInWithPassword({
-        email: login,
+        email: email,
         password,
     });
 
