@@ -88,6 +88,24 @@ USING (
     EXISTS (SELECT 1 FROM group_members WHERE group_id = groups.id AND user_id = auth.uid())
 );
 
+CREATE POLICY "Users can insert groups" 
+ON public.groups FOR INSERT 
+WITH CHECK (auth.uid() = owner_id);
+
+-- Group Members: Usuário vê membros dos seus grupos e pode se adicionar
+ALTER TABLE public.group_members ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can see fellow group members" 
+ON public.group_members FOR SELECT 
+USING (
+    user_id = auth.uid() OR
+    EXISTS (SELECT 1 FROM groups WHERE id = group_members.group_id AND owner_id = auth.uid())
+);
+
+CREATE POLICY "Users can join groups" 
+ON public.group_members FOR INSERT 
+WITH CHECK (auth.uid() = user_id);
+
 -- Reminders: Usuário vê seus lembretes OU lembretes do grupo que pertence
 CREATE POLICY "Users can see personal or group reminders" 
 ON public.reminders FOR SELECT 
