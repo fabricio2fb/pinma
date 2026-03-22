@@ -85,21 +85,29 @@ CREATE POLICY "Users can see groups they belong to"
 ON public.groups FOR SELECT 
 USING (
     owner_id = auth.uid() OR 
-    EXISTS (SELECT 1 FROM group_members WHERE group_id = groups.id AND user_id = auth.uid())
+    EXISTS (
+        SELECT 1 FROM public.group_members 
+        WHERE group_members.group_id = id 
+        AND group_members.user_id = auth.uid()
+    )
 );
 
 CREATE POLICY "Users can insert groups" 
 ON public.groups FOR INSERT 
 WITH CHECK (auth.uid() = owner_id);
 
--- Group Members: Usuário vê membros dos seus grupos e pode se adicionar
+-- Group Members: Segurança simples para evitar recursão
 ALTER TABLE public.group_members ENABLE ROW LEVEL SECURITY;
 
-CREATE POLICY "Users can see fellow group members" 
+CREATE POLICY "Users can see members of their groups" 
 ON public.group_members FOR SELECT 
 USING (
     user_id = auth.uid() OR
-    EXISTS (SELECT 1 FROM groups WHERE id = group_members.group_id AND owner_id = auth.uid())
+    EXISTS (
+        SELECT 1 FROM public.groups 
+        WHERE groups.id = group_members.group_id 
+        AND groups.owner_id = auth.uid()
+    )
 );
 
 CREATE POLICY "Users can join groups" 
