@@ -28,7 +28,6 @@ const categoryIcons: { [key: string]: React.ReactNode } = {
   Outro: <Star className="h-5 w-5" />,
 };
 
-import { Loader2, CheckCircle2, Trash2 } from 'lucide-react';
 import { createClient } from '@/lib/supabase/client';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
