@@ -90,6 +90,7 @@ ALTER TABLE public.reminders ENABLE ROW LEVEL SECURITY;
 
 -- Profiles: Usuário vê apenas seu perfil
 CREATE POLICY "Profiles are viewable by owner" ON public.profiles FOR SELECT USING (auth.uid() = id);
+CREATE POLICY "Profiles are searchable by everyone" ON public.profiles FOR SELECT USING (true);
 CREATE POLICY "Profiles are updatable by owner" ON public.profiles FOR UPDATE USING (auth.uid() = id);
 
 -- Groups: Usuário vê grupos que ele é dono ou membro
