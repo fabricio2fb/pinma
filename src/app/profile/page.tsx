@@ -57,21 +57,36 @@ export default function ProfilePage() {
     const userAvatar = PlaceHolderImages.find(img => img.id === 'avatar-1');
     const [user, setUser] = useState<any>(null);
     const [profile, setProfile] = useState<any>(null);
+    const [stats, setStats] = useState({ total: 0, completed: 0, groups: 0 });
     const supabase = createClient();
     const router = useRouter();
 
     useEffect(() => {
-        async function loadUser() {
+        async function loadData() {
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 setUser(user);
+                
+                // Fetch Profile
                 const { data: profileData } = await supabase.from('profiles').select('*').eq('id', user.id).single();
                 if (profileData) {
                     setProfile(profileData);
                 }
+
+                // Fetch Stats
+                const [remindersRes, groupsRes] = await Promise.all([
+                    supabase.from('reminders').select('*', { count: 'exact', head: true }).eq('user_id', user.id),
+                    supabase.from('group_members').select('*', { count: 'exact', head: true }).eq('user_id', user.id)
+                ]);
+
+                setStats({
+                    total: remindersRes.count || 0,
+                    completed: 0, // Implement status filter if needed
+                    groups: groupsRes.count || 0
+                });
             }
         }
-        loadUser();
+        loadData();
     }, [supabase]);
 
     const handleLogout = async (e: React.MouseEvent) => {
@@ -85,17 +100,17 @@ export default function ProfilePage() {
             <div className="p-6 pb-28">
                 <div className="flex flex-col items-center text-center mt-6 mb-8">
                     <Avatar className="h-20 w-20 border-2 border-border mb-4">
-                        {userAvatar && <AvatarImage src={userAvatar.imageUrl} alt="User Avatar" />}
-                        <AvatarFallback>{profile?.username?.substring(0, 2)?.toUpperCase() || 'U'}</AvatarFallback>
+                        <AvatarImage src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.email}`} alt="User Avatar" />
+                        <AvatarFallback>{profile?.full_name?.substring(0, 2)?.toUpperCase() || 'U'}</AvatarFallback>
                     </Avatar>
-                    <h2 className="font-bold text-xl">{profile?.full_name || profile ? `@${profile.username}` : 'Carregando...'}</h2>
+                    <h2 className="font-bold text-xl">{profile?.full_name ? `@${profile.full_name}` : 'Carregando...'}</h2>
                     <p className="text-muted-foreground text-sm">{user?.email || 'carregando...'}</p>
                 </div>
 
                 <div className="grid grid-cols-3 gap-4 my-8 py-4 border-y border-border">
-                    <StatCard value={12} label="Total" />
-                    <StatCard value={8} label="Concluídos" />
-                    <StatCard value={3} label="Grupos" />
+                    <StatCard value={stats.total} label="Total" />
+                    <StatCard value={stats.completed} label="Concluídos" />
+                    <StatCard value={stats.groups} label="Grupos" />
                 </div>
 
                 <div className="px-4">
