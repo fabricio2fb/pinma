@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
+import { Textarea } from '@/components/ui/textarea';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { ShoppingCart, Pill, Banknote, Home, Briefcase, Star, MapPin, Loader2 } from 'lucide-react';
@@ -45,7 +46,6 @@ interface OSMPlace {
   type?: string;
 }
 
-// Só dispara com 8 dígitos completos
 function isCEP(text: string) {
   const digits = text.replace('-', '').trim();
   return /^\d{8}$/.test(digits);
@@ -56,6 +56,8 @@ function getNomeExibicao(place: OSMPlace) {
   return parts.slice(0, 3).join(', ');
 }
 
+import { createClient } from '@/lib/supabase/client';
+
 export function AddReminderSheet({
   children,
   open,
@@ -64,11 +66,14 @@ export function AddReminderSheet({
   initialName,
   initialCategory,
 }: AddReminderSheetProps) {
+  const supabase = createClient();
+  const [isSaving, setIsSaving] = useState(false);
   const [radius, setRadius] = useState(100);
   const [priority, setPriority] = useState<'Normal' | 'Urgente'>('Normal');
   const [selectedCategory, setSelectedCategory] = useState<string>('Mercado');
   const [locationText, setLocationText] = useState('');
   const [reminderName, setReminderName] = useState('');
+  const [description, setDescription] = useState('');
   const [selectedLat, setSelectedLat] = useState<number | null>(null);
   const [selectedLng, setSelectedLng] = useState<number | null>(null);
   const [searchResults, setSearchResults] = useState<OSMPlace[]>([]);
@@ -106,7 +111,6 @@ export function AddReminderSheet({
     const timer = setTimeout(async () => {
       setIsSearching(true);
       try {
-        // CEP completo → ViaCEP direto
         if (isCEP(locationText)) {
           const cep = locationText.replace('-', '').trim();
           const res = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
@@ -114,8 +118,6 @@ export function AddReminderSheet({
 
           if (!data.erro) {
             const enderecoFormatado = `${data.logradouro}, ${data.bairro}, ${data.localidade} - ${data.uf}`;
-
-            // Busca coordenadas pelo endereço formatado
             const geoUrl = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(enderecoFormatado)}&limit=1&countrycodes=br`;
             const geoRes = await fetch(geoUrl, { headers: { 'Accept-Language': 'pt-BR' } });
             const geoData = await geoRes.json();
@@ -136,7 +138,6 @@ export function AddReminderSheet({
           return;
         }
 
-        // Busca normal por nome ou endereço
         const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(locationText)}&limit=7&addressdetails=1&extratags=1&namedetails=1&countrycodes=br`;
         const res = await fetch(url, { headers: { 'Accept-Language': 'pt-BR' } });
         const data = await res.json();
@@ -164,15 +165,40 @@ export function AddReminderSheet({
     </button>
   );
 
-  const handleSalvar = () => {
-    console.log({
-      nome: reminderName,
-      lat: selectedLat,
-      lng: selectedLng,
-      raio: radius,
-      categoria: selectedCategory,
-      prioridade: priority,
-    });
+  const handleSalvar = async () => {
+    try {
+      setIsSaving(true);
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        alert('Você precisa estar logado para salvar um lembrete.');
+        return;
+      }
+
+      const { error } = await supabase.from('reminders').insert({
+        user_id: user.id,
+        title: reminderName || 'Novo Lembrete',
+        description: description,
+        lat: selectedLat,
+        lng: selectedLng,
+        radius: radius,
+        category: selectedCategory,
+        priority: priority,
+      });
+
+      if (error) throw error;
+
+      setReminderName('');
+      setDescription('');
+      onOpenChange?.(false);
+      // Opcional: Recarregar a página ou usar um estado global/revalidate
+      window.location.reload(); 
+    } catch (error: any) {
+      console.error('Erro ao salvar:', error);
+      alert('Erro ao salvar lembrete: ' + error.message);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -188,6 +214,7 @@ export function AddReminderSheet({
 
         <div className="flex-1 overflow-y-auto px-6 space-y-6 no-scrollbar pb-6 relative">
 
+          {/* Nome */}
           <div className="space-y-2">
             <Label htmlFor="name">Nome do lembrete</Label>
             <Input
@@ -199,6 +226,26 @@ export function AddReminderSheet({
             />
           </div>
 
+          {/* Descrição opcional */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <Label htmlFor="description">Descrição</Label>
+              <span className="text-xs text-muted-foreground">Opcional</span>
+            </div>
+            <Textarea
+              id="description"
+              placeholder="Ex: Comprar leite integral, pão de forma e queijo mussarela..."
+              className="bg-muted resize-none min-h-[80px]"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              maxLength={300}
+            />
+            {description.length > 0 && (
+              <p className="text-xs text-muted-foreground text-right">{description.length}/300</p>
+            )}
+          </div>
+
+          {/* Localização */}
           <div className="space-y-2 relative">
             <Label htmlFor="location">Localização</Label>
             <div className="relative">
@@ -251,6 +298,7 @@ export function AddReminderSheet({
             )}
           </div>
 
+          {/* Raio */}
           <div className="space-y-4 pt-2">
             <div className="flex justify-between items-center">
               <Label>Raio de ativação</Label>
@@ -259,6 +307,7 @@ export function AddReminderSheet({
             <Slider defaultValue={[100]} max={1000} step={50} onValueChange={(value) => setRadius(value[0])} />
           </div>
 
+          {/* Categoria */}
           <div className="space-y-3">
             <Label>Categoria</Label>
             <ScrollArea className="w-full whitespace-nowrap no-scrollbar">
@@ -278,6 +327,7 @@ export function AddReminderSheet({
             )}
           </div>
 
+          {/* Prioridade */}
           <div className="space-y-3">
             <Label>Prioridade</Label>
             <div className="grid grid-cols-2 gap-3">
