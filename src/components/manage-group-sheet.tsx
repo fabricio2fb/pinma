@@ -18,7 +18,17 @@ import { useToast } from '@/hooks/use-toast';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export function ManageGroupSheet({ group, children }: { group: any, children: React.ReactNode }) {
+export function ManageGroupSheet({ 
+  group, 
+  children,
+  open,
+  onOpenChange
+}: { 
+  group: any, 
+  children: React.ReactNode,
+  open?: boolean,
+  onOpenChange?: (open: boolean) => void
+}) {
   const [name, setName] = useState(group.name);
   const [description, setDescription] = useState(group.description || '');
   const [members, setMembers] = useState<any[]>([]);
@@ -98,7 +108,10 @@ export function ManageGroupSheet({ group, children }: { group: any, children: Re
   };
 
   return (
-    <Sheet onOpenChange={(open) => open && loadData()}>
+    <Sheet open={open} onOpenChange={(val) => {
+      onOpenChange?.(val);
+      if (val) loadData();
+    }}>
       <SheetTrigger asChild>{children}</SheetTrigger>
       <SheetContent side="bottom" className="h-[90%] rounded-t-[16px] bg-card border-t p-0 flex flex-col">
         <div className="w-full py-4 flex justify-center">

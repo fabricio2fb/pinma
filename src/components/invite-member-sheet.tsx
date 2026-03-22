@@ -16,7 +16,21 @@ import { createClient } from '@/lib/supabase/client';
 import { Loader2, Copy, UserPlus, Link as LinkIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
-export function InviteMemberSheet({ groupId, groupName, inviteCode, children }: { groupId: string, groupName: string, inviteCode: string, children: React.ReactNode }) {
+export function InviteMemberSheet({ 
+  groupId, 
+  groupName, 
+  inviteCode, 
+  children,
+  open,
+  onOpenChange
+}: { 
+  groupId: string, 
+  groupName: string, 
+  inviteCode: string, 
+  children: React.ReactNode,
+  open?: boolean,
+  onOpenChange?: (open: boolean) => void
+}) {
   const [username, setUsername] = useState('');
   const [isInviting, setIsInviting] = useState(false);
   const supabase = createClient();

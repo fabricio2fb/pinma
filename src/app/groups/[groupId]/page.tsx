@@ -39,6 +39,11 @@ export default function GroupDetailPage() {
   const [members, setMembers] = useState<any[]>([]);
   const [userRole, setUserRole] = useState<string>('member');
   const [isLoading, setIsLoading] = useState(true);
+  
+  // States to control sheets
+  const [showInviteSheet, setShowInviteSheet] = useState(false);
+  const [showManageSheet, setShowManageSheet] = useState(false);
+
   const supabase = createClient();
 
   useEffect(() => {
@@ -100,6 +105,7 @@ export default function GroupDetailPage() {
             </Link>
           </Button>
           <h1 className="text-lg font-bold truncate max-w-[200px]">{group?.name}</h1>
+          
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" size="icon">
@@ -107,16 +113,14 @@ export default function GroupDetailPage() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <InviteMemberSheet groupId={groupId as string} groupName={group?.name} inviteCode={group?.invite_code}>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>Convidar membro</DropdownMenuItem>
-              </InviteMemberSheet>
+              <DropdownMenuItem onClick={() => setShowInviteSheet(true)}>
+                Convidar membro
+              </DropdownMenuItem>
               
-              <ManageGroupSheet group={group}>
-                <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
-                  <Settings className="h-4 w-4 mr-2" />
-                  Gerenciar Grupo
-                </DropdownMenuItem>
-              </ManageGroupSheet>
+              <DropdownMenuItem onClick={() => setShowManageSheet(true)}>
+                <Settings className="h-4 w-4 mr-2" />
+                Gerenciar Grupo
+              </DropdownMenuItem>
 
               <DropdownMenuItem onClick={handleLeaveGroup} className="text-destructive focus:text-destructive focus:bg-destructive/10">
                 <LogOut className="h-4 w-4 mr-2" />
@@ -124,6 +128,26 @@ export default function GroupDetailPage() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Hidden Sheet Triggers controlled by state */}
+          <InviteMemberSheet 
+            groupId={groupId as string} 
+            groupName={group?.name} 
+            inviteCode={group?.invite_code}
+            open={showInviteSheet}
+            onOpenChange={setShowInviteSheet}
+          >
+            <span className="hidden" />
+          </InviteMemberSheet>
+
+          <ManageGroupSheet 
+            group={group}
+            open={showManageSheet}
+            onOpenChange={setShowManageSheet}
+          >
+            <span className="hidden" />
+          </ManageGroupSheet>
+
         </div>
 
         <div className="px-6 py-4 flex flex-col items-center border-b border-border text-center">
