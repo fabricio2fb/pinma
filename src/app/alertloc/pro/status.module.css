@@ -1,0 +1,67 @@
+.statusPage {
+  --bg: #0b0f0b;
+  --surface: #171c16;
+  --line: rgba(255, 255, 255, 0.1);
+  --text: #f5f5f0;
+  --muted: #a4a79f;
+  --primaryText: #11140f;
+  --green: #19c37d;
+  min-height: 100vh;
+  padding: 28px;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(25, 195, 125, 0.16), transparent 36%),
+    var(--bg);
+  color: var(--text);
+}
+
+.statusCard {
+  width: min(540px, 100%);
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 32px;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  background: rgba(18, 23, 18, 0.9);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.34);
+}
+
+.statusIcon {
+  width: 64px;
+  height: 64px;
+  border-radius: 23px;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+}
+
+.statusCard h1 {
+  margin: 22px 0 0;
+  font-size: clamp(34px, 7vw, 58px);
+  line-height: 1.02;
+  font-weight: 950;
+}
+
+.statusCard p {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.6;
+  font-weight: 700;
+}
+
+.statusCard a {
+  min-height: 48px;
+  margin-top: 26px;
+  padding: 0 20px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+  text-decoration: none;
+  font-weight: 950;
+}

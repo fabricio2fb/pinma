@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS public.profiles (
     email TEXT,
     full_name TEXT,
     avatar_url TEXT,
-    plan_tier TEXT DEFAULT 'free' CHECK (plan_tier IN ('free', 'premium', 'business')),
+    plan_tier TEXT DEFAULT 'free' CHECK (plan_tier IN ('free', 'pro', 'premium', 'business')),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now())
 );
 
@@ -134,14 +134,13 @@ CREATE POLICY "Users can see their own invites"
 ON public.group_invites FOR SELECT 
 USING (invitee_id = auth.uid() OR inviter_id = auth.uid());
 
-CREATE POLICY "Admins can send invites" 
-ON public.group_invites FOR INSERT 
+CREATE POLICY "Members can send invites"  
+ON public.group_invites FOR INSERT  
 WITH CHECK (
     EXISTS (
-        SELECT 1 FROM group_members 
-        WHERE group_id = group_invites.group_id 
-        AND user_id = auth.uid() 
-        AND role = 'admin'
+        SELECT 1 FROM public.group_members  
+        WHERE group_members.group_id = group_invites.group_id  
+        AND group_members.user_id = auth.uid()
     )
 );
 

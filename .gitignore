@@ -39,7 +39,31 @@ next-env.d.ts
 
 .genkit/*
 .env*
+!.env.example
 
 # firebase
 firebase-debug.log
 firestore-debug.log
+
+# local env files
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+
+# vercel env
+.env*.local
+
+# build/cache
+.turbo
+.cache
+
+# logs
+logs
+*.log
+
+# system/editor
+.vscode/*
+!.vscode/extensions.json
+.idea

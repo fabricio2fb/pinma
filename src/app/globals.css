@@ -4,47 +4,73 @@
 
 @layer base {
   :root {
-    --background: 86 7% 11%; /* #1C1F1A */
-    --foreground: 60 17% 95%; /* #F5F5F0 */
-    --card: 86 8% 15%; /* #272B24 */
-    --card-foreground: 60 17% 95%; /* #F5F5F0 */
+    --background: 86 7% 11%;
+    /* #1C1F1A */
+    --foreground: 60 17% 95%;
+    /* #F5F5F0 */
+    --card: 86 8% 15%;
+    /* #272B24 */
+    --card-foreground: 60 17% 95%;
+    /* #F5F5F0 */
     --popover: 86 8% 15%;
     --popover-foreground: 60 17% 95%;
-    --primary: 60 17% 95%; /* #F5F5F0 */
-    --primary-foreground: 86 7% 11%; /* #1C1F1A */
-    --secondary: 221 83% 53%; /* #2563EB */
+    --primary: 60 17% 95%;
+    /* #F5F5F0 */
+    --primary-foreground: 86 7% 11%;
+    /* #1C1F1A */
+    --secondary: 221 83% 53%;
+    /* #2563EB */
     --secondary-foreground: 60 17% 95%;
-    --muted: 96 4% 13%; /* #222521 */
-    --muted-foreground: 84 3% 60%; /* #9A9E95 */
-    --accent: 93 5% 18%; /* #2E322B */
+    --muted: 96 4% 13%;
+    /* #222521 */
+    --muted-foreground: 84 3% 60%;
+    /* #9A9E95 */
+    --accent: 93 5% 18%;
+    /* #2E322B */
     --accent-foreground: 60 17% 95%;
-    --destructive: 0 72% 51%; /* #DC2626 */
+    --destructive: 0 72% 51%;
+    /* #DC2626 */
     --destructive-foreground: 60 17% 95%;
-    --border: 90 5% 20%; /* #323630 */
-    --input: 90 5% 20%; /* #323630 */
+    --border: 90 5% 20%;
+    /* #323630 */
+    --input: 90 5% 20%;
+    /* #323630 */
     --ring: 221 83% 53%;
     --radius: 12px;
   }
 
   .dark {
-    --background: 86 7% 11%; /* #1C1F1A */
-    --foreground: 60 17% 95%; /* #F5F5F0 */
-    --card: 86 8% 15%; /* #272B24 */
-    --card-foreground: 60 17% 95%; /* #F5F5F0 */
+    --background: 86 7% 11%;
+    /* #1C1F1A */
+    --foreground: 60 17% 95%;
+    /* #F5F5F0 */
+    --card: 86 8% 15%;
+    /* #272B24 */
+    --card-foreground: 60 17% 95%;
+    /* #F5F5F0 */
     --popover: 86 8% 15%;
     --popover-foreground: 60 17% 95%;
-    --primary: 60 17% 95%; /* #F5F5F0 */
-    --primary-foreground: 86 7% 11%; /* #1C1F1A */
-    --secondary: 221 83% 53%; /* #2563EB */
+    --primary: 60 17% 95%;
+    /* #F5F5F0 */
+    --primary-foreground: 86 7% 11%;
+    /* #1C1F1A */
+    --secondary: 221 83% 53%;
+    /* #2563EB */
     --secondary-foreground: 60 17% 95%;
-    --muted: 96 4% 13%; /* #222521 */
-    --muted-foreground: 84 3% 60%; /* #9A9E95 */
-    --accent: 93 5% 18%; /* #2E322B */
+    --muted: 96 4% 13%;
+    /* #222521 */
+    --muted-foreground: 84 3% 60%;
+    /* #9A9E95 */
+    --accent: 93 5% 18%;
+    /* #2E322B */
     --accent-foreground: 60 17% 95%;
-    --destructive: 0 72% 51%; /* #DC2626 */
+    --destructive: 0 72% 51%;
+    /* #DC2626 */
     --destructive-foreground: 60 17% 95%;
-    --border: 90 5% 20%; /* #323630 */
-    --input: 90 5% 20%; /* #323630 */
+    --border: 90 5% 20%;
+    /* #323630 */
+    --input: 90 5% 20%;
+    /* #323630 */
     --ring: 221 83% 53%;
   }
 }
@@ -53,10 +79,24 @@
   * {
     @apply border-border;
   }
+
+  html,
+  body {
+    min-height: 100%;
+  }
+
   body {
     @apply bg-background text-foreground;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -64,6 +104,7 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }
+
   .no-scrollbar {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -71,19 +112,229 @@
 }
 
 @layer components {
+
   /* Estilização customizada dos popups do Leaflet */
   .custom-popup .leaflet-popup-content-wrapper {
     @apply bg-card text-card-foreground shadow-2xl rounded-xl overflow-hidden p-0 border border-border;
   }
+
   .custom-popup .leaflet-popup-content {
     @apply m-0 min-w-[200px] max-w-[280px] !important;
   }
+
   .custom-popup .leaflet-popup-tip {
     @apply bg-card border-t border-l border-border;
   }
+
   .custom-popup .leaflet-popup-close-button {
     @apply text-muted-foreground transition-colors right-2 top-2 hover:bg-muted/50 hover:text-foreground rounded-full h-6 w-6 flex items-center justify-center !important;
-    font-family: Arial, sans-serif !important; 
+    font-family: Arial, sans-serif !important;
     font-size: 16px !important;
   }
+
+  /* Premium Map Markers - Google Maps Style */
+  .premium-marker {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    cursor: pointer;
+    transform-origin: bottom center;
+  }
+
+  .premium-marker:hover {
+    transform: translateY(-8px) scale(1.1);
+    z-index: 1000 !important;
+  }
+
+  .marker-container {
+    position: relative;
+    width: 34px;
+    height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.5));
+  }
+
+  /* The Teardrop Shape */
+  .marker-pin-outer {
+    position: absolute;
+    top: 0;
+    width: 36px;
+    height: 46px;
+    background: var(--marker-color, #2563eb);
+    border-radius: 50% 50% 50% 0;
+    transform: rotate(-45deg);
+    border: 2.5px solid white;
+    box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* The inner white circle */
+  .marker-circle-inner {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 24px;
+    height: 24px;
+    background: transparent;
+    border-radius: 50%;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .marker-emoji {
+    font-size: 16px;
+    line-height: 1;
+    display: block;
+    user-select: none;
+  }
+
+  .marker-pulse {
+    position: absolute;
+    bottom: 2px;
+    width: 12px;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    filter: blur(1.5px);
+    z-index: 0;
+    transform: scale(1.1);
+  }
+
+  /* POI Marker - Small circular style for background places */
+  .poi-marker {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .poi-marker:hover {
+    transform: scale(1.1);
+    z-index: 1000 !important;
+  }
+
+  .poi-emoji {
+    width: 28px;
+    height: 28px;
+    background: var(--marker-color, #94a3b8);
+    border: 2px solid white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .marker-label {
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 8px;
+    white-space: nowrap;
+    pointer-events: none;
+    backdrop-filter: blur(4px);
+    line-height: 1.4;
+  }
+
+  /* User Location Marker - Enhanced Blue Dot */
+  .user-location-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .user-location-dot {
+    width: 16px;
+    height: 16px;
+    background: #4285f4;
+    /* Google Maps Blue */
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 2px rgba(66, 133, 244, 0.2),
+      0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+
+  .user-location-pulse {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: radial-gradient(circle,
+        rgba(66, 133, 244, 0.4) 0%,
+        rgba(66, 133, 244, 0) 70%);
+    border-radius: 50%;
+    z-index: 1;
+    animation: user-pulse 3s infinite;
+  }
+
+  @keyframes user-pulse {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.8;
+    }
+
+    100% {
+      transform: scale(2.5);
+      opacity: 0;
+    }
+  }
+}
+
+/* =========================================================
+   FIX RADIX / SHADCN SHEET E DIALOG
+   Corrige quando fecha o Sheet/Dialog e a página fica sem clique
+   ========================================================= */
+
+/* Garante que a página volte a aceitar clique */
+html,
+body {
+  pointer-events: auto !important;
+}
+
+/* Quando o Radix deixa scroll lock preso, não deixa travar clique */
+body[data-scroll-locked] {
+  pointer-events: auto !important;
+}
+
+/* Overlays fechados não podem capturar clique */
+[data-radix-dialog-overlay][data-state='closed'],
+[data-radix-dialog-content][data-state='closed'],
+[data-radix-popover-content][data-state='closed'],
+[data-radix-dropdown-menu-content][data-state='closed'] {
+  pointer-events: none !important;
+}
+
+/* Conteúdos abertos continuam clicáveis */
+[data-radix-dialog-content][data-state='open'],
+[data-radix-popover-content][data-state='open'],
+[data-radix-dropdown-menu-content][data-state='open'] {
+  pointer-events: auto !important;
+}
+
+/* Overlay aberto continua bloqueando o fundo normalmente */
+[data-radix-dialog-overlay][data-state='open'] {
+  pointer-events: auto !important;
+}
+
+/* Evita que algum elemento invisível fechado fique por cima da tela */
+[data-state='closed'][style*='pointer-events'] {
+  pointer-events: none !important;
+}
+
+/* Corrige casos em que o body fica com style inline após fechar modal */
+body[style*='pointer-events: none'] {
+  pointer-events: auto !important;
 }

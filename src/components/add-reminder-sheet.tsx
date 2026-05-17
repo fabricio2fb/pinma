@@ -34,17 +34,21 @@ export function AddReminderSheet({
   open,
   onOpenChange,
   initialLocation,
+  groupId,
 }: {
   children?: React.ReactNode,
   open?: boolean,
   onOpenChange?: (open: boolean) => void,
   initialLocation?: LatLng | null,
+  groupId?: string,
 }) {
   const [radius, setRadius] = useState(100);
   const [priority, setPriority] = useState<'Normal' | 'Urgente'>('Normal');
   const [selectedCategory, setSelectedCategory] = useState<string>('Mercado');
   const [name, setName] = useState('');
   const [locationName, setLocationName] = useState('');
+  const [manualLat, setManualLat] = useState('');
+  const [manualLng, setManualLng] = useState('');
   const [otherCategory, setOtherCategory] = useState('');
   const [isSaving, setIsSaving] = useState(false);
   const { toast } = useToast();
@@ -67,8 +71,11 @@ export function AddReminderSheet({
       toast({ title: "Erro", description: "Dê um nome ao seu lembrete", variant: "destructive" });
       return;
     }
-    if (!initialLocation) {
-      toast({ title: "Erro", description: "Por favor, selecione um local no mapa", variant: "destructive" });
+    const lat = initialLocation?.lat ?? Number(manualLat);
+    const lng = initialLocation?.lng ?? Number(manualLng);
+
+    if (!Number.isFinite(lat) || !Number.isFinite(lng)) {
+      toast({ title: "Erro", description: "Informe latitude e longitude ou selecione um local no mapa", variant: "destructive" });
       return;
     }
 
@@ -82,18 +89,29 @@ export function AddReminderSheet({
       return;
     }
 
-    const categoryToSave = selectedCategory === 'Outro' ? otherCategory : selectedCategory;
+    const categoryToSave =
+      selectedCategory === 'Outro' ? otherCategory.trim() || 'Outro' : selectedCategory;
 
-    const { error, data } = await supabase.from('reminders').insert({
+    const payload: Record<string, any> = {
       title: name,
       category: categoryToSave,
       priority: priority,
       radius: radius,
-      lat: initialLocation.lat,
-      lng: initialLocation.lng,
-      location_text: locationName,
+      lat,
+      lng,
       user_id: user.id
-    }).select();
+    };
+
+    if (locationName.trim()) payload.address = locationName.trim();
+    if (groupId) payload.group_id = groupId;
+
+    let { error } = await supabase.from('reminders').insert(payload);
+
+    if (error && String(error.message || '').toLowerCase().includes('address')) {
+      const { address, ...payloadWithoutAddress } = payload;
+      const retry = await supabase.from('reminders').insert(payloadWithoutAddress);
+      error = retry.error;
+    }
 
     setIsSaving(false);
 
@@ -135,6 +153,19 @@ export function AddReminderSheet({
               <MapPin className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             </div>
           </div>
+
+          {!initialLocation && (
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-2">
+                <Label htmlFor="manual-lat">Latitude</Label>
+                <Input id="manual-lat" value={manualLat} onChange={e => setManualLat(e.target.value)} className="bg-muted h-12" placeholder="-22.8268" />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="manual-lng">Longitude</Label>
+                <Input id="manual-lng" value={manualLng} onChange={e => setManualLng(e.target.value)} className="bg-muted h-12" placeholder="-43.0634" />
+              </div>
+            </div>
+          )}
 
           <div className="space-y-4">
             <div className="flex justify-between items-center">

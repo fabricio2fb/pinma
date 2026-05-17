@@ -1,4 +1,4 @@
-# **App Name**: PinLembrete
+# **App Name**: AlertLoc
 
 ## Core Features:
 

@@ -11,8 +11,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'PinLembrete',
+  title: 'AlertLoc',
   description: 'Lembretes por localização, reinventado.',
+  icons: {
+    icon: '/favicon/favicon-32x32.png',
+    apple: '/favicon/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
@@ -24,9 +28,9 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={cn(inter.variable, "font-sans antialiased bg-background")}>
         <div className="flex justify-center">
-            <div className="w-full max-w-md bg-card min-h-dvh md:border-x">
-                {children}
-            </div>
+          <div className="w-full max-w-md lg:max-w-none bg-card lg:bg-background min-h-dvh md:border-x lg:border-none">
+            {children}
+          </div>
         </div>
         <Toaster />
       </body>

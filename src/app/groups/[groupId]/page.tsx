@@ -52,19 +52,18 @@ export default function GroupDetailPage() {
       const { data: { user } } = await supabase.auth.getUser();
       if (!user) return;
 
-      const [gRes, rRes, mRes] = await Promise.all([
+const [gRes, rRes, mRes] = await Promise.all([
         supabase.from('groups').select('*').eq('id', groupId).single(),
         supabase.from('reminders').select('*').eq('group_id', groupId),
-        supabase.from('group_members').select('*, profile:user_id(full_name, email)').eq('group_id', groupId)
+        supabase.from('group_members').select('*').eq('group_id', groupId)
       ]);
+
+      console.log('MEMBROS DIRETO:', mRes.data);
+      console.log('ERRO MEMBROS DIRETO:', mRes.error);
 
       if (gRes.data) setGroup(gRes.data);
       if (rRes.data) setGroupReminders(rRes.data.map((r: any) => ({ ...r, name: r.title })));
-      if (mRes.data) {
-        setMembers(mRes.data);
-        const me = mRes.data.find((m: any) => m.user_id === user.id);
-        if (me) setUserRole(me.role);
-      }
+      if (mRes.data) setMembers(mRes.data);
 
       setIsLoading(false);
     }
@@ -129,24 +128,19 @@ export default function GroupDetailPage() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          {/* Hidden Sheet Triggers controlled by state */}
-          <InviteMemberSheet 
-            groupId={groupId as string} 
-            groupName={group?.name} 
+<InviteMemberSheet  
+            groupId={groupId as string}  
+            groupName={group?.name}  
             inviteCode={group?.invite_code}
             open={showInviteSheet}
             onOpenChange={setShowInviteSheet}
-          >
-            <span className="hidden" />
-          </InviteMemberSheet>
+          />
 
-          <ManageGroupSheet 
+          <ManageGroupSheet  
             group={group}
             open={showManageSheet}
             onOpenChange={setShowManageSheet}
-          >
-            <span className="hidden" />
-          </ManageGroupSheet>
+          />
 
         </div>
 
@@ -179,7 +173,7 @@ export default function GroupDetailPage() {
 
         <div className="flex justify-between items-center p-4">
           <h2 className="font-semibold">Lembretes do Grupo</h2>
-          <AddReminderSheet>
+          <AddReminderSheet groupId={groupId as string}>
             <Button variant="ghost" size="icon">
               <Plus className="h-5 w-5" />
             </Button>

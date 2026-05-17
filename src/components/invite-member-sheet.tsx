@@ -20,14 +20,12 @@ export function InviteMemberSheet({
   groupId, 
   groupName, 
   inviteCode, 
-  children,
   open,
   onOpenChange
 }: { 
   groupId: string, 
   groupName: string, 
   inviteCode: string, 
-  children: React.ReactNode,
   open?: boolean,
   onOpenChange?: (open: boolean) => void
 }) {
@@ -100,14 +98,16 @@ export function InviteMemberSheet({
   };
 
   return (
-    <Sheet>
-      <SheetTrigger asChild>{children}</SheetTrigger>
+    <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="bottom" className="h-auto rounded-t-[16px] bg-card border-t p-0 flex flex-col">
         <div className="w-full py-4 flex justify-center">
           <div className="w-9 h-1 rounded-full bg-border" />
         </div>
-        <SheetHeader className="px-6 pb-2 text-left">
+        <SheetHeader className="px-6 pb-2 text-left flex flex-row justify-between items-center">
           <SheetTitle className="font-bold text-lg">Convidar para {groupName}</SheetTitle>
+          <SheetClose className="h-8 w-8 rounded-full bg-muted flex items-center justify-center">
+            ✕
+          </SheetClose>
         </SheetHeader>
         
         <div className="px-6 py-6 space-y-8 pb-10">

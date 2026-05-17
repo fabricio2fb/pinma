@@ -1,0 +1,371 @@
+.proPage {
+  --bg: #0b0f0b;
+  --surface: #171c16;
+  --surface2: #1f251e;
+  --line: rgba(255, 255, 255, 0.1);
+  --line2: rgba(255, 255, 255, 0.16);
+  --text: #f5f5f0;
+  --muted: #a4a79f;
+  --primaryText: #11140f;
+  --green: #19c37d;
+  --teal: #35d0c0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(25, 195, 125, 0.16), transparent 32%),
+    radial-gradient(circle at 82% 24%, rgba(53, 208, 192, 0.1), transparent 28%),
+    var(--bg);
+  color: var(--text);
+}
+
+.proNav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 50;
+  width: min(1180px, calc(100vw - 40px));
+  height: 68px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(11, 15, 11, 0.78);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.32);
+}
+
+.proLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.proLogo img {
+  object-fit: contain;
+}
+
+.proLogo span {
+  font-size: 21px;
+}
+
+.proNav>a:last-child {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--line2);
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.proHero {
+  width: min(1180px, calc(100vw - 40px));
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 144px 0 70px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 54px;
+  align-items: center;
+}
+
+.proBadge {
+  width: max-content;
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid rgba(25, 195, 125, 0.24);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--green);
+  background: rgba(25, 195, 125, 0.1);
+  font-size: 13px;
+  font-weight: 950;
+}
+
+.proHero h1 {
+  max-width: 720px;
+  margin: 22px 0 0;
+  font-size: clamp(64px, 9vw, 128px);
+  line-height: 0.86;
+  letter-spacing: 0;
+  font-weight: 950;
+}
+
+.proHero>p {
+  max-width: 650px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.proPriceCard {
+  padding: 28px;
+  border: 1px solid var(--line2);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(25, 195, 125, 0.16), transparent 42%),
+    rgba(18, 23, 18, 0.92);
+  box-shadow: 0 34px 92px rgba(0, 0, 0, 0.35);
+}
+
+.proPriceIcon {
+  width: 60px;
+  height: 60px;
+  border-radius: 22px;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+  box-shadow: 0 18px 44px rgba(25, 195, 125, 0.24);
+}
+
+.proPriceCard>span {
+  display: block;
+  margin-top: 22px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.proPriceCard strong {
+  display: block;
+  margin-top: 10px;
+  color: var(--text);
+  font-size: 56px;
+  line-height: 1;
+  font-weight: 950;
+}
+
+.proPriceCard small {
+  color: var(--muted);
+  font-size: 18px;
+  font-weight: 850;
+}
+
+.proPriceCard p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+.proCheckoutBox {
+  margin-top: 24px;
+}
+
+.proCheckoutBox button {
+  width: 100%;
+  min-height: 58px;
+  border: 0;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--primaryText);
+  background: var(--green);
+  font-size: 16px;
+  font-weight: 950;
+  cursor: pointer;
+  box-shadow: 0 22px 52px rgba(25, 195, 125, 0.26);
+}
+
+.proCheckoutBox button:disabled {
+  cursor: wait;
+  opacity: 0.82;
+}
+
+.proCheckoutBox p,
+.proErrorBox {
+  margin-top: 12px;
+  padding: 12px;
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  border-radius: 16px;
+  color: #fecaca;
+  background: rgba(239, 68, 68, 0.08);
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 800;
+}
+
+.proSpinner {
+  animation: proSpin 800ms linear infinite;
+}
+
+.proBenefits,
+.proSecurityNote {
+  width: min(1180px, calc(100vw - 40px));
+  margin: 0 auto;
+}
+
+.proBenefits {
+  padding: 0 0 76px;
+}
+
+.proSectionHeader {
+  max-width: 720px;
+}
+
+.proSectionHeader svg {
+  color: var(--green);
+}
+
+.proSectionHeader h2 {
+  margin: 14px 0 0;
+  color: var(--text);
+  font-size: clamp(38px, 5vw, 64px);
+  line-height: 1.04;
+  font-weight: 950;
+}
+
+.proSectionHeader p {
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 650;
+}
+
+.proBenefitsGrid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.proBenefitsGrid article {
+  min-height: 70px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.proBenefitsGrid svg {
+  flex: 0 0 auto;
+  color: var(--green);
+}
+
+.proBenefitsGrid span {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 900;
+}
+
+.proSecurityNote {
+  margin-bottom: 76px;
+  padding: 22px;
+  border: 1px solid rgba(25, 195, 125, 0.22);
+  border-radius: 26px;
+  background: rgba(25, 195, 125, 0.08);
+}
+
+.proSecurityNote strong {
+  display: block;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.proSecurityNote p {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 700;
+}
+
+@keyframes proSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 860px) {
+  .proHero {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+}
+
+@media (max-width: 560px) {
+  .proNav {
+    top: 12px;
+    width: calc(100vw - 24px);
+    height: 58px;
+    border-radius: 20px;
+    padding: 0 12px;
+  }
+
+  .proNav .proLogo span {
+    font-size: 18px;
+  }
+
+  .proNav .proLogo img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .proNav>a:last-child {
+    min-height: 38px;
+    padding: 0 12px;
+    border-radius: 14px;
+    font-size: 12px;
+  }
+
+  .proHero,
+  .proBenefits,
+  .proSecurityNote {
+    width: calc(100vw - 24px);
+  }
+
+  .proHero {
+    min-height: auto;
+    padding-top: 104px;
+    padding-bottom: 48px;
+  }
+
+  .proHero h1 {
+    font-size: 58px;
+  }
+
+  .proHero>p,
+  .proSectionHeader p {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .proPriceCard {
+    padding: 22px;
+    border-radius: 28px;
+  }
+
+  .proPriceCard strong {
+    font-size: 44px;
+  }
+
+  .proBenefitsGrid {
+    grid-template-columns: 1fr;
+  }
+}

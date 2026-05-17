@@ -1,0 +1,3662 @@
+.page {
+  --bg: #0b0f0b;
+  --surface: #171c16;
+  --surface2: #1f251e;
+  --line: rgba(255, 255, 255, 0.1);
+  --line2: rgba(255, 255, 255, 0.16);
+  --text: #f5f5f0;
+  --muted: #a4a79f;
+  --primary: #f4f1ea;
+  --primaryText: #11140f;
+  --green: #19c37d;
+  --teal: #35d0c0;
+  --yellow: #d7a900;
+  --danger: #ef4444;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.nav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 50;
+  width: min(1180px, calc(100vw - 40px));
+  height: 68px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 0 14px 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(11, 15, 11, 0.78);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.32);
+}
+
+.logoMark {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.logoMark img {
+  object-fit: contain;
+}
+
+.logoMark span {
+  font-size: 21px;
+}
+
+.nav>div {
+  display: flex;
+  align-items: center;
+  gap: 26px;
+}
+
+.nav a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+.navButton {
+  min-width: 104px;
+  height: 44px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primaryText) !important;
+  background: var(--primary);
+}
+
+.mobileStickyCta {
+  display: none;
+}
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  padding: 140px max(32px, calc((100vw - 1180px) / 2)) 74px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 410px;
+  gap: 70px;
+  align-items: center;
+  overflow: hidden;
+}
+
+.hero>.mapScene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  height: auto;
+  border-radius: 0;
+  border: 0;
+  opacity: 0.82;
+}
+
+.heroShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(11, 15, 11, 0.96) 0%, rgba(11, 15, 11, 0.82) 46%, rgba(11, 15, 11, 0.56) 100%),
+    linear-gradient(180deg, rgba(11, 15, 11, 0.52), rgba(11, 15, 11, 0.98));
+}
+
+.heroContent,
+.heroPhone {
+  position: relative;
+  z-index: 2;
+}
+
+.kicker,
+.sectionHeader span,
+.mapCopy span,
+.screenColumn>span,
+.apkSection span {
+  display: inline-flex;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(76px, 11vw, 156px);
+  line-height: 0.82;
+  letter-spacing: 0;
+  font-weight: 950;
+}
+
+.heroContent>p {
+  max-width: 650px;
+  margin: 28px 0 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.heroActions {
+  margin-top: 34px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.heroActions a {
+  min-height: 52px;
+  padding: 0 24px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  font-weight: 900;
+}
+
+.heroActions a:first-child {
+  background: var(--primary);
+  color: var(--primaryText);
+}
+
+.heroActions a:last-child {
+  border: 1px solid var(--line2);
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.heroStats {
+  margin-top: 44px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 160px));
+  gap: 12px;
+}
+
+.heroStats span {
+  min-height: 82px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(23, 28, 22, 0.7);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.4;
+}
+
+.heroStats strong {
+  display: block;
+  color: var(--text);
+  font-size: 25px;
+  margin-bottom: 5px;
+}
+
+.mapScene {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  height: 100%;
+  min-height: 420px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    linear-gradient(24deg, rgba(53, 208, 192, 0.08), transparent 34%),
+    linear-gradient(146deg, rgba(25, 195, 125, 0.1), transparent 38%),
+    #10160f;
+}
+
+.realMap,
+.realMapCompact,
+.realMapCanvas,
+.mapLoading {
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+}
+
+.realMapCanvas {
+  background: #0b0f0b;
+}
+
+.realMap :global(.leaflet-container),
+.realMapCompact :global(.leaflet-container) {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+}
+
+.realMap :global(.leaflet-control-attribution),
+.realMapCompact :global(.leaflet-control-attribution) {
+  display: none;
+}
+
+.realMap :global(.leaflet-control-zoom) {
+  border: 1px solid var(--line) !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  background: rgba(23, 28, 22, 0.86);
+}
+
+.realMap :global(.leaflet-control-zoom a) {
+  width: 40px !important;
+  height: 40px !important;
+  line-height: 40px !important;
+  color: var(--text) !important;
+  background: rgba(23, 28, 22, 0.9) !important;
+  border-color: var(--line) !important;
+}
+
+.mapLoading {
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    #111710;
+  background-size: 46px 46px;
+  font-weight: 900;
+}
+
+.leafletCleanIcon {
+  background: transparent;
+  border: 0;
+}
+
+.lpUserMarker {
+  width: 42px;
+  height: 42px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: #2563eb;
+  border: 3px solid #fff;
+  box-shadow:
+    0 0 0 10px rgba(37, 99, 235, 0.16),
+    0 16px 30px rgba(0, 0, 0, 0.34);
+}
+
+.lpUserMarker span {
+  display: block;
+  transform: rotate(-40deg);
+  font-size: 18px;
+  font-weight: 950;
+}
+
+.lpReminderMarker {
+  position: relative;
+  width: 48px;
+  height: 62px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lpReminderMarker::before {
+  content: '';
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border-radius: 18px 18px 18px 4px;
+  transform: rotate(-45deg);
+  background: var(--pin-color);
+  border: 3px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.38);
+}
+
+.lpReminderMarker img {
+  position: relative;
+  z-index: 2;
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  filter: drop-shadow(0 3px 7px rgba(0, 0, 0, 0.32));
+}
+
+.lpReminderMarker span {
+  position: absolute;
+  right: -2px;
+  top: 3px;
+  z-index: 3;
+  min-width: 18px;
+  height: 18px;
+  padding: 3px 5px 0;
+  border-radius: 999px;
+  color: var(--primaryText);
+  background: var(--primary);
+  font-size: 9px;
+  font-weight: 950;
+  text-align: center;
+}
+
+.lpPoiMarker {
+  min-height: 34px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+}
+
+.lpPoiMarker b {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--pin-color);
+  border: 2px solid #fff;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.34);
+  font-size: 14px;
+}
+
+.lpPoiMarker span {
+  min-height: 26px;
+  padding: 6px 9px 0;
+  border-radius: 999px;
+  color: #fff;
+  background: rgba(11, 15, 11, 0.74);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.22);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.lpPopup {
+  width: 230px;
+  padding: 12px;
+}
+
+.lpPopup strong,
+.lpPopup span,
+.lpPopup p {
+  display: block;
+}
+
+.lpPopup strong {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.2;
+}
+
+.lpPopup span {
+  width: fit-content;
+  margin-top: 8px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(25, 195, 125, 0.12);
+  font-size: 10px;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.lpPopup p {
+  margin: 10px 0 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.lpPopup button {
+  width: 100%;
+  min-height: 38px;
+  border: 0;
+  border-radius: 13px;
+  color: var(--primaryText);
+  background: var(--primary);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.mapGrid,
+.phoneMapGrid {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+  background-size: 46px 46px;
+}
+
+.route {
+  position: absolute;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(244, 241, 234, 0.08);
+  transform-origin: left center;
+}
+
+.routeOne {
+  width: 64vw;
+  top: 32%;
+  left: 5%;
+  transform: rotate(-18deg);
+}
+
+.routeTwo {
+  width: 70vw;
+  bottom: 24%;
+  left: 18%;
+  transform: rotate(14deg);
+}
+
+.zone {
+  position: absolute;
+  border-radius: 999px;
+  border: 1px solid rgba(25, 195, 125, 0.32);
+  background: rgba(25, 195, 125, 0.08);
+}
+
+.zoneMarket {
+  width: 220px;
+  height: 220px;
+  left: 22%;
+  top: 22%;
+}
+
+.zonePharmacy {
+  width: 170px;
+  height: 170px;
+  right: 18%;
+  bottom: 22%;
+  border-color: rgba(53, 208, 192, 0.32);
+  background: rgba(53, 208, 192, 0.08);
+}
+
+.poi,
+.phonePlace {
+  position: absolute;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  background: rgba(23, 28, 22, 0.9);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+}
+
+.poi::before,
+.phonePlace::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.poiOne { left: 20%; top: 26%; }
+.poiTwo { right: 20%; top: 28%; }
+.poiThree { left: 44%; bottom: 22%; }
+.poiFour { right: 34%; bottom: 38%; }
+
+.userPin,
+.alertPin,
+.phoneMarker {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 16px 32px rgba(25, 195, 125, 0.28);
+}
+
+.userPin {
+  left: 54%;
+  top: 48%;
+  width: 52px;
+  height: 52px;
+  border-radius: 18px;
+  color: var(--primaryText);
+  background: var(--green);
+}
+
+.alertPin {
+  left: 37%;
+  top: 40%;
+  width: 54px;
+  height: 54px;
+  border-radius: 22px;
+  background: rgba(244, 241, 234, 0.12);
+  border: 1px solid var(--line2);
+}
+
+.phone {
+  width: 386px;
+  min-height: 742px;
+  padding: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 42px;
+  background: #0b0f0b;
+  box-shadow: 0 34px 100px rgba(0, 0, 0, 0.5);
+}
+
+.phoneStatus,
+.phoneHeader,
+.phoneActions,
+.phoneNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.phoneStatus {
+  height: 28px;
+  padding: 0 10px;
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.phoneHeader {
+  margin-top: 6px;
+}
+
+.phoneHeader button {
+  width: 30px;
+  height: 30px;
+  padding: 4px;
+  border: 0;
+  border-radius: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(245, 245, 240, 0.88);
+  background: transparent;
+  cursor: pointer;
+}
+
+.phoneHeader button:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.phoneScreen {
+  min-height: 594px;
+  max-height: 594px;
+  overflow: hidden;
+}
+
+.phoneSearch {
+  height: 46px;
+  margin-top: 16px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.055);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.phoneFilterRow {
+  margin-top: 12px;
+  display: flex;
+  gap: 8px;
+  overflow: hidden;
+}
+
+.phoneFilterRow span,
+.phoneFilterRow b {
+  min-height: 34px;
+  padding: 9px 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  white-space: nowrap;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.phoneFilterRow b {
+  color: var(--primaryText);
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.phoneMap {
+  position: relative;
+  height: 262px;
+  margin-top: 14px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: #111710;
+}
+
+.phoneMap .realMapCompact {
+  position: absolute;
+  inset: 0;
+  min-height: 100%;
+}
+
+.phoneMap :global(.leaflet-container) {
+  pointer-events: none;
+}
+
+.phoneMapPoi {
+  position: absolute;
+  z-index: 6;
+  min-height: 30px;
+  padding: 8px 10px 0;
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(11, 15, 11, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 10px;
+  font-weight: 900;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.28);
+}
+
+.phoneMapPin {
+  position: absolute;
+  z-index: 8;
+  left: 44%;
+  top: 38%;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--line2);
+  border-radius: 20px;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+  box-shadow: 0 16px 32px rgba(25, 195, 125, 0.3);
+}
+
+.phoneRadius {
+  position: absolute;
+  left: 78px;
+  top: 54px;
+  width: 138px;
+  height: 138px;
+  border-radius: 50%;
+  border: 1px solid rgba(25, 195, 125, 0.3);
+  background: rgba(25, 195, 125, 0.08);
+}
+
+.phonePlaceOne { left: 18px; top: 46px; }
+.phonePlaceTwo { right: 18px; top: 92px; }
+
+.phoneMarker {
+  left: 132px;
+  top: 100px;
+  width: 58px;
+  height: 58px;
+  border-radius: 22px;
+  background: rgba(244, 241, 234, 0.12);
+  border: 1px solid var(--line2);
+}
+
+.phoneBanner {
+  position: absolute;
+  z-index: 20;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  min-height: 42px;
+  padding: 12px;
+  border-radius: 17px;
+  color: var(--text);
+  background: rgba(11, 15, 11, 0.88);
+  border: 1px solid rgba(25, 195, 125, 0.24);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.phoneActions {
+  margin-top: 12px;
+  gap: 9px;
+}
+
+.phoneActions button {
+  flex: 1;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.phoneCards {
+  margin-top: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.phoneMiniSheet {
+  min-height: 62px;
+  margin-top: 12px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 21px;
+  display: grid;
+  gap: 4px;
+  background: rgba(23, 28, 22, 0.82);
+}
+
+.phoneMiniSheet strong,
+.phoneTitleRow strong,
+.phoneReminderFull strong,
+.phonePlaceCard strong,
+.phoneGroupCard strong,
+.phoneProfileTop strong {
+  color: var(--text);
+}
+
+.phoneMiniSheet span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.phoneReminder {
+  min-height: 64px;
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  background: rgba(23, 28, 22, 0.82);
+}
+
+.phoneReminder>div {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--green);
+}
+
+.phoneReminder strong,
+.phoneReminder small {
+  display: block;
+}
+
+.phoneReminder strong {
+  font-size: 13px;
+}
+
+.phoneReminder small {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.phoneReminder em {
+  min-height: 28px;
+  padding: 7px 9px 0;
+  border-radius: 999px;
+  color: var(--primaryText);
+  background: var(--primary);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.phoneNav {
+  height: 58px;
+  margin-top: 13px;
+  padding: 7px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(28, 31, 26, 0.88);
+}
+
+.phoneNav button {
+  flex: 1;
+  height: 42px;
+  border: 0;
+  border-radius: 16px;
+  color: var(--muted);
+  background: transparent;
+  font-size: 10px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.phoneNav .phoneNavActive {
+  color: var(--text);
+  background: rgba(25, 195, 125, 0.14);
+  border: 1px solid rgba(25, 195, 125, 0.22);
+}
+
+.phoneNav span,
+.phoneNav b {
+  flex: 1;
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.phoneNav b {
+  height: 42px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  background: rgba(25, 195, 125, 0.14);
+  border: 1px solid rgba(25, 195, 125, 0.22);
+}
+
+.phoneTitleRow {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.phoneTitleRow strong {
+  display: block;
+  font-size: 24px;
+  font-weight: 950;
+}
+
+.phoneTitleRow span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.phoneTitleRow button {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  border-radius: 18px;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+}
+
+.phoneReminderFull,
+.phonePlaceCard,
+.phoneGroupCard {
+  min-height: 112px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(23, 28, 22, 0.78);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.18);
+}
+
+.phoneReminderFull {
+  padding: 14px;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 12px;
+}
+
+.phoneCardIcon,
+.phoneUrgentIcon {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  background: rgba(244, 241, 234, 0.1);
+}
+
+.phoneUrgentIcon {
+  color: #ff6b6b;
+}
+
+.phoneReminderFull section,
+.phonePlaceCard section,
+.phoneGroupCard section {
+  min-width: 0;
+}
+
+.phoneReminderFull header,
+.phonePlaceCard header,
+.phoneGroupCard header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.phoneReminderFull header strong,
+.phonePlaceCard header strong,
+.phoneGroupCard header strong {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.phoneReminderFull small,
+.phonePlaceCard small {
+  display: block;
+  margin-top: 5px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.phoneReminderFull p,
+.phonePlaceCard p,
+.phoneGroupCard p {
+  margin: 5px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.35;
+  font-weight: 650;
+}
+
+.phoneReminderFull footer,
+.phoneGroupCard footer {
+  margin-top: 8px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.phoneReminderFull footer span,
+.phoneReminderFull footer b,
+.phoneReminderFull footer em,
+.phoneGroupCard footer span,
+.phoneGroupCard footer b {
+  min-height: 28px;
+  padding: 7px 10px 0;
+  border-radius: 999px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.065);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.phoneReminderFull footer b,
+.phoneGroupCard footer b {
+  color: var(--primaryText);
+  background: var(--teal);
+}
+
+.phoneReminderFull footer em {
+  color: var(--primaryText);
+  background: var(--primary);
+}
+
+.phonePlaceCard {
+  padding: 13px;
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 11px;
+  align-items: center;
+}
+
+.phonePlaceCard>div {
+  width: 52px;
+  height: 52px;
+  border-radius: 19px;
+  display: grid;
+  place-items: center;
+}
+
+.phonePlaceCard header b {
+  padding: 4px 8px;
+  border-radius: 999px;
+  color: var(--primaryText);
+  background: var(--green);
+  font-size: 10px;
+  font-weight: 950;
+}
+
+.phonePlaceCard em {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 750;
+}
+
+.phoneBadge {
+  width: max-content;
+  margin-top: 14px;
+  min-height: 34px;
+  padding: 9px 12px 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.055);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.phoneGroupCard {
+  min-height: 140px;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: 50px 1fr;
+  gap: 13px;
+}
+
+.phoneGroupCard>div {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--primary);
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.phoneProfileTop {
+  margin-top: 16px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  background: rgba(23, 28, 22, 0.78);
+}
+
+.phoneProfileTop>div {
+  width: 66px;
+  height: 66px;
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+}
+
+.phoneProfileTop strong {
+  margin-top: 12px;
+  font-size: 21px;
+  font-weight: 950;
+}
+
+.phoneProfileTop span {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.phoneProfileTop b {
+  margin-top: 10px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(25, 195, 125, 0.12);
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.phoneStatsGrid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.phoneStatsGrid span {
+  min-height: 66px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.phoneStatsGrid strong {
+  display: block;
+  color: var(--text);
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.phoneSettingsList {
+  margin-top: 12px;
+  display: grid;
+  gap: 8px;
+}
+
+.phoneSettingsList button {
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 17px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.phoneSettingsList em {
+  margin-left: auto;
+  min-width: 24px;
+  height: 24px;
+  padding-top: 5px;
+  border-radius: 999px;
+  color: var(--primaryText);
+  background: var(--green);
+  font-size: 10px;
+  font-style: normal;
+}
+
+.productSection,
+.identitySection,
+.flowSection,
+.sceneSection,
+.storySection,
+.realScreens,
+.apkSection,
+.mapFeatureSection {
+  width: min(1180px, calc(100vw - 40px));
+  margin: 0 auto;
+}
+
+.productSection {
+  padding: 108px 0 76px;
+}
+
+.identitySection {
+  padding: 78px 0 0;
+}
+
+.identityInner {
+  padding: 34px;
+  border: 1px solid rgba(25, 195, 125, 0.14);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 16% 10%, rgba(25, 195, 125, 0.12), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.025)),
+    rgba(18, 23, 18, 0.74);
+  box-shadow: 0 26px 80px rgba(0, 0, 0, 0.28);
+}
+
+.identityHeader {
+  max-width: 700px;
+}
+
+.identityHeader span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.identityHeader h2 {
+  margin: 10px 0 0;
+  color: var(--text);
+  font-size: clamp(34px, 4vw, 58px);
+  line-height: 0.98;
+}
+
+.identityGrid {
+  margin-top: 26px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.identityCard {
+  min-height: 150px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.identityCard strong {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+}
+
+.identityCard p {
+  margin: 20px 0 0;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 850;
+  line-height: 1.24;
+}
+
+.identityClosing {
+  max-width: 760px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+
+.sectionHeader {
+  max-width: 780px;
+  margin-bottom: 34px;
+}
+
+.sectionHeader h2,
+.mapCopy h2,
+.screenColumn h2,
+.apkSection h2 {
+  margin: 0;
+  font-size: clamp(36px, 5vw, 66px);
+  line-height: 1.02;
+  letter-spacing: 0;
+  font-weight: 950;
+}
+
+.sectionHeader p,
+.mapCopy p,
+.apkSection p {
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 650;
+}
+
+.productMobileShowcase {
+  min-height: 720px;
+  padding: 34px;
+  border: 1px solid var(--line);
+  border-radius: 36px;
+  display: grid;
+  grid-template-columns: minmax(360px, 0.88fr) minmax(0, 1fr);
+  gap: 44px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 24% 16%, rgba(25, 195, 125, 0.14), transparent 34%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    rgba(23, 28, 22, 0.78);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+
+.productPhoneFrame {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.productPhoneFrame::before {
+  content: '';
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: rgba(25, 195, 125, 0.1);
+  filter: blur(18px);
+}
+
+.productPhoneFrame .phone {
+  position: relative;
+  z-index: 1;
+}
+
+.productMobileCopy {
+  max-width: 560px;
+}
+
+.productMobileCopy>span {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.productMobileCopy h3 {
+  margin: 12px 0 0;
+  color: var(--text);
+  font-size: clamp(34px, 4vw, 58px);
+  line-height: 1.02;
+  font-weight: 950;
+}
+
+.productMobileCopy>p {
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 650;
+}
+
+.mobileFlowCards {
+  margin-top: 26px;
+  display: grid;
+  gap: 12px;
+}
+
+.mobileFlowCards article {
+  min-height: 112px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  display: grid;
+  grid-template-columns: 42px 1fr;
+  gap: 4px 14px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.mobileFlowCards svg {
+  grid-row: span 2;
+  width: 42px;
+  height: 42px;
+  padding: 11px;
+  border-radius: 16px;
+  color: var(--primaryText);
+  background: var(--green);
+}
+
+.mobileFlowCards strong {
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.mobileFlowCards p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+  font-weight: 650;
+}
+
+.desktopPanel {
+  height: 690px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  overflow: hidden;
+  background: rgba(23, 28, 22, 0.86);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+}
+
+.desktopPanel aside {
+  padding: 24px;
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.desktopPanel aside>a {
+  margin-bottom: 18px;
+}
+
+.desktopPanel aside>button {
+  min-height: 44px;
+  padding: 13px 15px;
+  border: 0;
+  border-radius: 16px;
+  text-align: left;
+  color: var(--muted);
+  background: transparent;
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: 0.18s ease;
+}
+
+.desktopPanel aside>button:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.desktopPanel .navActive {
+  color: var(--primaryText);
+  background: var(--primary);
+}
+
+.desktopPanel main {
+  min-width: 0;
+  padding: 24px;
+}
+
+.panelTop {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panelTop strong,
+.panelTop span {
+  display: block;
+}
+
+.panelTop strong {
+  font-size: 20px;
+}
+
+.panelTop span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.panelTop button,
+.popup button {
+  border: 0;
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--primaryText);
+  background: var(--primary);
+  font-weight: 900;
+}
+
+.panelTop button {
+  height: 42px;
+  padding: 0 15px;
+}
+
+.panelBody {
+  height: calc(100% - 76px);
+  display: grid;
+  grid-template-columns: 1fr 260px;
+  gap: 16px;
+}
+
+.panelBodyLive {
+  height: calc(100% - 76px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 16px;
+}
+
+.panelMap {
+  overflow: hidden;
+  border-radius: 26px;
+}
+
+.panelMap .mapScene,
+.mapDetail .mapScene {
+  min-height: 100%;
+}
+
+.sideStack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.livePane {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top right, rgba(25, 195, 125, 0.12), transparent 44%),
+    rgba(11, 15, 11, 0.42);
+}
+
+.liveContent {
+  height: 100%;
+  padding: 16px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.liveContent::-webkit-scrollbar {
+  width: 0;
+}
+
+.liveSearch {
+  min-height: 44px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.055);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.liveChips {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+.liveChips b,
+.liveChips span {
+  min-height: 32px;
+  padding: 8px 11px 0;
+  border-radius: 999px;
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.liveChips b {
+  color: var(--primaryText);
+  background: var(--primary);
+}
+
+.liveChips span {
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--line);
+}
+
+.liveReminderCard,
+.livePlaceCard,
+.liveGroupCard {
+  min-height: 112px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: flex-start;
+  background: rgba(23, 28, 22, 0.82);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.16);
+}
+
+.liveReminderCard>div:first-child,
+.livePlaceCard>div:first-child,
+.liveGroupCard>div:first-child {
+  width: 46px;
+  height: 46px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.greenIcon {
+  color: var(--primaryText);
+  background: var(--green);
+}
+
+.redIcon {
+  color: #fff;
+  background: var(--danger);
+}
+
+.liveReminderCard strong,
+.liveReminderCard span,
+.liveReminderCard p,
+.livePlaceCard strong,
+.livePlaceCard span,
+.livePlaceCard p,
+.liveGroupCard strong,
+.liveGroupCard span {
+  display: block;
+}
+
+.liveReminderCard strong,
+.livePlaceCard strong,
+.liveGroupCard strong {
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.15;
+}
+
+.liveReminderCard span,
+.livePlaceCard span,
+.liveGroupCard span {
+  margin-top: 5px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.liveReminderCard p,
+.livePlaceCard p {
+  margin: 7px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.liveReminderCard em,
+.livePlaceCard b {
+  min-height: 30px;
+  padding: 8px 10px 0;
+  border-radius: 999px;
+  color: var(--primaryText);
+  background: var(--primary);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 950;
+}
+
+.livePlaceCard {
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+}
+
+.livePlaceCard section {
+  min-width: 0;
+}
+
+.liveGroupCard {
+  grid-template-columns: auto 1fr;
+}
+
+.liveGroupCard>div:first-child {
+  color: var(--primaryText);
+  background: var(--primary);
+  font-size: 20px;
+  font-weight: 950;
+  border-radius: 50%;
+}
+
+.liveGroupCard p {
+  margin: 12px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 850;
+}
+
+.liveGroupCard p b {
+  padding: 6px 9px;
+  border-radius: 999px;
+  color: var(--green);
+  background: rgba(25, 195, 125, 0.1);
+}
+
+.liveInboxCard,
+.liveProfileCard,
+.liveEmptyInbox,
+.liveProfileLinks {
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: rgba(23, 28, 22, 0.82);
+}
+
+.liveInboxCard {
+  padding: 18px;
+}
+
+.liveInboxCard>div {
+  width: 58px;
+  height: 58px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  background: rgba(244, 241, 234, 0.09);
+  margin-bottom: 16px;
+}
+
+.liveInboxCard strong,
+.liveInboxCard span,
+.liveInboxCard p {
+  display: block;
+}
+
+.liveInboxCard strong {
+  font-size: 18px;
+}
+
+.liveInboxCard span,
+.liveInboxCard p,
+.liveEmptyInbox {
+  color: var(--muted);
+  line-height: 1.5;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.liveInboxCard span {
+  margin-top: 7px;
+}
+
+.liveInboxCard section {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.liveInboxCard button {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  font-weight: 950;
+}
+
+.liveInboxCard button:last-child {
+  color: var(--primaryText);
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.liveEmptyInbox {
+  min-height: 78px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.liveEmptyInbox svg {
+  color: var(--green);
+}
+
+.liveProfileCard {
+  padding: 22px;
+  text-align: center;
+}
+
+.liveAvatar {
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 14px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--primary);
+  border: 5px solid var(--bg);
+  font-size: 26px;
+  font-weight: 950;
+}
+
+.liveProfileCard strong,
+.liveProfileCard span {
+  display: block;
+}
+
+.liveProfileCard strong {
+  font-size: 22px;
+}
+
+.liveProfileCard span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.liveProfileCard section {
+  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.liveProfileCard p {
+  margin: 0;
+  min-height: 58px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.liveProfileCard p b,
+.liveProfileCard p small {
+  display: block;
+}
+
+.liveProfileCard p b {
+  color: var(--text);
+  font-size: 18px;
+}
+
+.liveProfileCard p small {
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+.liveProfileLinks {
+  padding: 8px;
+}
+
+.liveProfileLinks p {
+  min-height: 46px;
+  margin: 0;
+  padding: 0 12px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.liveProfileLinks p+p {
+  border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.liveProfileLinks p b {
+  margin-left: auto;
+  min-width: 25px;
+  height: 25px;
+  padding-top: 5px;
+  border-radius: 50%;
+  color: var(--primaryText);
+  background: var(--green);
+  text-align: center;
+  font-size: 11px;
+}
+
+.sideCard {
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(11, 15, 11, 0.42);
+}
+
+.sideCard strong {
+  display: block;
+  margin-bottom: 13px;
+}
+
+.sideCard p {
+  margin: 0;
+  min-height: 34px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.sideCard p span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.mapFeatureSection {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  padding: 76px 0;
+  display: grid;
+  grid-template-columns: 410px minmax(0, 1fr);
+  gap: 34px;
+  align-items: stretch;
+}
+
+.filterRack {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.filterRack span {
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.mapDetail {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  min-height: 440px;
+  overflow: hidden;
+  border-radius: 34px;
+}
+
+.popup {
+  position: absolute;
+  right: 26px;
+  bottom: 26px;
+  width: 270px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: rgba(11, 15, 11, 0.9);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.35);
+}
+
+.popup strong,
+.popup span {
+  display: block;
+}
+
+.popup span {
+  margin: 7px 0 14px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.popup button {
+  width: 100%;
+  min-height: 40px;
+  justify-content: center;
+}
+
+.flowSection {
+  padding: 80px 0;
+}
+
+.flowGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+}
+
+.flowCard,
+.screenColumn,
+.apkSection {
+  border: 1px solid var(--line);
+  background: rgba(23, 28, 22, 0.72);
+}
+
+.flowCard {
+  min-height: 230px;
+  padding: 22px;
+  border-radius: 26px;
+}
+
+.flowCard b {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  margin-bottom: 34px;
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  color: var(--green);
+  background: rgba(25, 195, 125, 0.12);
+  border: 1px solid rgba(25, 195, 125, 0.22);
+}
+
+.flowCard strong {
+  display: block;
+  font-size: 19px;
+  line-height: 1.2;
+}
+
+.flowCard p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.sceneSection {
+  padding: 18px 0 76px;
+}
+
+.sceneTitle {
+  max-width: 780px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.sceneTitle h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(34px, 4.6vw, 62px);
+  line-height: 1.02;
+  font-weight: 950;
+}
+
+.sceneSubtitle {
+  max-width: 580px;
+  margin: 16px auto 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.sceneStage {
+  position: relative;
+  aspect-ratio: 16 / 7;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 70% 44%, rgba(25, 195, 125, 0.12), transparent 22%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+    #0a0f0a;
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+}
+
+.sceneMap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sceneMap path {
+  fill: none;
+  stroke: rgba(25, 195, 125, 0.18);
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+
+.sceneMap path:nth-child(even) {
+  stroke: rgba(244, 241, 234, 0.08);
+  stroke-width: 12;
+}
+
+.sceneCopy {
+  position: absolute;
+  z-index: 8;
+  left: 54px;
+  bottom: 46px;
+  max-width: 520px;
+}
+
+.sceneCopy span,
+.sceneCopy strong {
+  display: block;
+  margin-top: 7px;
+  opacity: 0;
+  transform: translateY(12px);
+  color: var(--text);
+  font-size: clamp(24px, 3vw, 42px);
+  line-height: 1.04;
+  font-weight: 950;
+}
+
+.sceneCopy span:first-child {
+  margin-top: 0;
+}
+
+.scenePin {
+  position: absolute;
+  z-index: 7;
+  left: 62%;
+  top: 42%;
+  width: 66px;
+  height: 66px;
+  border: 1px solid rgba(25, 195, 125, 0.34);
+  border-radius: 24px;
+  display: grid;
+  place-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+  opacity: 0;
+  transform: translateY(-60px);
+  box-shadow: 0 18px 44px rgba(25, 195, 125, 0.34);
+}
+
+.sceneRadius {
+  position: absolute;
+  z-index: 4;
+  left: calc(62% - 95px);
+  top: calc(42% - 95px);
+  width: 256px;
+  height: 256px;
+  border: 2px solid rgba(25, 195, 125, 0.42);
+  border-radius: 50%;
+  background: rgba(25, 195, 125, 0.09);
+  opacity: 0;
+  transform: scale(0);
+}
+
+.sceneDot {
+  position: absolute;
+  z-index: 6;
+  left: 20%;
+  top: 72%;
+  width: 24px;
+  height: 24px;
+  border: 4px solid rgba(244, 241, 234, 0.86);
+  border-radius: 999px;
+  background: var(--green);
+  opacity: 0;
+  box-shadow: 0 12px 30px rgba(25, 195, 125, 0.34);
+}
+
+.sceneNotification {
+  position: absolute;
+  z-index: 10;
+  top: 24px;
+  left: 50%;
+  width: min(520px, calc(100% - 48px));
+  min-height: 78px;
+  padding: 14px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 24px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  color: var(--text);
+  background: rgba(18, 23, 18, 0.9);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.38);
+  opacity: 0;
+  transform: translate(-50%, -40px);
+}
+
+.sceneNotification img {
+  object-fit: contain;
+}
+
+.sceneNotification strong,
+.sceneNotification span {
+  display: block;
+}
+
+.sceneNotification strong {
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.sceneNotification span,
+.sceneNotification time {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.sceneStarted .scenePin {
+  animation: pinDrop 760ms cubic-bezier(0.2, 0.9, 0.25, 1.25) both;
+}
+
+.sceneStarted .sceneRadius {
+  animation:
+    radiusExpand 720ms ease-out 180ms both,
+    radiusPulse 1800ms ease-in-out 950ms infinite,
+    pulseStrong 620ms ease-out 2800ms both;
+}
+
+.sceneStarted .sceneDot {
+  animation: dotMove 2000ms ease-in-out 800ms both;
+}
+
+.sceneStarted .sceneNotification {
+  animation: slideDown 700ms ease-out 3400ms both;
+}
+
+.sceneStarted .sceneCopy span:nth-child(1) {
+  animation: fadeInCopy 540ms ease-out 80ms both;
+}
+
+.sceneStarted .sceneCopy span:nth-child(2) {
+  animation: fadeInCopy 540ms ease-out 820ms both;
+}
+
+.sceneStarted .sceneCopy span:nth-child(3) {
+  animation: fadeInCopy 540ms ease-out 2800ms both;
+}
+
+.sceneStarted .sceneCopy strong {
+  animation: fadeInCopy 620ms ease-out 3500ms both;
+}
+
+@keyframes pinDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-60px) scale(0.92);
+  }
+  68% {
+    opacity: 1;
+    transform: translateY(8px) scale(1.02);
+  }
+  84% {
+    transform: translateY(-5px) scale(0.99);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes radiusExpand {
+  0% {
+    opacity: 0;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+}
+
+@keyframes radiusPulse {
+  0%, 100% {
+    opacity: 0.28;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.48;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes pulseStrong {
+  0% {
+    border-color: rgba(25, 195, 125, 0.42);
+    background: rgba(25, 195, 125, 0.09);
+    opacity: 0.36;
+    transform: scale(1);
+  }
+  45% {
+    border-color: rgba(25, 195, 125, 0.95);
+    background: rgba(25, 195, 125, 0.22);
+    opacity: 0.95;
+    transform: scale(1.3);
+  }
+  100% {
+    border-color: rgba(25, 195, 125, 0.42);
+    background: rgba(25, 195, 125, 0.09);
+    opacity: 0.38;
+    transform: scale(1);
+  }
+}
+
+@keyframes dotMove {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.84);
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+    transform: translate(690px, -206px) scale(1);
+  }
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeInCopy {
+  0% {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.storySection {
+  padding: 18px 0 76px;
+}
+
+.storyHeader {
+  max-width: 760px;
+  margin: 0 auto 34px;
+  text-align: center;
+}
+
+.storyHeader h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(34px, 4.6vw, 62px);
+  line-height: 1.02;
+  font-weight: 950;
+}
+
+.storyHeader p {
+  max-width: 600px;
+  margin: 16px auto 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.storyGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.storyCard {
+  position: relative;
+  min-height: 310px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 20% 0%, rgba(25, 195, 125, 0.1), transparent 38%),
+    rgba(23, 28, 22, 0.72);
+  box-shadow: 0 20px 54px rgba(0, 0, 0, 0.2);
+}
+
+.storyIcon {
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(25, 195, 125, 0.24);
+  border-radius: 17px;
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  background: rgba(25, 195, 125, 0.12);
+}
+
+.storyScene {
+  margin: 28px 0 0;
+  color: rgba(164, 167, 159, 0.86);
+  font-size: 13px;
+  font-style: italic;
+  line-height: 1.5;
+  font-weight: 650;
+}
+
+.storyMain {
+  display: block;
+  margin-top: 16px;
+  color: var(--text);
+  font-size: 21px;
+  line-height: 1.16;
+  font-weight: 950;
+}
+
+.storyDesc {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.58;
+  font-weight: 650;
+}
+
+.storyConnector {
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: -18px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  color: var(--green);
+  background: rgba(11, 15, 11, 0.92);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+  transform: translateY(-50%);
+}
+
+.apkCardWrap {
+  width: min(1180px, calc(100vw - 40px));
+  margin: 48px auto 90px;
+  padding: 1px;
+  border-radius: 36px;
+  background:
+    linear-gradient(135deg, rgba(25, 195, 125, 0.34), rgba(53, 208, 192, 0.1), rgba(255, 255, 255, 0.06)),
+    rgba(23, 32, 26, 0.82);
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.28);
+}
+
+.apkCardInner {
+  padding: 38px;
+  border-radius: 35px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 34px;
+  align-items: center;
+  background:
+    radial-gradient(circle at 14% 16%, rgba(25, 195, 125, 0.14), transparent 32%),
+    linear-gradient(135deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.02)),
+    rgba(18, 23, 18, 0.92);
+}
+
+.apkCardLeft {
+  min-width: 0;
+}
+
+.apkCardTag {
+  width: max-content;
+  display: grid;
+  grid-template-columns: auto auto;
+  align-items: center;
+  gap: 8px;
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.apkCardTag svg {
+  width: 28px;
+  height: 28px;
+  padding: 6px;
+  border-radius: 10px;
+  background: rgba(25, 195, 125, 0.12);
+  border: 1px solid rgba(25, 195, 125, 0.24);
+}
+
+.apkCardTitle {
+  max-width: 680px;
+  margin: 18px 0 0;
+  color: var(--text);
+  font-size: clamp(38px, 5vw, 68px);
+  line-height: 1.02;
+  font-weight: 950;
+}
+
+.apkCardSub {
+  max-width: 680px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.apkCardChecks {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.apkCardCheck {
+  min-height: 40px;
+  padding: 0 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.apkCardCheck svg {
+  color: var(--green);
+}
+
+.apkCardRight {
+  display: grid;
+  justify-items: center;
+  align-content: center;
+  gap: 10px;
+}
+
+.apkCardBtn {
+  width: 100%;
+  min-height: 94px;
+  padding: 18px 22px;
+  border-radius: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--primaryText);
+  background: var(--green);
+  text-decoration: none;
+  box-shadow: 0 22px 52px rgba(25, 195, 125, 0.26);
+}
+
+.apkCardBtn small,
+.apkCardBtn strong {
+  display: block;
+}
+
+.apkCardBtn small {
+  font-size: 12px;
+  font-weight: 850;
+  opacity: 0.82;
+}
+
+.apkCardBtn strong {
+  margin-top: 3px;
+  font-size: 22px;
+  font-weight: 950;
+}
+
+.apkCardNote {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+  text-align: center;
+  font-weight: 850;
+}
+
+.apkCardComingSoon {
+  color: rgba(164, 167, 159, 0.68);
+  font-size: 12px;
+  font-weight: 750;
+}
+.realScreens {
+  padding: 24px 0 86px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.screenColumn {
+  padding: 24px;
+  border-radius: 30px;
+}
+
+.screenColumn h2 {
+  font-size: 28px;
+}
+
+.reminderList,
+.placeList {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.reminderList>div,
+.placeList>div {
+  min-height: 76px;
+  padding: 13px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.reminderList strong,
+.reminderList span,
+.placeList strong,
+.placeList span {
+  display: block;
+}
+
+.reminderList span,
+.placeList span {
+  grid-column: 2 / 3;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.reminderList em {
+  padding: 7px 9px;
+  border-radius: 999px;
+  color: var(--primaryText);
+  background: var(--primary);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.placeList b {
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primaryText);
+}
+
+.inviteCard {
+  margin-top: 24px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.inviteCard strong {
+  display: block;
+  margin-top: 14px;
+}
+
+.inviteCard p {
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+.inviteCard div {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.inviteCard button {
+  min-height: 40px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.06);
+  font-weight: 900;
+}
+
+.inviteCard button:last-child {
+  color: var(--primaryText);
+  background: var(--green);
+  border-color: var(--green);
+}
+
+.apkSection {
+  padding: 34px;
+  border-radius: 34px;
+  display: grid;
+  grid-template-columns: 1fr 430px;
+  gap: 34px;
+  align-items: center;
+}
+
+.apkChecks {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.apkChecks p {
+  min-height: 52px;
+  margin: 0;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.04);
+  font-weight: 850;
+}
+
+.apkChecks svg {
+  color: var(--green);
+}
+
+.apkDownload {
+  margin-top: 12px;
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+}
+
+.apkDownload a {
+  min-height: 54px;
+  padding: 0 22px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primaryText);
+  background: var(--green);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 950;
+  box-shadow: 0 18px 46px rgba(25, 195, 125, 0.28);
+}
+
+.apkDownload small {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.footer {
+  width: 100%;
+  margin-top: 0;
+  padding: 44px max(20px, calc((100vw - 1180px) / 2)) 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(18, 23, 18, 0.92);
+}
+
+.footerGrid {
+  display: grid;
+  grid-template-columns: 1.25fr 0.9fr 1fr;
+  gap: 42px;
+  align-items: start;
+}
+
+.footerLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.footerLogo img {
+  object-fit: contain;
+}
+
+.footerLogo strong {
+  color: var(--text);
+  font-size: 20px;
+  font-weight: 950;
+}
+
+.footerBrand p,
+.footerApkNote {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 650;
+}
+
+.footerSocials {
+  margin-top: 18px;
+  display: flex;
+  gap: 10px;
+}
+
+.footerSocials a {
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  transition: border-color 160ms ease, background 160ms ease, color 160ms ease;
+}
+
+.footerSocials a:hover {
+  border-color: rgba(25, 195, 125, 0.38);
+  color: var(--green);
+  background: rgba(25, 195, 125, 0.08);
+}
+
+.footerSocials svg {
+  width: 18px;
+  height: 18px;
+  fill: currentColor;
+}
+
+.footerColumn {
+  display: grid;
+  gap: 12px;
+}
+
+.footerColumn h3 {
+  margin: 0 0 4px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 950;
+}
+
+.footerColumn a {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 750;
+  transition: color 160ms ease;
+}
+
+.footerColumn a:hover {
+  color: var(--text);
+}
+
+.footerApkButton {
+  min-height: 72px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text) !important;
+  background: rgba(255, 255, 255, 0.045);
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.18);
+}
+
+.footerApkButton:hover {
+  border-color: rgba(25, 195, 125, 0.4);
+  background: rgba(25, 195, 125, 0.08);
+}
+
+.footerApkButton small {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.footerApkButton strong {
+  display: block;
+  margin-top: 2px;
+  color: var(--text);
+  font-size: 16px;
+  font-weight: 950;
+}
+
+.footerBottom {
+  margin-top: 34px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 980px) {
+  .nav>div {
+    display: none;
+  }
+
+  .hero,
+  .mapFeatureSection,
+  .apkSection {
+    grid-template-columns: 1fr;
+  }
+
+  .apkCardInner {
+    grid-template-columns: 1fr;
+  }
+
+  .apkCardRight {
+    justify-items: stretch;
+  }
+
+  .hero {
+    padding-top: 118px;
+  }
+
+  .heroPhone {
+    justify-self: center;
+  }
+
+  .heroStats,
+  .flowGrid,
+  .storyGrid,
+  .realScreens {
+    grid-template-columns: 1fr;
+  }
+
+  .storySection {
+    padding-top: 0;
+  }
+
+  .storyCard {
+    min-height: auto;
+  }
+
+  .storyConnector {
+    top: auto;
+    right: auto;
+    left: 50%;
+    bottom: -25px;
+    transform: translateX(-50%) rotate(90deg);
+  }
+
+  .desktopPanel {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .desktopPanel aside {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 14px;
+    display: grid;
+    grid-template-columns: repeat(5, max-content);
+    gap: 8px;
+    overflow-x: auto;
+    align-items: center;
+  }
+
+  .desktopPanel aside>a {
+    display: none;
+  }
+
+  .desktopPanel aside>button {
+    min-height: 40px;
+    padding: 11px 13px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    white-space: nowrap;
+    font-size: 12px;
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .desktopPanel .navActive {
+    border-color: var(--primary);
+  }
+
+  .productMobileShowcase {
+    min-height: auto;
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .productPhoneFrame {
+    order: 2;
+  }
+
+  .productMobileCopy {
+    max-width: none;
+  }
+
+  .panelBody,
+  .panelBodyLive {
+    height: auto;
+    grid-template-columns: 1fr;
+  }
+
+  .panelMap {
+    min-height: 360px;
+  }
+
+  .livePane {
+    min-height: 430px;
+  }
+
+  .apkSection {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .footer {
+    padding: 36px 18px 24px;
+  }
+
+  .footerGrid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .footerBrand {
+    text-align: center;
+  }
+
+  .footerLogo,
+  .footerSocials {
+    justify-content: center;
+  }
+
+  .footerColumn {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .footerApkButton {
+    width: min(100%, 320px);
+    justify-content: center;
+  }
+
+  .footerBottom {
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding-bottom: calc(92px + env(safe-area-inset-bottom));
+  }
+
+  .nav {
+    width: calc(100vw - 24px);
+    top: 12px;
+    height: 58px;
+    border-radius: 20px;
+    padding: 0 9px 0 12px;
+  }
+
+  .nav .logoMark span {
+    font-size: 18px;
+  }
+
+  .nav .logoMark img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .navButton {
+    min-width: 76px;
+    height: 38px;
+    border-radius: 14px;
+    font-size: 12px !important;
+  }
+
+  .hero,
+  .productSection,
+  .identitySection,
+  .flowSection,
+  .sceneSection,
+  .storySection,
+  .apkCardWrap,
+  .realScreens,
+  .apkSection,
+  .mapFeatureSection {
+    width: calc(100vw - 24px);
+  }
+
+  .hero {
+    width: auto;
+    min-height: auto;
+    padding-top: 92px;
+    padding-bottom: 42px;
+    padding-left: 12px;
+    padding-right: 12px;
+    gap: 28px;
+  }
+
+  .hero>.mapScene {
+    opacity: 0.34;
+  }
+
+  .heroShade {
+    background:
+      linear-gradient(180deg, rgba(11, 15, 11, 0.94) 0%, rgba(11, 15, 11, 0.82) 46%, rgba(11, 15, 11, 0.98) 100%),
+      linear-gradient(90deg, rgba(11, 15, 11, 0.92), rgba(11, 15, 11, 0.7));
+  }
+
+  .hero h1 {
+    font-size: clamp(58px, 18vw, 78px);
+    line-height: 0.88;
+  }
+
+  .heroContent>p {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-top: 18px;
+  }
+
+  .kicker,
+  .sectionHeader span,
+  .mapCopy span,
+  .screenColumn>span,
+  .apkSection span {
+    font-size: 10px;
+    line-height: 1.4;
+    margin-bottom: 12px;
+  }
+
+  .heroActions {
+    margin-top: 24px;
+  }
+
+  .heroActions a {
+    width: 100%;
+    min-height: 48px;
+    border-radius: 16px;
+  }
+
+  .heroStats {
+    margin-top: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 7px;
+  }
+
+  .heroStats span {
+    min-height: 74px;
+    padding: 11px 8px;
+    border-radius: 17px;
+    font-size: 10px;
+  }
+
+  .heroStats strong {
+    font-size: 19px;
+  }
+
+  .phone {
+    width: min(360px, calc(100vw - 24px));
+    min-height: 0;
+    padding: 12px;
+    border-radius: 34px;
+  }
+
+  .phoneStatus {
+    height: 22px;
+    font-size: 11px;
+  }
+
+  .phoneHeader {
+    margin-top: 4px;
+  }
+
+  .phoneSearch {
+    height: 42px;
+    margin-top: 12px;
+    border-radius: 15px;
+  }
+
+  .phoneMap {
+    height: 216px;
+    border-radius: 22px;
+  }
+
+  .phoneBanner {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    min-height: 38px;
+    padding: 11px;
+    border-radius: 15px;
+    font-size: 11px;
+  }
+
+  .phoneActions {
+    gap: 7px;
+  }
+
+  .phoneActions button {
+    height: 38px;
+    border-radius: 14px;
+    font-size: 11px;
+  }
+
+  .phoneCards {
+    gap: 7px;
+  }
+
+  .phoneReminder {
+    min-height: 58px;
+    border-radius: 17px;
+  }
+
+  .phoneReminder:nth-child(3) {
+    display: none;
+  }
+
+  .phoneNav {
+    height: 54px;
+    border-radius: 20px;
+  }
+
+  .productSection {
+    padding-top: 48px;
+    padding-bottom: 44px;
+  }
+
+  .productMobileShowcase {
+    padding: 18px;
+    border-radius: 28px;
+    gap: 22px;
+  }
+
+  .productPhoneFrame::before {
+    width: 260px;
+    height: 260px;
+  }
+
+  .productMobileCopy h3 {
+    font-size: 32px;
+  }
+
+  .productMobileCopy>p {
+    font-size: 15px;
+  }
+
+  .mobileFlowCards article {
+    min-height: auto;
+    padding: 15px;
+    border-radius: 18px;
+  }
+
+  .identitySection {
+    padding-top: 46px;
+  }
+
+  .identityInner {
+    padding: 22px;
+    border-radius: 28px;
+  }
+
+  .identityHeader h2 {
+    font-size: 34px;
+  }
+
+  .identityGrid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .identityCard {
+    min-height: 0;
+    padding: 18px;
+    border-radius: 20px;
+  }
+
+  .identityCard p {
+    margin-top: 14px;
+    font-size: 16px;
+  }
+
+  .identityClosing {
+    font-size: 15px;
+  }
+
+  .flowSection {
+    padding-top: 64px;
+    padding-bottom: 44px;
+  }
+
+  .sceneSection {
+    padding: 4px 0 54px;
+  }
+
+  .sceneTitle {
+    margin-bottom: 24px;
+  }
+
+  .sceneTitle h2 {
+    font-size: 34px;
+  }
+
+  .sceneSubtitle {
+    font-size: 15px;
+  }
+
+  .sceneStage {
+    aspect-ratio: 4 / 3;
+    border-radius: 26px;
+  }
+
+  .sceneCopy {
+    left: 18px;
+    right: 18px;
+    bottom: 20px;
+    max-width: none;
+  }
+
+  .sceneCopy span,
+  .sceneCopy strong {
+    font-size: 22px;
+  }
+
+  .scenePin {
+    left: 60%;
+    top: 39%;
+    width: 54px;
+    height: 54px;
+    border-radius: 20px;
+  }
+
+  .sceneRadius {
+    left: calc(60% - 74px);
+    top: calc(39% - 74px);
+    width: 202px;
+    height: 202px;
+  }
+
+  .sceneDot {
+    left: 14%;
+    top: 62%;
+    width: 20px;
+    height: 20px;
+  }
+
+  .sceneNotification {
+    top: 14px;
+    width: calc(100% - 28px);
+    min-height: 66px;
+    padding: 11px 12px;
+    border-radius: 20px;
+  }
+
+  .sceneStarted .scenePin {
+    animation-duration: 530ms;
+  }
+
+  .sceneStarted .sceneRadius {
+    animation:
+      radiusExpand 500ms ease-out 126ms both,
+      radiusPulse 1260ms ease-in-out 665ms infinite,
+      pulseStrong 435ms ease-out 1960ms both;
+  }
+
+  .sceneStarted .sceneDot {
+    animation: dotMoveMobile 1400ms ease-in-out 560ms both;
+  }
+
+  .sceneStarted .sceneNotification {
+    animation: slideDown 490ms ease-out 2380ms both;
+  }
+
+  .sceneStarted .sceneCopy span:nth-child(1) {
+    animation-delay: 55ms;
+  }
+
+  .sceneStarted .sceneCopy span:nth-child(2) {
+    animation-delay: 575ms;
+  }
+
+  .sceneStarted .sceneCopy span:nth-child(3) {
+    animation-delay: 1960ms;
+  }
+
+  .sceneStarted .sceneCopy strong {
+    animation-delay: 2450ms;
+  }
+
+  @keyframes dotMoveMobile {
+    0% {
+      opacity: 0;
+      transform: translate(0, 0) scale(0.84);
+    }
+    12% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: translate(43vw, -18vw) scale(1);
+    }
+  }
+
+  .storySection {
+    padding-bottom: 54px;
+  }
+
+  .storyHeader {
+    margin-bottom: 24px;
+  }
+
+  .storyHeader h2 {
+    font-size: 34px;
+  }
+
+  .storyHeader p {
+    font-size: 15px;
+  }
+
+  .storyGrid {
+    gap: 22px;
+  }
+
+  .storyCard {
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .storyScene {
+    margin-top: 22px;
+  }
+
+  .storyMain {
+    font-size: 19px;
+  }
+
+  .apkCardWrap {
+    margin-top: 24px;
+    margin-bottom: 54px;
+    border-radius: 28px;
+  }
+
+  .apkCardInner {
+    padding: 22px;
+    border-radius: 27px;
+    gap: 24px;
+  }
+
+  .apkCardTag {
+    margin: 0 auto;
+  }
+
+  .apkCardLeft,
+  .apkCardRight {
+    text-align: center;
+  }
+
+  .apkCardTitle {
+    font-size: 34px;
+  }
+
+  .apkCardSub {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .apkCardChecks {
+    justify-content: center;
+  }
+
+  .apkCardCheck {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .apkCardBtn {
+    min-height: 84px;
+  }
+
+  .sectionHeader h2,
+  .mapCopy h2,
+  .apkSection h2 {
+    font-size: 34px;
+  }
+
+  .sectionHeader p,
+  .mapCopy p,
+  .apkSection p {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .desktopPanel {
+    border-radius: 26px;
+    margin-left: -2px;
+    margin-right: -2px;
+  }
+
+  .desktopPanel main {
+    padding: 12px;
+  }
+
+  .panelTop {
+    height: auto;
+    align-items: flex-start;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .panelTop strong {
+    font-size: 17px;
+  }
+
+  .panelTop button {
+    min-width: 42px;
+    width: 42px;
+    height: 42px;
+    padding: 0;
+    font-size: 0;
+    justify-content: center;
+  }
+
+  .panelTop button svg {
+    margin: 0;
+  }
+
+  .panelMap {
+    min-height: 260px;
+    border-radius: 22px;
+  }
+
+  .livePane {
+    min-height: 392px;
+    border-radius: 22px;
+  }
+
+  .liveContent {
+    padding: 12px;
+    gap: 9px;
+  }
+
+  .liveReminderCard,
+  .livePlaceCard,
+  .liveGroupCard {
+    min-height: 96px;
+    padding: 12px;
+    border-radius: 20px;
+    gap: 10px;
+  }
+
+  .liveReminderCard>div:first-child,
+  .livePlaceCard>div:first-child,
+  .liveGroupCard>div:first-child {
+    width: 40px;
+    height: 40px;
+    border-radius: 14px;
+  }
+
+  .liveReminderCard strong,
+  .livePlaceCard strong,
+  .liveGroupCard strong {
+    font-size: 14px;
+  }
+
+  .liveReminderCard p,
+  .livePlaceCard p {
+    font-size: 11px;
+  }
+
+  .mapFeatureSection {
+    padding-top: 34px;
+    padding-bottom: 42px;
+    gap: 22px;
+  }
+
+  .mapDetail {
+    min-height: 330px;
+    border-radius: 26px;
+  }
+
+  .popup {
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    width: auto;
+    border-radius: 20px;
+  }
+
+  .flowGrid,
+  .realScreens {
+    gap: 10px;
+  }
+
+  .flowCard,
+  .screenColumn {
+    min-height: auto;
+    padding: 18px;
+    border-radius: 24px;
+  }
+
+  .realScreens {
+    padding-bottom: 54px;
+  }
+
+  .apkSection {
+    padding: 22px;
+    border-radius: 28px;
+  }
+
+  .apkChecks p {
+    min-height: 48px;
+    padding: 0 12px;
+    border-radius: 16px;
+    font-size: 13px;
+  }
+
+  .apkDownload {
+    justify-items: stretch;
+  }
+
+  .apkDownload a {
+    width: 100%;
+  }
+
+  .mobileStickyCta {
+    position: fixed;
+    left: 12px;
+    right: 12px;
+    bottom: calc(12px + env(safe-area-inset-bottom));
+    z-index: 60;
+    min-height: 52px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    color: var(--primaryText);
+    background: var(--green);
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 950;
+    box-shadow: 0 18px 42px rgba(25, 195, 125, 0.32);
+  }
+}

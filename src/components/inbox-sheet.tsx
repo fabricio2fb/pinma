@@ -89,7 +89,7 @@ export function InboxSheet({ children }: { children: React.ReactNode }) {
   return (
     <Sheet onOpenChange={(open) => open && fetchInvites()}>
       <SheetTrigger asChild>{children}</SheetTrigger>
-      <SheetContent side="bottom" className="h-[70%] rounded-t-[16px] bg-card border-t p-0 flex flex-col">
+      <SheetContent side="right" className="h-full w-full sm:max-w-[460px] rounded-none bg-card border-l p-0 flex flex-col">
         <div className="w-full py-4 flex justify-center">
           <div className="w-9 h-1 rounded-full bg-border" />
         </div>
@@ -108,7 +108,7 @@ export function InboxSheet({ children }: { children: React.ReactNode }) {
           ) : invites.length > 0 ? (
             <div className="space-y-4">
               {invites.map((invite) => (
-                <div key={invite.id} className="flex items-center gap-4 p-4 bg-muted rounded-xl">
+                <div key={invite.id} className="flex items-center gap-4 p-4 bg-muted/60 border border-border/50 rounded-2xl">
                   <Avatar className="h-10 w-10">
                     <AvatarFallback>{invite.group?.name?.charAt(0)}</AvatarFallback>
                   </Avatar>
@@ -117,7 +117,7 @@ export function InboxSheet({ children }: { children: React.ReactNode }) {
                       Convite para : {invite.group?.name}
                     </p>
                     <p className="text-xs text-muted-foreground">
-                      Deseja participar deste grupo?
+                      Enviado por {invite.inviter_id || 'um membro'}
                     </p>
                   </div>
                   <div className="flex gap-2">

@@ -1,0 +1,864 @@
+.installPage {
+  --bg: #0b0f0b;
+  --surface: #171c16;
+  --surface2: #1f251e;
+  --line: rgba(255, 255, 255, 0.1);
+  --line2: rgba(255, 255, 255, 0.16);
+  --text: #f5f5f0;
+  --muted: #a4a79f;
+  --primary: #f4f1ea;
+  --primaryText: #11140f;
+  --green: #19c37d;
+  --teal: #35d0c0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.installNav {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 50;
+  width: min(1180px, calc(100vw - 40px));
+  height: 68px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(11, 15, 11, 0.78);
+  backdrop-filter: blur(22px);
+  box-shadow: 0 18px 54px rgba(0, 0, 0, 0.32);
+}
+
+.installNav>a:last-child {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--line2);
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 900;
+}
+
+.installLogo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 900;
+  letter-spacing: 0;
+}
+
+.installLogo img {
+  object-fit: contain;
+}
+
+.installLogo span {
+  font-size: 21px;
+}
+
+.installHero {
+  min-height: 82vh;
+  padding: 148px max(24px, calc((100vw - 1180px) / 2)) 82px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 18%, rgba(25, 195, 125, 0.16), transparent 30%),
+    radial-gradient(circle at 78% 26%, rgba(53, 208, 192, 0.08), transparent 28%),
+    linear-gradient(180deg, rgba(31, 37, 30, 0.66), rgba(11, 15, 11, 0.98));
+}
+
+.installHeroTitle {
+  max-width: 900px;
+  margin: 30px 0 0;
+  font-size: clamp(48px, 7vw, 96px);
+  line-height: 0.92;
+  letter-spacing: 0;
+  font-weight: 950;
+}
+
+.installHeroSub {
+  max-width: 720px;
+  margin: 24px 0 0;
+  color: var(--muted);
+  font-size: 20px;
+  line-height: 1.6;
+  font-weight: 650;
+}
+
+.installDownloadBtn {
+  min-height: 68px;
+  margin-top: 34px;
+  padding: 0 32px;
+  border-radius: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--primaryText);
+  background: var(--green);
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 950;
+  box-shadow: 0 22px 52px rgba(25, 195, 125, 0.28);
+}
+
+.installMeta {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 850;
+}
+
+.installBadges {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.installBadges span {
+  min-height: 40px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.installSection {
+  padding: 96px max(24px, calc((100vw - 1180px) / 2));
+}
+
+.installSection+.installSection {
+  padding-top: 32px;
+}
+
+.installSectionHeader {
+  max-width: 780px;
+  margin: 0 auto 54px;
+  text-align: center;
+}
+
+.installSectionTitle {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(38px, 5vw, 68px);
+  line-height: 1.02;
+  font-weight: 950;
+}
+
+.installSectionSub {
+  margin: 18px auto 0;
+  max-width: 720px;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.installStep {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 74px;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.installStepReverse {
+  grid-template-columns: 340px minmax(0, 1fr);
+}
+
+.installStepReverse .installStepText {
+  order: 2;
+}
+
+.installStepReverse .installMockup {
+  order: 1;
+}
+
+.installStepNumber {
+  display: inline-flex;
+  color: var(--green);
+  font-size: 13px;
+  font-weight: 950;
+  letter-spacing: 0.12em;
+}
+
+.installStepTitle {
+  margin: 14px 0 0;
+  color: var(--text);
+  font-size: clamp(30px, 4vw, 54px);
+  line-height: 1.04;
+  font-weight: 950;
+}
+
+.installStepDesc {
+  max-width: 650px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.65;
+  font-weight: 650;
+}
+
+.installTip {
+  max-width: 680px;
+  min-height: 56px;
+  margin: 24px 0 0;
+  padding: 15px 16px;
+  border: 1px solid rgba(25, 195, 125, 0.24);
+  border-radius: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text);
+  background: rgba(25, 195, 125, 0.08);
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 800;
+}
+
+.installTip svg {
+  flex: 0 0 auto;
+  margin-top: 1px;
+  color: var(--green);
+}
+
+.installMockup {
+  justify-self: center;
+  width: 280px;
+}
+
+.installMockupShell {
+  width: 280px;
+  min-height: 566px;
+  padding: 13px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 38px;
+  background: #0a0a0a;
+  box-shadow: 0 34px 90px rgba(0, 0, 0, 0.46);
+}
+
+.installMockupStatus {
+  height: 26px;
+  padding: 0 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.installMockupScreen {
+  min-height: 512px;
+  padding: 14px;
+  overflow: hidden;
+  border-radius: 28px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    #10160f;
+  background-size: 28px 28px;
+}
+
+.installBrowserBar,
+.installPhoneTitle {
+  min-height: 42px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 11px;
+  font-weight: 850;
+}
+
+.installPhoneTitle {
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 950;
+}
+
+.installDownloadCard,
+.installDialog,
+.installWelcome,
+.installNotification,
+.installSettingRow,
+.installPermissionCard,
+.installLocationHead,
+.installRadioRow,
+.installBatteryRow {
+  border: 1px solid var(--line);
+  background: rgba(23, 28, 22, 0.86);
+}
+
+.installDownloadCard {
+  margin-top: 86px;
+  padding: 18px;
+  border-radius: 24px;
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  text-align: center;
+}
+
+.installDownloadCard svg {
+  color: var(--green);
+}
+
+.installDownloadCard strong,
+.installDownloadCard span {
+  display: block;
+}
+
+.installDownloadCard strong {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.installDownloadCard span,
+.installNotification span,
+.installSettingRow span,
+.installPhoneNote {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.installProgress {
+  width: 100%;
+  height: 8px;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.installProgress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--green);
+}
+
+.installNotification {
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 18px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.installNotification svg {
+  color: var(--teal);
+}
+
+.installNotification strong {
+  display: block;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.installSettingRow {
+  margin-top: 18px;
+  padding: 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.installSettingRow strong {
+  display: block;
+  color: var(--text);
+  font-size: 13px;
+}
+
+.installToggle {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  border-radius: 999px;
+  background: #2563eb !important;
+}
+
+.installToggle::after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.installDialog {
+  margin-top: 86px;
+  padding: 18px;
+  border-radius: 24px;
+  text-align: center;
+}
+
+.installDialog img {
+  margin: 0 auto 12px;
+}
+
+.installDialog strong,
+.installDialog span {
+  display: block;
+}
+
+.installDialog strong {
+  color: var(--text);
+  font-size: 15px;
+}
+
+.installDialog span {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.installDialog div {
+  margin-top: 18px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.installDialog button,
+.installWelcome button,
+.installPrimaryMini {
+  min-height: 40px;
+  border: 0;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: 950;
+}
+
+.installDialog button:first-child {
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.installDialog button:last-child,
+.installWelcome button:first-of-type,
+.installPrimaryMini {
+  color: var(--primaryText);
+  background: var(--green);
+}
+
+.installWelcome {
+  min-height: 480px;
+  padding: 34px 18px;
+  border-radius: 26px;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.installWelcome img {
+  align-self: center;
+}
+
+.installWelcome h3 {
+  margin: 24px 0 0;
+  color: var(--text);
+  font-size: 26px;
+  line-height: 1.05;
+  font-weight: 950;
+}
+
+.installWelcome p {
+  margin: 12px 0 28px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+  font-weight: 700;
+}
+
+.installWelcome button+button {
+  margin-top: 10px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid var(--line);
+}
+
+.installAppHeader {
+  padding: 16px;
+  border-radius: 22px;
+  display: grid;
+  gap: 12px;
+  color: var(--text);
+  background: rgba(25, 195, 125, 0.1);
+  border: 1px solid rgba(25, 195, 125, 0.22);
+}
+
+.installAppHeader svg {
+  color: var(--green);
+}
+
+.installAppHeader strong {
+  font-size: 19px;
+  line-height: 1.12;
+}
+
+.installPermissionCard,
+.installRadioRow,
+.installBatteryRow {
+  margin-top: 10px;
+  min-height: 56px;
+  padding: 13px;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.installPermissionCard span,
+.installRadioRow strong,
+.installBatteryRow strong {
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+.installPermissionCard em {
+  padding: 6px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 900;
+}
+
+.installPrimaryMini {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.installLocationHead {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.installLocationHead strong {
+  color: var(--text);
+}
+
+.installRadioRow {
+  justify-content: flex-start;
+}
+
+.installRadioRow>span {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--muted);
+  border-radius: 50%;
+}
+
+.installRadioSelected {
+  border-color: rgba(25, 195, 125, 0.34);
+  background: rgba(25, 195, 125, 0.1);
+}
+
+.installRadioSelected>span {
+  border: 5px solid var(--green);
+}
+
+.installBatteryRow svg {
+  color: var(--green);
+}
+
+.installBatteryRow>span {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1px solid var(--line2);
+}
+
+.installBatterySelected {
+  border-color: rgba(25, 195, 125, 0.34);
+  background: rgba(25, 195, 125, 0.1);
+}
+
+.installPhoneNote {
+  margin: 18px 0 0;
+  line-height: 1.5;
+}
+
+.installDone {
+  margin: 16px max(24px, calc((100vw - 1180px) / 2)) 96px;
+  padding: 58px 28px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(25, 195, 125, 0.14), transparent 40%),
+    rgba(18, 23, 18, 0.92);
+}
+
+.installDoneIcon {
+  width: 48px;
+  height: 48px;
+  color: var(--green);
+}
+
+.installDone h2 {
+  margin: 18px 0 0;
+  color: var(--text);
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 1.03;
+  font-weight: 950;
+}
+
+.installDone p {
+  max-width: 620px;
+  margin: 16px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  line-height: 1.6;
+  font-weight: 650;
+}
+
+.installDone>a {
+  min-height: 54px;
+  margin-top: 28px;
+  padding: 0 24px;
+  border-radius: 18px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--primaryText);
+  background: var(--green);
+  text-decoration: none;
+  font-weight: 950;
+}
+
+.installDone span {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.installDone span a {
+  color: var(--text);
+}
+
+.installFooter {
+  padding: 44px max(20px, calc((100vw - 1180px) / 2)) 26px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 26px;
+  align-items: start;
+  background: rgba(18, 23, 18, 0.92);
+}
+
+.installFooter p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  font-weight: 650;
+}
+
+.installFooter>div:last-of-type {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.installFooter a {
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.045);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 850;
+}
+
+.installFooter small {
+  grid-column: 1 / -1;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+@media (max-width: 900px) {
+  .installStep,
+  .installStepReverse {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .installStepReverse .installStepText,
+  .installStepReverse .installMockup {
+    order: initial;
+  }
+}
+
+@media (max-width: 560px) {
+  .installNav {
+    top: 12px;
+    width: calc(100vw - 24px);
+    height: 58px;
+    border-radius: 20px;
+    padding: 0 12px;
+  }
+
+  .installNav .installLogo span {
+    font-size: 18px;
+  }
+
+  .installNav .installLogo img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .installNav>a:last-child {
+    min-height: 38px;
+    padding: 0 12px;
+    border-radius: 14px;
+    font-size: 12px;
+  }
+
+  .installHero {
+    min-height: auto;
+    padding: 106px 18px 54px;
+  }
+
+  .installHeroTitle {
+    font-size: 46px;
+  }
+
+  .installHeroSub,
+  .installStepDesc,
+  .installSectionSub,
+  .installDone p {
+    font-size: 15px;
+    line-height: 1.55;
+  }
+
+  .installDownloadBtn {
+    width: 100%;
+    min-height: 60px;
+    border-radius: 19px;
+    font-size: 16px;
+  }
+
+  .installSection {
+    padding: 58px 18px;
+  }
+
+  .installSectionHeader {
+    margin-bottom: 24px;
+  }
+
+  .installStep {
+    padding: 28px 0;
+  }
+
+  .installStepTitle {
+    font-size: 32px;
+  }
+
+  .installTip {
+    border-radius: 18px;
+    font-size: 13px;
+  }
+
+  .installMockup,
+  .installMockupShell {
+    width: 240px;
+  }
+
+  .installMockupShell {
+    min-height: 486px;
+    border-radius: 34px;
+    padding: 11px;
+  }
+
+  .installMockupScreen {
+    min-height: 438px;
+    padding: 12px;
+    border-radius: 25px;
+  }
+
+  .installDownloadCard {
+    margin-top: 58px;
+  }
+
+  .installDialog {
+    margin-top: 54px;
+  }
+
+  .installWelcome {
+    min-height: 410px;
+    padding: 24px 14px;
+  }
+
+  .installWelcome h3 {
+    font-size: 23px;
+  }
+
+  .installDone {
+    margin: 8px 18px 58px;
+    padding: 42px 18px;
+    border-radius: 28px;
+  }
+
+  .installFooter {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    padding: 36px 18px 24px;
+  }
+
+  .installFooter>div:last-of-type {
+    justify-content: center;
+  }
+}
