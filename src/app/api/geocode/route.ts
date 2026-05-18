@@ -169,8 +169,7 @@ async function geocodeWithNominatim(
     const res = await fetch(url.toString(), {
         headers: {
             'Accept-Language': 'pt-BR',
-            // Troque pelo seu domínio/e-mail real.
-            'User-Agent': 'AlertLoc/1.0 suporte@seudominio.com.br',
+            'User-Agent': 'AlertLoc/1.0 suporte@alertloc.online',
         },
         next: {
             revalidate: 60 * 60 * 24 * 7,
@@ -216,7 +215,7 @@ async function reverseGeocodeWithNominatim(lat: number, lng: number): Promise<Ge
     const res = await fetch(url.toString(), {
         headers: {
             'Accept-Language': 'pt-BR',
-            'User-Agent': 'AlertLoc/1.0 suporte@seudominio.com.br',
+            'User-Agent': 'AlertLoc/1.0 suporte@alertloc.online',
         },
         next: {
             revalidate: 60 * 60 * 24 * 7,

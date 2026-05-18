@@ -1,0 +1,187 @@
+.adminPage {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(24, 195, 125, 0.16), transparent 34rem),
+    linear-gradient(180deg, #07100d 0%, #0b0f0d 46%, #060806 100%);
+  color: #f5f5f0;
+  padding: 40px 24px 72px;
+}
+
+.header {
+  width: min(1180px, 100%);
+  margin: 0 auto 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.header h1 {
+  margin: 8px 0;
+  font-size: clamp(32px, 5vw, 58px);
+  letter-spacing: 0;
+}
+
+.header p {
+  max-width: 760px;
+  color: #a7b2a9;
+  line-height: 1.6;
+}
+
+.kicker,
+.statusPill,
+.panelHeader span {
+  color: #19c37d;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.statusPill {
+  border: 1px solid rgba(25, 195, 125, 0.32);
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: rgba(25, 195, 125, 0.1);
+}
+
+.deniedCard {
+  width: min(520px, 100%);
+  margin: 15vh auto 0;
+  border: 1px solid rgba(239, 68, 68, 0.28);
+  border-radius: 28px;
+  background: rgba(24, 28, 22, 0.82);
+  padding: 28px;
+}
+
+.deniedCard span {
+  color: #ef4444;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+.deniedCard h1 {
+  margin: 12px 0;
+  font-size: 34px;
+}
+
+.deniedCard p,
+.privacyNote p {
+  color: #a7b2a9;
+  line-height: 1.6;
+}
+
+.metricGrid {
+  width: min(1180px, 100%);
+  margin: 0 auto 24px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+}
+
+.metricCard,
+.panel,
+.privacyNote {
+  border: 1px solid rgba(245, 245, 240, 0.09);
+  background: rgba(18, 24, 19, 0.78);
+  border-radius: 22px;
+  box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+}
+
+.metricCard {
+  min-height: 132px;
+  padding: 18px;
+}
+
+.metricCard span {
+  color: #a7b2a9;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.metricCard strong {
+  display: block;
+  margin-top: 14px;
+  font-size: 30px;
+  letter-spacing: 0;
+}
+
+.metricCard p {
+  margin: 8px 0 0;
+  color: #19c37d;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.columns {
+  width: min(1180px, 100%);
+  margin: 0 auto 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.panel,
+.privacyNote {
+  width: min(1180px, 100%);
+  margin: 0 auto 24px;
+  padding: 18px;
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.panelHeader h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.tableWrap table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tableWrap th,
+.tableWrap td {
+  padding: 12px 10px;
+  border-bottom: 1px solid rgba(245, 245, 240, 0.08);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.tableWrap th {
+  color: #a7b2a9;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+.tableWrap td {
+  color: #f5f5f0;
+  font-size: 13px;
+}
+
+.privacyNote strong {
+  color: #19c37d;
+  font-size: 16px;
+}
+
+@media (max-width: 780px) {
+  .adminPage {
+    padding: 24px 14px 56px;
+  }
+
+  .header,
+  .columns {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+}

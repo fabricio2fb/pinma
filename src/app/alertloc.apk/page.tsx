@@ -236,7 +236,7 @@ export default function AlertLocApkInstallPage() {
         <p className={styles.installHeroSub}>
           Siga os passos abaixo para instalar e configurar tudo direitinho. Leva menos de 2 minutos.
         </p>
-        <a className={styles.installDownloadBtn} href="/alertloc.apk" download="alertloc.apk">
+        <a className={styles.installDownloadBtn} href="/api/alertloc/track-download">
           <Download size={24} />
           Baixar AlertLoc APK
         </a>
@@ -281,7 +281,7 @@ export default function AlertLocApkInstallPage() {
         <div>
           <Link href="/login">Criar conta</Link>
           <Link href="/login">Entrar</Link>
-          <a href="/alertloc.apk" download="alertloc.apk"><Smartphone size={18} /> Baixar APK</a>
+          <a href="/api/alertloc/track-download"><Smartphone size={18} /> Baixar APK</a>
         </div>
         <small>© 2025 AlertLoc · Todos os direitos reservados</small>
       </footer>

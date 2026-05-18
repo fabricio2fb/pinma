@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 
+import { trackAlertLocEvent } from '@/lib/alertloc/events';
 import { ALERTLOC_PRO_PLAN, isValidUserId } from '@/lib/alertloc/pro';
 import { createServiceRoleClient } from '@/lib/supabase/service-role';
 
-type MercadoPagoPreferenceResponse = {
+type MercadoPagoPreapprovalResponse = {
   id?: string;
   init_point?: string;
   sandbox_init_point?: string;
@@ -11,7 +12,7 @@ type MercadoPagoPreferenceResponse = {
   error?: string;
 };
 
-const MERCADO_PAGO_PREFERENCES_URL = 'https://api.mercadopago.com/checkout/preferences';
+const MERCADO_PAGO_PREAPPROVAL_URL = 'https://api.mercadopago.com/preapproval';
 
 export async function POST(request: NextRequest) {
   try {
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Usuário não encontrado.' }, { status: 404 });
     }
 
-    const baseUrl = getBaseUrl(request);
+    const siteUrl = getSiteUrl(request);
     const metadata = {
       product: ALERTLOC_PRO_PLAN.id,
       user_id: userId,
@@ -55,58 +56,61 @@ export async function POST(request: NextRequest) {
       price: ALERTLOC_PRO_PLAN.price,
     };
 
-    const preferencePayload = {
-      items: [
-        {
-          id: ALERTLOC_PRO_PLAN.id,
-          title: ALERTLOC_PRO_PLAN.name,
-          description: ALERTLOC_PRO_PLAN.description,
-          quantity: 1,
-          unit_price: ALERTLOC_PRO_PLAN.price,
-          currency_id: ALERTLOC_PRO_PLAN.currency,
-        },
-      ],
-      payer: profile.email ? { email: profile.email } : undefined,
-      back_urls: {
-        success: `${baseUrl}/alertloc/pro/success`,
-        failure: `${baseUrl}/alertloc/pro/failure`,
-        pending: `${baseUrl}/alertloc/pro/pending`,
-      },
-      auto_return: 'approved',
-      notification_url: `${baseUrl}/api/webhooks/mercado-pago/alertloc`,
+    const preapprovalPayload = {
+      reason: ALERTLOC_PRO_PLAN.description,
       external_reference: `alertloc_pro:${userId}`,
+      payer_email: profile.email || undefined,
+      back_url: `${siteUrl}/alertloc/pro/success`,
+      notification_url: `${siteUrl}/api/webhooks/mercado-pago/alertloc`,
+      auto_recurring: {
+        frequency: 1,
+        frequency_type: 'months',
+        transaction_amount: ALERTLOC_PRO_PLAN.price,
+        currency_id: ALERTLOC_PRO_PLAN.currency,
+      },
       metadata,
     };
 
-    const response = await fetch(MERCADO_PAGO_PREFERENCES_URL, {
+    const response = await fetch(MERCADO_PAGO_PREAPPROVAL_URL, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${accessToken}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(preferencePayload),
+      body: JSON.stringify(preapprovalPayload),
       cache: 'no-store',
     });
 
-    const data = (await response.json().catch(() => ({}))) as MercadoPagoPreferenceResponse;
+    const data = (await response.json().catch(() => ({}))) as MercadoPagoPreapprovalResponse;
 
     if (!response.ok || !data.init_point) {
-      console.error('[AlertLoc Pro] erro Mercado Pago create preference', {
+      console.error('[AlertLoc Pro] erro Mercado Pago create preapproval', {
         status: response.status,
         message: data.message || data.error || 'sem mensagem',
       });
       return NextResponse.json({ error: 'Não foi possível criar o checkout.' }, { status: 502 });
     }
 
-    console.log('[AlertLoc Pro] checkout criado', {
+    console.log('[AlertLoc Pro] assinatura criada', {
       userId,
-      preferenceId: data.id,
+      preapprovalId: data.id,
+    });
+
+    await trackAlertLocEvent({
+      userId,
+      eventType: 'pro_checkout_started',
+      platform: 'web',
+      metadata: {
+        preapproval_id: data.id,
+        plan: ALERTLOC_PRO_PLAN.plan,
+        amount: ALERTLOC_PRO_PLAN.price,
+      },
     });
 
     return NextResponse.json({
       checkout_url: data.init_point,
       init_point: data.init_point,
-      preference_id: data.id,
+      preapproval_id: data.id,
     });
   } catch (error) {
     console.error('[AlertLoc Pro] create-checkout erro inesperado', getErrorMessage(error));
@@ -114,8 +118,8 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function getBaseUrl(request: NextRequest) {
-  const configuredUrl = process.env.NEXT_PUBLIC_ALERTLOC_PRO_URL?.trim();
+function getSiteUrl(request: NextRequest) {
+  const configuredUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
   if (configuredUrl) return configuredUrl.replace(/\/$/, '');
 
   const forwardedProto = request.headers.get('x-forwarded-proto') || 'https';
