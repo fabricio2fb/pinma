@@ -1,8 +1,32 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, FileText, ShieldCheck } from 'lucide-react';
 
 import styles from './termos.module.css';
+
+export const metadata: Metadata = {
+  title: 'Termos de Uso  AlertLoc',
+  description: 'Termos de Uso do AlertLoc para site, aplicativo Android, lembretes por localização, grupos e plano Pro.',
+  alternates: {
+    canonical: '/termos',
+  },
+  openGraph: {
+    title: 'Termos de Uso  AlertLoc',
+    description: 'Termos de Uso do AlertLoc para site, aplicativo Android, lembretes por localização, grupos e plano Pro.',
+    url: 'https://www.alertloc.online/termos',
+    siteName: 'AlertLoc',
+    locale: 'pt_BR',
+    type: 'website',
+    images: ['/logob.png'],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Termos de Uso  AlertLoc',
+    description: 'Termos de Uso do AlertLoc para site, aplicativo Android, lembretes por localização, grupos e plano Pro.',
+    images: ['/logob.png'],
+  },
+};
 
 const sections = [
   {

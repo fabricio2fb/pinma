@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Check, Crown, ShieldCheck, Sparkles } from 'lucide-react';
@@ -5,6 +6,29 @@ import { Check, Crown, ShieldCheck, Sparkles } from 'lucide-react';
 import { ALERTLOC_PRO_BENEFITS } from '@/lib/alertloc/pro';
 import { CheckoutButton } from './checkout-button';
 import styles from './pro.module.css';
+
+export const metadata: Metadata = {
+  title: 'AlertLoc Pro  Lembretes sem limites',
+  description: 'Assine o AlertLoc Pro por R$ 22,90/mês e libere lembretes ilimitados, grupos maiores, alertas urgentes e monitoramento avançado.',
+  alternates: {
+    canonical: '/alertloc/pro',
+  },
+  openGraph: {
+    title: 'AlertLoc Pro  Lembretes sem limites',
+    description: 'Assine o AlertLoc Pro por R$ 22,90/mês e libere lembretes ilimitados, grupos maiores, alertas urgentes e monitoramento avançado.',
+    url: 'https://www.alertloc.online/alertloc/pro',
+    siteName: 'AlertLoc',
+    locale: 'pt_BR',
+    type: 'website',
+    images: ['/logob.png'],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'AlertLoc Pro  Lembretes sem limites',
+    description: 'Assine o AlertLoc Pro por R$ 22,90/mês e libere lembretes ilimitados, grupos maiores, alertas urgentes e monitoramento avançado.',
+    images: ['/logob.png'],
+  },
+};
 
 type ProPageProps = {
   searchParams: Promise<{

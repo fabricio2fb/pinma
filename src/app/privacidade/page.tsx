@@ -1,8 +1,32 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowLeft, LockKeyhole, ShieldCheck } from 'lucide-react';
 
 import styles from './privacidade.module.css';
+
+export const metadata: Metadata = {
+  title: 'Política de Privacidade  AlertLoc',
+  description: 'Política de Privacidade do AlertLoc sobre conta, localização, notificações, mapas, fornecedores e direitos pela LGPD.',
+  alternates: {
+    canonical: '/privacidade',
+  },
+  openGraph: {
+    title: 'Política de Privacidade  AlertLoc',
+    description: 'Política de Privacidade do AlertLoc sobre conta, localização, notificações, mapas, fornecedores e direitos pela LGPD.',
+    url: 'https://www.alertloc.online/privacidade',
+    siteName: 'AlertLoc',
+    locale: 'pt_BR',
+    type: 'website',
+    images: ['/logob.png'],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Política de Privacidade  AlertLoc',
+    description: 'Política de Privacidade do AlertLoc sobre conta, localização, notificações, mapas, fornecedores e direitos pela LGPD.',
+    images: ['/logob.png'],
+  },
+};
 
 const sections = [
   {

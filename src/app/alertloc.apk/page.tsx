@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -12,6 +13,29 @@ import {
 } from 'lucide-react';
 
 import styles from './install.module.css';
+
+export const metadata: Metadata = {
+  title: 'Baixar AlertLoc APK para Android',
+  description: 'Baixe o AlertLoc para Android e crie lembretes por localização com mapa, notificações e lugares salvos.',
+  alternates: {
+    canonical: '/alertloc.apk',
+  },
+  openGraph: {
+    title: 'Baixar AlertLoc APK para Android',
+    description: 'Baixe o AlertLoc para Android e crie lembretes por localização com mapa, notificações e lugares salvos.',
+    url: 'https://www.alertloc.online/alertloc.apk',
+    siteName: 'AlertLoc',
+    locale: 'pt_BR',
+    type: 'website',
+    images: ['/logob.png'],
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Baixar AlertLoc APK para Android',
+    description: 'Baixe o AlertLoc para Android e crie lembretes por localização com mapa, notificações e lugares salvos.',
+    images: ['/logob.png'],
+  },
+};
 
 type InstallStep = {
   number: string;

@@ -708,11 +708,21 @@ export default function LandingPage() {
             </div>
             <p>Lembra de você quando você chegar lá.</p>
             <div className={styles.footerSocials}>
-              <a href="#" aria-label="Instagram">
+              <a
+                href="https://www.instagram.com/alertloc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram do AlertLoc"
+              >
                 <Instagram size={18} />
               </a>
-              <a href="#" aria-label="TikTok">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
+              <a
+                href="https://www.tiktok.com/@alertloc.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="TikTok do AlertLoc"
+              >
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                   <path d="M16.75 3c.32 2.55 1.7 4.06 4.25 4.22v3.05a7.5 7.5 0 0 1-4.12-1.24v6.08c0 3.08-2.08 5.65-5.76 5.65-3.2 0-5.38-2.03-5.38-4.98 0-3.18 2.48-5.2 6.13-4.96v3.2c-1.68-.24-2.72.42-2.72 1.66 0 1.02.8 1.7 1.92 1.7 1.32 0 2.2-.76 2.2-2.42V3h3.48Z" />
                 </svg>
               </a>
