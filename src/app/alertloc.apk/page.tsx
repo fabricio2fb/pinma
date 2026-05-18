@@ -101,7 +101,7 @@ function PhoneShell({ children }: { children: React.ReactNode }) {
 function MockupDownload() {
   return (
     <PhoneShell>
-      <div className={styles.installBrowserBar}>alertloc.com/alertloc.apk</div>
+      <div className={styles.installBrowserBar}>alertloc.online/alertloc.apk</div>
       <div className={styles.installDownloadCard}>
         <Download size={30} />
         <strong>alertloc.apk</strong>
@@ -267,10 +267,10 @@ export default function AlertLocApkInstallPage() {
 
       <section className={styles.installDone}>
         <CheckCircle2 className={styles.installDoneIcon} />
-        <h2>Tudo certo. Agora é só usar.</h2>
-        <p>Crie seu primeiro lembrete, salve um lugar e deixe o AlertLoc fazer o resto.</p>
-        <Link href="/login">Criar minha conta</Link>
-        <span>Já tem conta? <Link href="/login">Entre aqui.</Link></span>
+        <h2>Tudo certo. Agora é só instalar.</h2>
+        <p>Depois de baixar, abra o APK no seu celular, instale o AlertLoc e crie sua conta pelo app.</p>
+        <a href="/api/alertloc/track-download">Baixar APK agora</a>
+        <span>Já baixou? Abra o arquivo na pasta Downloads do seu celular.</span>
       </section>
 
       <footer className={styles.installFooter}>
@@ -279,9 +279,10 @@ export default function AlertLocApkInstallPage() {
           <p>Lembra de você quando você chegar lá.</p>
         </div>
         <div>
-          <Link href="/login">Criar conta</Link>
-          <Link href="/login">Entrar</Link>
           <a href="/api/alertloc/track-download"><Smartphone size={18} /> Baixar APK</a>
+          <Link href="/termos">Termos</Link>
+          <Link href="/privacidade">Privacidade</Link>
+          <Link href="/alertloc/pro">Plano Pro</Link>
         </div>
         <small>© 2025 AlertLoc · Todos os direitos reservados</small>
       </footer>

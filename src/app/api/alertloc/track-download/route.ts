@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { trackAlertLocEvent } from '@/lib/alertloc/events';
 
 export async function GET(request: NextRequest) {
-  const apkUrl = process.env.ALERTLOC_APK_URL?.trim();
+  const apkUrl = process.env.ALERTLOC_APK_URL?.trim() || '/downloads/AlertLoc-v1.0.1.apk';
 
   await trackAlertLocEvent({
     eventType: 'apk_download_clicked',
@@ -13,10 +13,6 @@ export async function GET(request: NextRequest) {
       user_agent: request.headers.get('user-agent') || null,
     },
   });
-
-  if (!apkUrl) {
-    return NextResponse.json({ error: 'ALERTLOC_APK_URL nao configurada.' }, { status: 503 });
-  }
 
   return NextResponse.redirect(apkUrl);
 }
