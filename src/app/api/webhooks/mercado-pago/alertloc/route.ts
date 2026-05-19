@@ -78,6 +78,14 @@ async function handleMercadoPagoWebhook(request: NextRequest) {
     const event = await parseWebhookEvent(request);
     const topic = normalizeTopic(event.topic);
 
+    if (isSimulatedMercadoPagoId(event.resourceId)) {
+      console.log('[AlertLoc Pro webhook] evento simulado recebido', {
+        topic,
+        resourceId: event.resourceId,
+      });
+      return NextResponse.json({ received: true, simulated: true });
+    }
+
     if (PAYMENT_TOPICS.has(topic)) {
       console.log('[AlertLoc Pro webhook] payment event', {
         topic,
@@ -120,6 +128,10 @@ async function handlePaymentEvent(paymentId: string | null) {
   }
 
   const payment = await fetchMercadoPagoPayment(paymentId);
+  if (!payment) {
+    return ignoredMercadoPagoResourceResponse();
+  }
+
   const metadata = payment.metadata ?? {};
   const fallbackUserId = extractUserIdFromExternalReference(payment.external_reference);
   const userId = String(metadata.user_id || fallbackUserId || '').trim();
@@ -169,6 +181,10 @@ async function handleSubscriptionEvent(subscriptionId: string | null) {
   }
 
   const subscription = await fetchMercadoPagoSubscription(subscriptionId);
+  if (!subscription) {
+    return ignoredMercadoPagoResourceResponse();
+  }
+
   const metadata = subscription.metadata ?? {};
   const userId = String(metadata.user_id || extractUserIdFromExternalReference(subscription.external_reference) || '').trim();
   const product = getProduct(metadata, subscription.external_reference);
@@ -230,6 +246,9 @@ async function handleAuthorizedPaymentEvent(authorizedPaymentId: string | null) 
   }
 
   const authorizedPayment = await fetchMercadoPagoAuthorizedPayment(authorizedPaymentId);
+  if (!authorizedPayment) {
+    return ignoredMercadoPagoResourceResponse();
+  }
 
   console.log('[AlertLoc Pro webhook] subscription status', {
     authorizedPaymentId,
@@ -376,16 +395,19 @@ async function parseWebhookEvent(request: NextRequest): Promise<WebhookEvent> {
 
 async function fetchMercadoPagoPayment(paymentId: string) {
   const response = await fetchMercadoPago(`${MERCADO_PAGO_PAYMENTS_URL}/${paymentId}`);
+  if (!response) return null;
   return (await response.json()) as MercadoPagoPayment;
 }
 
 async function fetchMercadoPagoSubscription(subscriptionId: string) {
   const response = await fetchMercadoPago(`${MERCADO_PAGO_PREAPPROVAL_URL}/${subscriptionId}`);
+  if (!response) return null;
   return (await response.json()) as MercadoPagoSubscription;
 }
 
 async function fetchMercadoPagoAuthorizedPayment(authorizedPaymentId: string) {
   const response = await fetchMercadoPago(`${MERCADO_PAGO_AUTHORIZED_PAYMENTS_URL}/${authorizedPaymentId}`);
+  if (!response) return null;
   return (await response.json()) as MercadoPagoAuthorizedPayment;
 }
 
@@ -402,6 +424,14 @@ async function fetchMercadoPago(url: string) {
     },
     cache: 'no-store',
   });
+
+  if (response.status === 404 || response.status === 400) {
+    console.warn('[AlertLoc Pro webhook] recurso Mercado Pago nao encontrado ou simulado', {
+      status: response.status,
+      url,
+    });
+    return null;
+  }
 
   if (!response.ok) {
     const body = await response.text().catch(() => '');
@@ -431,6 +461,15 @@ function normalizeTopic(topic?: string) {
 
 function normalizeStatus(status?: string) {
   return String(status || '').trim().toLowerCase();
+}
+
+function isSimulatedMercadoPagoId(resourceId: string | null) {
+  return String(resourceId || '').trim() === '123456';
+}
+
+function ignoredMercadoPagoResourceResponse() {
+  console.log('[AlertLoc Pro webhook] recurso Mercado Pago nao encontrado ou simulado');
+  return NextResponse.json({ received: true, ignored: true });
 }
 
 function maskEmail(email: string) {
